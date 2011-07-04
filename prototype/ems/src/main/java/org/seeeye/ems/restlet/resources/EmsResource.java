@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.ext.freemarker.TemplateRepresentation;
 import org.restlet.representation.Representation;
@@ -20,6 +21,8 @@ import org.restlet.resource.ServerResource;
 import org.seeeye.dal.dao.DaoFactory;
 import org.seeeye.dal.dao.EmployeeDao;
 import org.seeeye.dal.entities.Employee;
+import org.seeeye.dal.entities.Employee.Gender;
+import org.seeeye.dal.entities.Employee.Title;
 import org.seeeye.ems.freemarker.MyConfiguration;
 import org.seeeye.ems.restlet.Constants;
 
@@ -65,8 +68,27 @@ public class EmsResource extends ServerResource
     }
 
     @Post
-    Representation doPost(Representation entity)
+    public Representation doPost(Representation entity)
     {
+        Form form = new Form(entity);
+
+        // name
+        String name = form.getFirstValue(Constants.PARAM_EMP_NAME);
+
+        // gender
+        Gender gender = Gender.valueOf(form.getFirstValue(Constants.PARAM_EMP_GENDER));
+
+        // age
+        Integer age = Integer.valueOf(form.getFirstValue(Constants.PARAM_EMP_AGE));
+
+        // title
+        Title title = Title.valueOf(form.getFirstValue(Constants.PARAM_EMP_TITLE));
+
+        // manager
+        Integer mid = Integer.valueOf(form.getFirstValue(Constants.PARAM_EMP_MANAGER));
+
+        this.empDao.create(name, gender, age, title, mid);
+
         return doGet();
     }
 

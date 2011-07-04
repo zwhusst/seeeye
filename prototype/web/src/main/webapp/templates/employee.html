@@ -4,6 +4,7 @@
 </head>
 <body>
 	<h1>Employee Information</h1>
+	<hr />
 	<form action="${employee.id}" method="post">
 		<table>
 			<tr>
@@ -18,8 +19,7 @@
 			<tr>
 				<td>Gender</td>
 				<td><input type="text" name="gender"
-					value="${(employee.gender)!}" />
-				</td>
+					value="${(employee.gender)!}" /></td>
 			</tr>
 			<tr>
 				<td>Age</td>
@@ -29,8 +29,7 @@
 			<tr>
 				<td>Title</td>
 				<td><input type="text" name="title"
-					value="${(employee.title)!}" />
-				</td>
+					value="${(employee.title)!}" /></td>
 			</tr>
 			<tr>
 				<td>Manager</td>

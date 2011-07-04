@@ -74,7 +74,6 @@ public class EmployeeResource extends ServerResource
         Form form = new Form(entity);
         Object id = getEmployeeId();
 
-        // TODO#EMAC.P1 add support of creating employee
         // name
         String name = form.getFirstValue(Constants.PARAM_EMP_NAME);
 
