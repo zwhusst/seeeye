@@ -1,0 +1,27 @@
+###############################################################################
+# Developer Guide (seeeye)
+# 
+# @version 0.1
+###############################################################################
+
+################################################## I. Pre-requisites ##########
+
+1. Eclipse
+	a. Download latest JEE version of eclipse
+	b. Open eclipse and install latest version of M2Eclipse, EGit plugins
+2. Install latest version of Tomcat and MySQL
+3. Install msysgit or cygwin as git client
+
+#################################################### II. Source Code ##########
+
+1. Pull source code from git://github.com/emac/seeeye.git
+
+############################################# III. Start Development ##########
+
+1. Open eclipse and add the local git repository
+2. Import all projects (under /product) from repository
+3. Create a tomcat server in Servers view
+4. Run "mvn clean package" against eyedpt.allinone project
+5. DND eyedpt.web onto tomcat server and start server
+
+Visit http://localhost:8080/eyedpt.web
