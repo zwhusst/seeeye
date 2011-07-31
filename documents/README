@@ -1,9 +1,12 @@
 [seeeye.mwb]
+v0.4
+将所有enum-type column转成basic-type column，使模型更通用。
+
 v0.3
-整合Spark,Andy的review意见，添加doctorservice表。
+整合Spark，Andy的review意见，添加doctorservice表。
 
 v0.2
-add more attributes: "亚专业.","是否开通文字咨询","是否开通电话咨询","是否开通门诊预约" in doctor table.
+add more attributes: "亚专业"，"是否开通文字咨询"，"是否开通电话咨询"，"是否开通门诊预约" in doctor table.
 
 v0.1
 涵盖用户登录，门诊预约，电话咨询三大组件，并整合John的review意见。
