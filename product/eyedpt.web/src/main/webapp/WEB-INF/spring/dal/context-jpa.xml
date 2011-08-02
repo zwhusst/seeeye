@@ -10,11 +10,7 @@
 
 	<!-- ========================= RESOURCES ========================= -->
 	<!-- import the dataSource definition -->
-	<import resource="context-dataSource.xml"/>
-	
-	<!-- import the beans definition -->
-	<import resource="context-beans.xml"/>
-	
+	<import resource="context-dataSource.xml"/>	
 	
 	<!-- ========================= TRANSACTION ========================= -->
 	<!--
@@ -48,5 +44,28 @@
 	-->
 	<!-- 20110731#bishen: use class-based proxies instead of interface-based proxies  -->
 	<tx:annotation-driven proxy-target-class="true"/>
+	
+	
+	<!-- ========================= BEANS ========================= -->
+	<!--
+		Activates various annotations to be detected in bean classes: Spring's
+		@Required and @Autowired, as well as JSR 250's @PostConstruct,
+		@PreDestroy and @Resource (if available) and JPA's @PersistenceContext
+		and @PersistenceUnit (if available).
+	-->
+	<context:annotation-config/>
+	
+	<!--
+		Will automatically be transactional due to @Transactional.
+		EntityManager will be auto-injected due to @PersistenceContext.
+		PersistenceExceptions will be auto-translated due to @Repository.
+	-->
+	<context:component-scan base-package="com.ehealth.eyedpt.dal.repositories"/>
+
+	<!--
+		Post-processor to perform exception translation on @Repository classes (from native
+		exceptions such as JPA PersistenceExceptions to Spring's DataAccessException hierarchy).
+	-->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
 </beans>
