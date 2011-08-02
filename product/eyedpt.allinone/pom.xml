@@ -8,7 +8,6 @@
   <module>../eyedpt.common</module>
   <module>../eyedpt.core</module>
   <module>../eyedpt.dal</module>
-  <module>../eyedpt.users</module>
   <module>../eyedpt.web</module>
   </modules>
 </project>
