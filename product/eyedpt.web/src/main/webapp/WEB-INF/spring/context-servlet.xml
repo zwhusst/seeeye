@@ -11,7 +11,7 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- ========================= RESOURCES ========================= -->
-	<import resource="dal/context-jpa.xml"/>
+	<import resource="classpath:WEB-INF/spring/context-jpa.xml"/>
 	
 	<!-- ========================= MVC ========================= -->
 	
