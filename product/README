@@ -9,7 +9,8 @@
 1. Eclipse
 	a. Download latest JEE version of eclipse
 	b. Open eclipse and install latest version of M2Eclipse, EGit plugins
-2. Install latest version of Tomcat and MySQL
+2. Install latest version of Tomcat and copy /documents/jstl-*.jar to ${tomcat}/lib
+2. Install latest version of MySQL
 3. Install msysgit or cygwin as git client
 
 #################################################### II. Source Code ##########
@@ -24,4 +25,4 @@
 4. Run "mvn clean package" against eyedpt.allinone project
 5. DND eyedpt.web onto tomcat server and start server
 
-Visit http://localhost:8080/eyedpt.web
+Visit http://localhost:8080/seeeye
