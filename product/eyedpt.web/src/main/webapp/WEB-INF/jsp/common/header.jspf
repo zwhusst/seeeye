@@ -1,0 +1,31 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; chareset=UTF-8"%>
+
+<div class="head-holder">
+	<div class="head-wrap">
+		<a href="#" class="logo"><img src="resources/images/logo.png"
+			alt=""> </a>
+		<div class="search-block">
+			<input type="text" class="text"> <input type="submit"
+				value="搜索" class="search-submit">
+		</div>
+	</div>
+</div>
+
+<!-- main menu -->
+<div class="main-menu">
+	<div class="main-menuwrap">
+		<ul>
+			<li><a href="#" class="act">首页</a></li>
+			<li><a href="#">科室简介</a></li>
+			<li><a href="#">就医指南</a></li>
+			<li><a href="#">门急诊安排</a></li>
+			<li><a href="#">辅助检查</a></li>
+			<li><a href="#">眼科常识</a></li>
+			<li><a href="#">医患互动</a></li>
+			<li><a href="#">联系我们</a></li>
+			<li><a href="#">用户指南</a></li>
+		</ul>
+	</div>
+</div>
+<!-- /main menu -->

@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<%@ page contentType="text/html; chareset=gbk"%>
+<%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -24,34 +24,7 @@
 
 <body>
 	<div class="main">
-		<div class="head-holder">
-			<div class="head-wrap">
-				<a href="#" class="logo"><img src="resources/images/logo.png"
-					alt=""> </a>
-				<div class="search-block">
-					<input type="text" class="text"> <input type="submit"
-						value="搜索" class="search-submit">
-				</div>
-			</div>
-		</div>
-
-		<!-- main menu -->
-		<div class="main-menu">
-			<div class="main-menuwrap">
-				<ul>
-					<li><a href="#" class="act">首页</a></li>
-					<li><a href="#">科室简介</a></li>
-					<li><a href="#">就医指南</a></li>
-					<li><a href="#">门急诊安排</a></li>
-					<li><a href="#">辅助检查</a></li>
-					<li><a href="#">眼科常识</a></li>
-					<li><a href="#">医患互动</a></li>
-					<li><a href="#">联系我们</a></li>
-					<li><a href="#">用户指南</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- /main menu -->
+		<%@ include file="common/header.jspf"%>
 
 		<!-- content -->
 		<div class="content clearfix">
@@ -74,16 +47,11 @@
 				<div>
 					<h1>眼科之家</h1>
 					<ul>
-						<li><a href="#">关于眼科</a>
-						</li>
-						<li><a href="#">预约挂号</a>
-						</li>
-						<li><a href="#">导医服务</a>
-						</li>
-						<li><a href="#">咨询专家</a>
-						</li>
-						<li><a href="#">升级考辅导站</a>
-						</li>
+						<li><a href="#">关于眼科</a></li>
+						<li><a href="#">预约挂号</a></li>
+						<li><a href="#">导医服务</a></li>
+						<li><a href="#">咨询专家</a></li>
+						<li><a href="#">升级考辅导站</a></li>
 					</ul>
 				</div>
 			</div>
@@ -103,27 +71,18 @@
 			<div class="sideblock right">
 				<ul class="adlink">
 					<li><a href="#"> <img src="resources/images/ad1.png"
-							alt=""> </a>
-					</li>
+							alt=""> </a></li>
 					<li><a href="#"> <img src="resources/images/ad2.png"
-							alt=""> </a>
-					</li>
+							alt=""> </a></li>
 					<li><a href="#"> <img src="resources/images/ad3.png"
-							alt=""> </a>
-					</li>
+							alt=""> </a></li>
 				</ul>
 			</div>
 			<!-- /sideblock -->
 		</div>
 		<!-- /content -->
 
-		<!-- footer -->
-		<div class="footer clearfix">
-			Copyright © 2008～2010 www.seeeye.org
-			&nbsp;&nbsp;&nbsp;&nbsp;上海交通大学附属第一人民医院眼科<br>上海市海宁路100号临床医学视觉复明中心<a
-				href="#">ICP备：0705052</a>
-		</div>
-		<!-- /footer -->
+		<%@ include file="common/footer.jspf"%>
 	</div>
 </body>
 </html>

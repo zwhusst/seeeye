@@ -26,9 +26,9 @@
 
 	<!-- ========================= VIEW RESOLVERS========================= -->
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/jsp directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
