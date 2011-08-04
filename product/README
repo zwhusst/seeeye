@@ -8,7 +8,7 @@
 
 1. Eclipse
 	a. Download latest JEE version of eclipse
-	b. Open eclipse and install latest version of M2Eclipse, EGit plugins
+	b. Open eclipse and install latest version of M2Eclipse(http://download.eclipse.org/technology/m2e/releases), EGit plugins(http://download.eclipse.org/egit/updates)
 2. Install latest version of Tomcat and copy /documents/jstl-*.jar to ${tomcat}/lib
 2. Install latest version of MySQL
 3. Install msysgit or cygwin as git client
