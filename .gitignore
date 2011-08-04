@@ -1,5 +1,8 @@
 *.class
 *.bak
 bin/
-target/
+**/target
+**/*/target
 WebContent/
+.DS_Store
+**/.DS_Store
