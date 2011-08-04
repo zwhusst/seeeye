@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; chareset=UTF-8"%>
+<!-- imports -->
+<%@ page import="com.ehealth.eyedpt.dal.entities.User"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -30,19 +32,30 @@
 		<div class="content clearfix">
 			<div class="contentleft">
 				<div class="loginwrap">
-					<h1>用户登录</h1>
-					<form action="<c:url value="/login" />" method="post">
+					<c:if test="${sessionScope.user!=null}">
+						<h1>用户面板</h1>
 						<p>
-							账户: <input name="name" type="text" class="inputtext" />
+							欢迎，<%=((User) session.getAttribute("user")).getName()%>!
 						</p>
 						<p>
-							密码: <input name="password" type="password" class="inputtext" />
+							<a href="<c:url value="/logout" />">退出</a>
 						</p>
-						<p>
-							<input name="login" type="submit" value="登录" class="loginbut">
-							<input name="register" type="submit" value="注册" class="loginbut">
-						</p>
-					</form>
+					</c:if>
+					<c:if test="${sessionScope.user==null}">
+						<h1>用户登录</h1>
+						<form action="<c:url value="/login" />" method="post">
+							<p>
+								账户: <input name="name" type="text" class="inputtext" />
+							</p>
+							<p>
+								密码: <input name="password" type="password" class="inputtext" />
+							</p>
+							<p>
+								<input name="login" type="submit" value="登录" class="loginbut">
+								<input name="register" type="submit" value="注册" class="loginbut">
+							</p>
+						</form>
+					</c:if>
 				</div>
 				<div>
 					<h1>眼科之家</h1>
@@ -67,18 +80,7 @@
 			</div>
 			<!-- /container -->
 
-			<!-- sideblock -->
-			<div class="sideblock right">
-				<ul class="adlink">
-					<li><a href="#"> <img src="resources/images/ad1.png"
-							alt=""> </a></li>
-					<li><a href="#"> <img src="resources/images/ad2.png"
-							alt=""> </a></li>
-					<li><a href="#"> <img src="resources/images/ad3.png"
-							alt=""> </a></li>
-				</ul>
-			</div>
-			<!-- /sideblock -->
+			<%@ include file="common/sidebar.jspf"%>
 		</div>
 		<!-- /content -->
 

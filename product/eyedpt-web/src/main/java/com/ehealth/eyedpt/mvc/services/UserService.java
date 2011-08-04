@@ -27,4 +27,12 @@ public class UserService
         return this.userDao.findByName(name);
     }
 
+    public void createUser(String name, String password)
+    {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        this.userDao.create(user);
+    }
+
 }

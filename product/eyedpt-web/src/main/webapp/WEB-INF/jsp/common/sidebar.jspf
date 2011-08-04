@@ -1,0 +1,15 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; chareset=UTF-8"%>
+
+<!-- sideblock -->
+<div class="sideblock right">
+	<ul class="adlink">
+		<li><a href="#"> <img src="resources/images/ad1.png" alt="">
+		</a></li>
+		<li><a href="#"> <img src="resources/images/ad2.png" alt="">
+		</a></li>
+		<li><a href="#"> <img src="resources/images/ad3.png" alt="">
+		</a></li>
+	</ul>
+</div>
+<!-- /sideblock -->
