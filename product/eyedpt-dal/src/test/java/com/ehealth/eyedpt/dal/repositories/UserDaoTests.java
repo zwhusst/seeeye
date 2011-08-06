@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.User.UserGroup;
 
 /**
  * @author emac
@@ -41,7 +42,7 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
         User user = new User();
         user.setName(TEST_USER_NAME);
         user.setPassword("");
-        user.setUsergroup("ADMIN");
+        user.setUsergroup(UserGroup.ADMIN);
         user.setRoleset(new byte[]
         { 0});
         userDao.create(user);
@@ -50,13 +51,22 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
         Assert.assertEquals(oldSize + 1, newSize);
     }
 
+    @Test(expected = Exception.class)
+    public void testCreateFail()
+    {
+        User user = new User();
+        user.setName(TEST_USER_NAME);
+        user.setPassword("");
+        userDao.create(user);
+    }
+
     @Test
     public void testUpdate()
     {
         testCreate();
-        
+
         List<User> users = this.userDao.findByName(TEST_USER_NAME);
-        Assert.assertTrue(users.size() > 0);
+        Assert.assertTrue(users.size() == 1);
 
         User user = users.get(0);
         user.setPassword("NewPassword");
@@ -70,9 +80,9 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
     public void testDelete()
     {
         testCreate();
-        
+
         List<User> users = this.userDao.findByName(TEST_USER_NAME);
-        Assert.assertTrue(users.size() > 0);
+        Assert.assertTrue(users.size() == 1);
 
         for (User user : users)
         {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.User.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.UserDao;
 
 /**
@@ -27,11 +28,12 @@ public class UserService
         return this.userDao.findByName(name);
     }
 
-    public void createUser(String name, String password)
+    public void createUser(String name, String pwd, UserGroup group)
     {
         User user = new User();
         user.setName(name);
-        user.setPassword(password);
+        user.setPassword(pwd);
+        user.setUsergroup(group);
         this.userDao.create(user);
     }
 

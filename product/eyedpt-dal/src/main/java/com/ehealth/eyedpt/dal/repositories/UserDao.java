@@ -53,18 +53,21 @@ public class UserDao
     public void create(User user)
     {
         this.em.persist(user);
+        this.em.flush();
     }
 
     public void update(User user)
     {
         User merged = this.em.merge(user);
         this.em.flush();
+        
         user.setId(merged.getId());
     }
 
     public void delete(User user)
     {
         this.em.remove(user);
+        this.em.flush();
     }
 
 }

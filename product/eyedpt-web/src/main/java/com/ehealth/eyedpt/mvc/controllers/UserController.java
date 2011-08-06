@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.User.UserGroup;
 import com.ehealth.eyedpt.mvc.services.UserService;
 
 /**
@@ -32,7 +33,7 @@ public class UserController
     private UserService   userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, params = "login")
-    public String doLogin(@RequestParam String name, @RequestParam String password, HttpSession session)
+    public String doLogin(@RequestParam String name, @RequestParam String pwd, HttpSession session)
     {
         if ( StringUtils.isEmpty(name) )
         {
@@ -46,7 +47,7 @@ public class UserController
         }
 
         User user = users.get(0);
-        if ( StringUtils.equals(password, user.getPassword()) )
+        if ( StringUtils.equals(pwd, user.getPassword()) )
         {
             session.setAttribute("user", user);
             logger.info("Logged in!");
@@ -64,17 +65,21 @@ public class UserController
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, params = "register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String doRegister()
     {
-        // TODO#EMAC.P1 change to <a>
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, params = "register")
-    public String doRegister(@RequestParam String name, @RequestParam String password, HttpSession session)
+    public String doRegister(@RequestParam String name, @RequestParam String pwd, HttpSession session)
     {
         if ( StringUtils.isEmpty(name) )
+        {
+            return "redirect:/";
+        }
+        
+        if ( StringUtils.isEmpty(pwd) )
         {
             return "redirect:/";
         }
@@ -85,7 +90,7 @@ public class UserController
             return "redirect:/";
         }
 
-        this.userService.createUser(name, password);
+        this.userService.createUser(name, pwd, UserGroup.PATIENT);
 
         users = this.userService.findUserByName(name);
         if ( users.size() == 1 )

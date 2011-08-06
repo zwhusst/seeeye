@@ -12,30 +12,38 @@
 
 <body>
 	<div class="main">
-		<%@ include file="common/header.jspf"%>
+		<%@ include file="fragments/header.jspf"%>
 
 		<!-- content -->
 		<div class="content clearfix">
-			<div class="register">
-				<h1>用户注册</h1>
-				<form action="<c:url value="/register" />" method="post">
-					<p>
-						账户: <input name="name" type="text" class="inputtext" />
-					</p>
-					<p>
-						密码: <input name="password" type="password" class="inputtext" />
-					</p>
-					<p>
-						<input name="register" type="submit" value="注册" class="loginbut">
-					</p>
-				</form>
+			<div class="contentleft">
+				<%@ include file="fragments/navigator.jspf"%>
 			</div>
 
-			<%@ include file="common/sidebar.jspf"%>
+			<!-- container -->
+			<div class="container left">
+				<div class="register">
+					<h1>用户注册</h1>
+					<form action="<c:url value="/register" />" method="post">
+						<p>
+							账户: <input name="name" type="text" class="inputtext" />
+						</p>
+						<p>
+							密码: <input name="pwd" type="password" class="inputtext" />
+						</p>
+						<p>
+							<input name="register" type="submit" value="注册" class="loginbut">
+						</p>
+					</form>
+				</div>
+			</div>
+			<!-- /container -->
+
+			<%@ include file="fragments/sidebar.jspf"%>
 		</div>
 		<!-- /content -->
 
-		<%@ include file="common/footer.jspf"%>
+		<%@ include file="fragments/footer.jspf"%>
 	</div>
 </body>
 </html>

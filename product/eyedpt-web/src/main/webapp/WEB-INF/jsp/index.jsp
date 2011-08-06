@@ -1,9 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; chareset=UTF-8"%>
-<!-- imports -->
-<%@ page import="com.ehealth.eyedpt.dal.entities.User"%>
-<!-- tag libs -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>
@@ -26,48 +22,15 @@
 
 <body>
 	<div class="main">
-		<%@ include file="common/header.jspf"%>
+		<%@ include file="fragments/header.jspf"%>
 
 		<!-- content -->
 		<div class="content clearfix">
 			<div class="contentleft">
-				<div class="loginwrap">
-					<c:if test="${sessionScope.user!=null}">
-						<h1>用户面板</h1>
-						<p>
-							欢迎，<%=((User) session.getAttribute("user")).getName()%>!
-						</p>
-						<p>
-							<a href="<c:url value="/logout" />">退出</a>
-						</p>
-					</c:if>
-					<c:if test="${sessionScope.user==null}">
-						<h1>用户登录</h1>
-						<form action="<c:url value="/login" />" method="post">
-							<p>
-								账户: <input name="name" type="text" class="inputtext" />
-							</p>
-							<p>
-								密码: <input name="password" type="password" class="inputtext" />
-							</p>
-							<p>
-								<input name="login" type="submit" value="登录" class="loginbut">
-								<input name="register" type="submit" value="注册" class="loginbut">
-							</p>
-						</form>
-					</c:if>
-				</div>
-				<div>
-					<h1>眼科之家</h1>
-					<ul>
-						<li><a href="#">关于眼科</a></li>
-						<li><a href="#">预约挂号</a></li>
-						<li><a href="#">导医服务</a></li>
-						<li><a href="#">咨询专家</a></li>
-						<li><a href="#">升级考辅导站</a></li>
-					</ul>
-				</div>
+				<%@ include file="fragments/userpanel.jspf"%>
+				<%@ include file="fragments/navigator.jspf"%>
 			</div>
+
 			<!-- container -->
 			<div class="container left">
 				<div class="newswrap">
@@ -80,11 +43,11 @@
 			</div>
 			<!-- /container -->
 
-			<%@ include file="common/sidebar.jspf"%>
+			<%@ include file="fragments/sidebar.jspf"%>
 		</div>
 		<!-- /content -->
 
-		<%@ include file="common/footer.jspf"%>
+		<%@ include file="fragments/footer.jspf"%>
 	</div>
 </body>
 </html>

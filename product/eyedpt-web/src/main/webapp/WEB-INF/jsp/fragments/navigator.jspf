@@ -1,0 +1,13 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; chareset=UTF-8"%>
+
+<div>
+	<h1>眼科之家</h1>
+	<ul>
+		<li><a href="#">关于眼科</a></li>
+		<li><a href="#">预约挂号</a></li>
+		<li><a href="#">导医服务</a></li>
+		<li><a href="#">咨询专家</a></li>
+		<li><a href="#">升级考辅导站</a></li>
+	</ul>
+</div>

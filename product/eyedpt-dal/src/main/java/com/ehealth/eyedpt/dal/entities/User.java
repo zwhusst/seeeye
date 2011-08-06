@@ -4,7 +4,7 @@
 
 package com.ehealth.eyedpt.dal.entities;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +13,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 /**
  * @author emac
@@ -29,26 +28,29 @@ public class User
     public static final String QUERY_FIND_ALL     = "FindAllUsers";
     public static final String QUERY_FIND_BY_NAME = "FindUserByName";
 
+    public static enum UserGroup
+    {
+        PATIENT, DOCTOR, ADMIN;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long               id;
+    private Long      id;
 
-    @Basic
+    @Column(nullable = false)
     @NotNull
-    private String             name;
+    private String    name;
 
-    @Basic
+    @Column(nullable = false)
     @NotNull
-    private String             password;
+    private String    password;
 
-    @Basic
+    @Column(nullable = false)
     @NotNull
-    @Pattern(regexp = "PATIENT|DOCTOR|ADMIN")
-    private String             usergroup;
+    private UserGroup usergroup;
 
-    @Basic
-    @NotNull
-    private byte[]             roleset;
+    @Column
+    private byte[]    roleset;
 
     /**
      * @return the id
@@ -101,7 +103,7 @@ public class User
     /**
      * @return the usergroup
      */
-    public String getUsergroup()
+    public UserGroup getUsergroup()
     {
         return usergroup;
     }
@@ -109,7 +111,7 @@ public class User
     /**
      * @param usergroup the usergroup to set
      */
-    public void setUsergroup(String usergroup)
+    public void setUsergroup(UserGroup usergroup)
     {
         this.usergroup = usergroup;
     }
