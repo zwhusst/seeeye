@@ -12,13 +12,13 @@
 	<properties>
 		<java-version>1.6</java-version>
 		<eyedpt.dal.version>0.0.1-SNAPSHOT</eyedpt.dal.version>
+		<eyedpt.core.version>0.0.1-SNAPSHOT</eyedpt.core.version>
 	</properties>
 
 	<modules>
-		<module>eyedpt-common</module>
-		<module>eyedpt-core</module>
-		<module>eyedpt-dal</module>
 		<module>eyedpt-web</module>
+		<module>eyedpt-dal</module>
+		<module>eyedpt-core</module>
 	</modules>
 
 	<dependencyManagement>
@@ -27,6 +27,11 @@
 				<groupId>com.ehealth</groupId>
 				<artifactId>eyedpt-dal</artifactId>
 				<version>${eyedpt.dal.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ehealth</groupId>
+				<artifactId>eyedpt-core</artifactId>
+				<version>${eyedpt.core.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

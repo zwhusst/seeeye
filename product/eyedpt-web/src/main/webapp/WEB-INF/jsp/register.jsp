@@ -1,12 +1,18 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; chareset=UTF-8"%>
+<!-- imports -->
+<%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.User.UserGroup"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html>
 <head>
 <title>上海第一人民医院眼科</title>
 <link href="resources/css/default-style.css" type="text/css"
+	rel="stylesheet">
+<link href="resources/css/extend-style.css" type="text/css"
 	rel="stylesheet">
 </head>
 
@@ -24,17 +30,28 @@
 			<div class="container left">
 				<div class="register">
 					<h1>用户注册</h1>
-					<form action="<c:url value="/register" />" method="post">
+					<form:form modelAttribute="<%=FormConstants.OBJECT_USER%>"
+						method="post">
 						<p>
-							账户: <input name="name" type="text" class="inputtext" />
+							账户:
+							<form:input path="<%=FormConstants.FIELD_USER_NAME%>"
+								class="inputtext" />
+							<form:errors path="<%=FormConstants.FIELD_USER_NAME%>"
+								class="error" />
 						</p>
 						<p>
-							密码: <input name="pwd" type="password" class="inputtext" />
+							密码:
+							<form:password path="<%=FormConstants.FIELD_USER_PASSWORD%>"
+								class="inputtext" />
+							<form:errors path="<%=FormConstants.FIELD_USER_PASSWORD%>"
+								class="error" />
 						</p>
 						<p>
-							<input name="register" type="submit" value="注册" class="loginbut">
+							<input name="<%=FormConstants.FIELD_USER_USERGROUP%>"
+								type="hidden" value="<%=UserGroup.PATIENT%>" /> <input
+								name="register" type="submit" value="注册" class="loginbut" />
 						</p>
-					</form>
+					</form:form>
 				</div>
 			</div>
 			<!-- /container -->

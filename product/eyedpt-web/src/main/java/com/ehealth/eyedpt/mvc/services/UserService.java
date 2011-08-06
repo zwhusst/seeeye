@@ -28,11 +28,11 @@ public class UserService
         return this.userDao.findByName(name);
     }
 
-    public void createUser(String name, String pwd, UserGroup group)
+    public void createUser(String name, String password, UserGroup group)
     {
         User user = new User();
         user.setName(name);
-        user.setPassword(pwd);
+        user.setPassword(password);
         user.setUsergroup(group);
         this.userDao.create(user);
     }

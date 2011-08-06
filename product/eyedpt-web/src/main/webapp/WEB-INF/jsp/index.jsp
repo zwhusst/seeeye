@@ -8,6 +8,8 @@
 <meta name="keywords" content="">
 <link href="resources/css/default-style.css" type="text/css"
 	rel="stylesheet">
+<link href="resources/css/extend-style.css" type="text/css"
+	rel="stylesheet">
 <script type="text/javascript" src="resources/scripts/jquery.js"></script>
 <script type="text/javascript" src="resources/scripts/cufon-yui.js"></script>
 <script type="text/javascript" src="resources/scripts/cufon-replace.js"></script>

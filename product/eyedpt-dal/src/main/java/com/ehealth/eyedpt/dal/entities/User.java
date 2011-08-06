@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author emac
@@ -25,8 +26,8 @@ import javax.validation.constraints.NotNull;
 public class User
 {
 
-    public static final String QUERY_FIND_ALL     = "FindAllUsers";
-    public static final String QUERY_FIND_BY_NAME = "FindUserByName";
+    public static final String QUERY_FIND_ALL     = "FindAllUsers";  //$NON-NLS-1$
+    public static final String QUERY_FIND_BY_NAME = "FindUserByName"; //$NON-NLS-1$
 
     public static enum UserGroup
     {
@@ -38,10 +39,12 @@ public class User
     private Long      id;
 
     @Column(nullable = false)
+    @Size(min = 4, max = 32)
     @NotNull
     private String    name;
 
     @Column(nullable = false)
+    @Size(min = 6, max = 16)
     @NotNull
     private String    password;
 
