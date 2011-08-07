@@ -25,6 +25,8 @@ import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.User.UserGroup;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
+import com.ehealth.eyedpt.mvc.messages.MessageConstants;
+import com.ehealth.eyedpt.mvc.messages.MessageSourceService;
 import com.ehealth.eyedpt.mvc.services.UserService;
 
 /**
@@ -34,17 +36,21 @@ import com.ehealth.eyedpt.mvc.services.UserService;
 public class UserController
 {
 
-    private static Logger logger = Logger.getLogger(UserController.class);
+    private static Logger        logger = Logger.getLogger(UserController.class);
 
     @Autowired
-    private UserService   userService;
+    private UserService          userService;
+
+    @Autowired
+    private MessageSourceService mss;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, params = "login")
     public String doLogin(@RequestParam String name, @RequestParam String password, HttpSession session)
     {
         if ( StringUtils.isEmpty(name) )
         {
-            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE, "账户名不能为空");
+            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE,
+                    this.mss.getMessage(MessageConstants.USER_NAME_EMPTY));
 
             return "redirect:/";
         }
@@ -52,7 +58,8 @@ public class UserController
         List<User> users = this.userService.findUserByName(name);
         if ( users.size() == 0 )
         {
-            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE, "账户不存在");
+            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE,
+                    this.mss.getMessage(MessageConstants.USER_NAME_NONEXIST));
 
             return "redirect:/";
         }
@@ -60,7 +67,8 @@ public class UserController
         User user = users.get(0);
         if ( !StringUtils.equals(password, user.getPassword()) )
         {
-            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE, "账户名密码不匹配");
+            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE,
+                    this.mss.getMessage(MessageConstants.USER_PASSWORD_WRONG));
 
             return "redirect:/";
         }
@@ -101,7 +109,8 @@ public class UserController
         List<User> users = this.userService.findUserByName(name);
         if ( users.size() > 0 )
         {
-            result.addError(new FieldError(FormConstants.OBJECT_USER, FormConstants.FIELD_USER_NAME, "账户已存在"));
+            result.addError(new FieldError(FormConstants.OBJECT_USER, FormConstants.FIELD_USER_NAME, this.mss
+                    .getMessage(MessageConstants.USER_NAME_EXIST)));
 
             return null;
         }
