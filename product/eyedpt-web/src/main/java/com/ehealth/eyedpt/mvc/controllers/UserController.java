@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ehealth.eyedpt.dal.entities.User;
-import com.ehealth.eyedpt.dal.entities.User.UserGroup;
+import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
 import com.ehealth.eyedpt.mvc.messages.MessageConstants;

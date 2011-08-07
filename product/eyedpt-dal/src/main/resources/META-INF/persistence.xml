@@ -20,7 +20,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     version="1.0">
     <persistence-unit name="eyedpt" transaction-type="RESOURCE_LOCAL">
-        <class>com.ehealth.eyedpt.dal.entities.User</class>
+        <class>com.ehealth.eyedpt.dal.entities.*</class>
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings"
                 value="buildSchema"/>

@@ -29,7 +29,7 @@ public class UserDao
 
     @Override
     @Transactional(readOnly = true)
-    public User find(Long id)
+    public User find(long id)
     {
         return this.em.find(User.class, id);
     }

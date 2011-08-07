@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.dal.entities.User;
-import com.ehealth.eyedpt.dal.entities.User.UserGroup;
+import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.UserDao;
 
 /**

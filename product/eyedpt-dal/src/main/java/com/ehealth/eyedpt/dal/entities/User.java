@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
+
 /**
  * @author emac
  */
@@ -29,36 +31,31 @@ public class User
     public static final String QUERY_FIND_ALL     = "FindAllUsers";  //$NON-NLS-1$
     public static final String QUERY_FIND_BY_NAME = "FindUserByName"; //$NON-NLS-1$
 
-    public static enum UserGroup
-    {
-        PATIENT, DOCTOR, ADMIN;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long      id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long               id;
 
-    @Column(nullable = false)
-    @Size(min = 4, max = 32)
+    @Column(nullable = false, length = 16)
     @NotNull
-    private String    name;
+    @Size(min = 4, max = 16)
+    private String             name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 16)
+    @NotNull
     @Size(min = 6, max = 16)
-    @NotNull
-    private String    password;
+    private String             password;
 
     @Column(nullable = false)
     @NotNull
-    private UserGroup usergroup;
+    private UserGroup          usergroup;
 
-    @Column
-    private byte[]    roleset;
+    @Column(columnDefinition = "BIT(32)")
+    private byte[]             roleset;
 
     /**
      * @return the id
      */
-    public Long getId()
+    public long getId()
     {
         return id;
     }
@@ -66,7 +63,7 @@ public class User
     /**
      * @param id the id to set
      */
-    public void setId(Long id)
+    public void setId(long id)
     {
         this.id = id;
     }

@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import com.ehealth.eyedpt.dal.entities.User;
-import com.ehealth.eyedpt.dal.entities.User.UserGroup;
+import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 
 /**
  * @author emac
@@ -22,7 +22,9 @@ import com.ehealth.eyedpt.dal.entities.User.UserGroup;
 public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
 {
 
-    private static final String TEST_USER_NAME = UserDaoTests.class.getName();
+    private static final String TEST_USER_NAME         = "testuser";
+    private static final String TEST_USER_PASSWORD     = "testpwd";
+    private static final String TEST_USER_PASSWORD_NEW = "testpwdnew";
 
     @Autowired
     private UserDao             userDao;
@@ -41,11 +43,11 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
 
         User user = new User();
         user.setName(TEST_USER_NAME);
-        user.setPassword("");
+        user.setPassword(TEST_USER_PASSWORD);
         user.setUsergroup(UserGroup.ADMIN);
         user.setRoleset(new byte[]
         { 0});
-        userDao.create(user);
+        this.userDao.create(user);
 
         int newSize = this.userDao.findAll().size();
         Assert.assertEquals(oldSize + 1, newSize);
@@ -56,8 +58,8 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
     {
         User user = new User();
         user.setName(TEST_USER_NAME);
-        user.setPassword("");
-        userDao.create(user);
+        user.setPassword(TEST_USER_PASSWORD);
+        this.userDao.create(user);
     }
 
     @Test
@@ -69,11 +71,11 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
         Assert.assertTrue(users.size() == 1);
 
         User user = users.get(0);
-        user.setPassword("NewPassword");
+        user.setPassword(TEST_USER_PASSWORD_NEW);
         this.userDao.update(user);
 
         user = this.userDao.findByName(TEST_USER_NAME).get(0);
-        Assert.assertEquals(user.getPassword(), "NewPassword");
+        Assert.assertEquals(user.getPassword(), TEST_USER_PASSWORD_NEW);
     }
 
     @Test

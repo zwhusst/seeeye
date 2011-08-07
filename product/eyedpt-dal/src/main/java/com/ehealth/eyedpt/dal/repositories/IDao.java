@@ -12,7 +12,7 @@ import java.util.List;
 public interface IDao<T>
 {
 
-    public T find(Long id);
+    public T find(long id);
 
     public List<T> findAll();
 
