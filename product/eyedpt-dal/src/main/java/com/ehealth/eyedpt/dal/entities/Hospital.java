@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,53 +21,59 @@ import javax.validation.constraints.Size;
  */
 @Entity(name = "hospital")
 @Table(name = "hospital")
+@NamedQueries(
+{ @NamedQuery(name = Hospital.QUERY_FIND_ALL, query = "select h from hospital h")})
 public class Hospital
 {
 
+    public static final String QUERY_FIND_ALL = "FindAllHospitals"; //$NON-NLS-1$
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long   id;
+    private long               id;
 
     @Column(nullable = false, length = 128)
     @NotNull
     @Size(max = 128)
-    private String name;
+    private String             name;
 
     @Column(nullable = false, length = 32)
     @NotNull
     @Size(max = 32)
-    private String province;
+    private String             province;
 
     @Column(nullable = false, length = 32)
     @NotNull
     @Size(max = 32)
-    private String city;
+    private String             city;
 
-    @Column(length = 256)
+    @Column(nullable = false, length = 256)
+    @NotNull
     @Size(max = 256)
-    private String address;
+    private String             address;
 
     @Column(nullable = false, length = 6)
     @NotNull
     @Size(min = 6, max = 6)
-    private String postcode;
+    private String             postcode;
+
+    @Column(nullable = false, length = 32)
+    @NotNull
+    @Size(max = 32)
+    private String             telephone;
 
     @Column(length = 32)
     @Size(max = 32)
-    private String telephone;
-
-    @Column(length = 32)
-    @Size(max = 32)
-    private String faxno;
+    private String             faxno;
 
     @Column(length = 64)
     @Size(max = 64)
-    private String email;
+    private String             email;
 
     @Lob
 //    @Column(columnDefinition = "TEXT")
     @Column(columnDefinition = "CLOB")
-    private String description;
+    private String             description;
 
     /**
      * @return the id

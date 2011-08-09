@@ -33,7 +33,7 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
     public void testFindAll()
     {
         List<User> users = this.userDao.findAll();
-        Assert.assertTrue(users.size() == 0);
+        Assert.assertTrue(users.size() > 0);
     }
 
     @Test

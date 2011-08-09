@@ -20,8 +20,7 @@ import com.ehealth.eyedpt.dal.entities.User;
  */
 @Repository
 @Transactional
-public class UserDao
-        implements IDao<User>
+public class UserDao extends BaseDao<User>
 {
 
     @PersistenceContext
@@ -48,26 +47,6 @@ public class UserDao
         query.setParameter("name", name);
 
         return query.getResultList();
-    }
-
-    public void create(User user)
-    {
-        this.em.persist(user);
-        this.em.flush();
-    }
-
-    public void update(User user)
-    {
-        User merged = this.em.merge(user);
-        this.em.flush();
-        
-        user.setId(merged.getId());
-    }
-
-    public void delete(User user)
-    {
-        this.em.remove(user);
-        this.em.flush();
     }
 
 }

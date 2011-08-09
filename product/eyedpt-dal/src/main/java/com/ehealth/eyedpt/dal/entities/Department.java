@@ -6,6 +6,7 @@ package com.ehealth.eyedpt.dal.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,45 +26,49 @@ import javax.validation.constraints.Size;
  */
 @Entity(name = "department")
 @Table(name = "department")
+@NamedQueries(
+{ @NamedQuery(name = Department.QUERY_FIND_ALL, query = "select d from department d")})
 public class Department
 {
 
+    public static final String QUERY_FIND_ALL = "FindAllDepartments"; //$NON-NLS-1$
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long       id;
+    private long               id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "hospitalid", nullable = false)
     @NotNull
-    private Hospital   hospital;
+    private Hospital           hospital;
 
     @ManyToMany(mappedBy = "departments")
-    private Set<Admin> admins;
+    private Set<Admin>         admins;
 
     @Column(nullable = false, length = 128)
     @NotNull
     @Size(max = 128)
-    private String     name;
+    private String             name;
 
     @Column
-    private boolean    famous;
+    private boolean            famous;
 
     @Column(length = 32)
     @Size(max = 32)
-    private String     telephone;
+    private String             telephone;
 
     @Column(length = 32)
     @Size(max = 32)
-    private String     faxno;
+    private String             faxno;
 
     @Column(length = 256)
     @Size(max = 256)
-    private String     address;
+    private String             address;
 
     @Lob
 //    @Column(columnDefinition = "TEXT")
     @Column(columnDefinition = "CLOB")
-    private String     description;
+    private String             description;
 
     /**
      * @return the id

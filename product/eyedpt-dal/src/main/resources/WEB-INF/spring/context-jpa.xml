@@ -60,7 +60,7 @@
 		EntityManager will be auto-injected due to @PersistenceContext.
 		PersistenceExceptions will be auto-translated due to @Repository.
 	-->
-	<context:component-scan base-package="com.ehealth.eyedpt.dal.repositories"/>
+	<context:component-scan base-package="com.ehealth.eyedpt.dal.repositories,com.ehealth.eyedpt.dal.beans"/>
 
 	<!--
 		Post-processor to perform exception translation on @Repository classes (from native

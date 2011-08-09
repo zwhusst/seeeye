@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- imports -->
 <%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
-<%@ page import="com.ehealth.eyedpt.dal.entities.User.UserGroup"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.UserGroup"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>

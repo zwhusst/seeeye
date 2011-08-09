@@ -4,12 +4,15 @@
 
 package com.ehealth.eyedpt.dal.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,26 +22,30 @@ import javax.validation.constraints.NotNull;
  */
 @Entity(name = "doctorblob")
 @Table(name = "doctorblob")
+@NamedQueries(
+{ @NamedQuery(name = DoctorBlob.QUERY_FIND_ALL, query = "select d from doctorblob d")})
 public class DoctorBlob
 {
 
+    public static final String QUERY_FIND_ALL = "FindAllDoctorBlobs"; //$NON-NLS-1$
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long     id;
+    private long               id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "hospitalid", nullable = false)
     @NotNull
-    private Hospital hospital;
+    private Hospital           hospital;
 
     @Lob
     @Column(columnDefinition = "BLOB")
-    private byte[]   photo;
+    private byte[]             photo;
 
     @Lob
 //    @Column(columnDefinition = "TEXT")
     @Column(columnDefinition = "CLOB")
-    private String   description;
+    private String             description;
 
     /**
      * @return the id

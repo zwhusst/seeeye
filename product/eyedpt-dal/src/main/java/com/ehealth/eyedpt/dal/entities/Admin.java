@@ -6,6 +6,7 @@ package com.ehealth.eyedpt.dal.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,34 +28,38 @@ import javax.validation.constraints.Size;
  */
 @Entity(name = "admin")
 @Table(name = "admin")
+@NamedQueries(
+{ @NamedQuery(name = Admin.QUERY_FIND_ALL, query = "select a from admin a")})
 public class Admin
 {
 
+    public static final String QUERY_FIND_ALL = "FindAllAdmins"; //$NON-NLS-1$
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long            id;
+    private long               id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "userid", nullable = false)
     @NotNull
-    private User            user;
+    private User               user;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "hospitalid", nullable = false)
     @NotNull
-    private Hospital        hospital;
+    private Hospital           hospital;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "admdep", joinColumns = @JoinColumn(name = "departmentid", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "adminid", referencedColumnName = "id"))
-    private Set<Department> departments;
+    private Set<Department>    departments;
 
     @Column
-    private boolean         root;
+    private boolean            root;
 
     @Column(nullable = false, length = 64)
     @NotNull
     @Size(max = 64)
-    private String          email;
+    private String             email;
 
     /**
      * @return the id

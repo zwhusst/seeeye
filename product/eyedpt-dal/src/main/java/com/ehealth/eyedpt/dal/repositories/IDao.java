@@ -16,4 +16,10 @@ public interface IDao<T>
 
     public List<T> findAll();
 
+    public void create(T object);
+
+    public void update(T object);
+
+    public void delete(T object);
+
 }

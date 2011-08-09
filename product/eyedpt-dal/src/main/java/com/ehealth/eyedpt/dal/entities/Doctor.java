@@ -6,6 +6,7 @@ package com.ehealth.eyedpt.dal.entities;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Doctor
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long               id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "userid", nullable = false)
     @NotNull
     private User               user;
@@ -81,12 +82,12 @@ public class Doctor
     @Size(max = 256)
     private String             address;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "hospitalid", nullable = false)
     @NotNull
     private Hospital           hospital;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "departmentid", nullable = false)
     @NotNull
     private Department         department;

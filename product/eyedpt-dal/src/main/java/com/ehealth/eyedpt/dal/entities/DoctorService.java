@@ -4,11 +4,14 @@
 
 package com.ehealth.eyedpt.dal.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -19,36 +22,40 @@ import javax.validation.constraints.NotNull;
  */
 @Entity(name = "doctorservice")
 @Table(name = "doctorservice")
+@NamedQueries(
+{ @NamedQuery(name = DoctorService.QUERY_FIND_ALL, query = "select d from doctorservice d")})
 public class DoctorService
 {
 
+    public static final String QUERY_FIND_ALL = "FindAllDoctorServices"; //$NON-NLS-1$
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long     id;
+    private long               id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "hospitalid", nullable = false)
     @NotNull
-    private Hospital hospital;
+    private Hospital           hospital;
 
     @Column
-    private boolean  acceptbooking;
+    private boolean            acceptbooking;
 
     @Column(nullable = false)
     @NotNull
     @Min(0)
-    private float    bookingprice;
+    private float              bookingprice;
 
     @Column
-    private boolean  acceptconsulting;
+    private boolean            acceptconsulting;
 
     @Column(nullable = false)
     @NotNull
     @Min(0)
-    private float    consultingprice;
+    private float              consultingprice;
 
     @Column
-    private boolean  acceptquestion;
+    private boolean            acceptquestion;
 
     /**
      * @return the id
