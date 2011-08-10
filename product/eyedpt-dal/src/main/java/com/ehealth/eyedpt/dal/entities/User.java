@@ -28,8 +28,8 @@ import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 public class User
 {
 
-    public static final String QUERY_FIND_ALL     = "FindAllUsers";  //$NON-NLS-1$
-    public static final String QUERY_FIND_BY_NAME = "FindUserByName"; //$NON-NLS-1$
+    public static final String QUERY_FIND_ALL     = "FindAllUsers";
+    public static final String QUERY_FIND_BY_NAME = "FindUserByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

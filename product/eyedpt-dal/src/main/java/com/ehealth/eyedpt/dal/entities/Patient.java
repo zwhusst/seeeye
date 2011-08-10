@@ -34,7 +34,7 @@ import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 public class Patient
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllPatients"; //$NON-NLS-1$
+    public static final String QUERY_FIND_ALL = "FindAllPatients";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

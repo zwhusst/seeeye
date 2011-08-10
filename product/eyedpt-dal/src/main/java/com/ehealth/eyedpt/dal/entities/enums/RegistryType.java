@@ -5,6 +5,8 @@
 package com.ehealth.eyedpt.dal.entities.enums;
 
 /**
+ * Enumerates all supported registry types of patients.
+ * 
  * @author emac
  */
 public enum RegistryType

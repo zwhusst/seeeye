@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Abstract base implementation of {code IDAO}.
+ * 
  * @author emac
  */
 @Transactional

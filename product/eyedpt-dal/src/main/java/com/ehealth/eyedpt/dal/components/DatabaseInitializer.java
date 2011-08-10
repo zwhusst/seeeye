@@ -2,9 +2,9 @@
  * Created on 2011-8-9
  */
 
-package com.ehealth.eyedpt.dal.beans;
+package com.ehealth.eyedpt.dal.components;
 
-import java.util.HashSet;
+import java.util.Collections;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +74,7 @@ public class DatabaseInitializer
         root.setRoot(true);
         root.setEmail("root@seeeye.org");
         root.setHospital(firstHospital);
-        HashSet<Department> deps = new HashSet<Department>();
-        deps.add(seeeyeDep);
-        root.setDepartments(deps);
+        root.setDepartments(Collections.singleton(seeeyeDep));
 
         this.adminDao.create(root);
 

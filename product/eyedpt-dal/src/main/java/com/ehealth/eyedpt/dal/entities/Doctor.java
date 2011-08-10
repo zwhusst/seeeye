@@ -35,7 +35,7 @@ import com.ehealth.eyedpt.dal.entities.enums.Gender;
 public class Doctor
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllDoctors"; //$NON-NLS-1$
+    public static final String QUERY_FIND_ALL = "FindAllDoctors";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

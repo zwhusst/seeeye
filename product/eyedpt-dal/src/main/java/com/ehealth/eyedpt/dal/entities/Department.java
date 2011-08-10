@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 public class Department
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllDepartments"; //$NON-NLS-1$
+    public static final String QUERY_FIND_ALL = "FindAllDepartments";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

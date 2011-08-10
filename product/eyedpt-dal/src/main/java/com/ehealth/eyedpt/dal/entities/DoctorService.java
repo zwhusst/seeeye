@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
 public class DoctorService
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllDoctorServices"; //$NON-NLS-1$
+    public static final String QUERY_FIND_ALL = "FindAllDoctorServices";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

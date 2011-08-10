@@ -2,17 +2,19 @@
  * Created on 2011-8-7
  */
 
-package com.ehealth.eyedpt.mvc.messages;
+package com.ehealth.eyedpt.mvc.components;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
+ * Wraps {@code MessageSource} to bypass {@code Locale} parameter.
+ * 
  * @author emac
  */
-@Service
-public class MessageSourceService
+@Component
+public class MessageSourceProvider
 {
 
     @Autowired

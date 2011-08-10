@@ -5,6 +5,8 @@
 package com.ehealth.eyedpt.dal.entities.enums;
 
 /**
+ * Enumerates all recognized groups of users.
+ * 
  * @author emac
  */
 public enum UserGroup

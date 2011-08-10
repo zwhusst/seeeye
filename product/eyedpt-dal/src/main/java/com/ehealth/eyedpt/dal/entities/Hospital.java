@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 public class Hospital
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllHospitals"; //$NON-NLS-1$
+    public static final String QUERY_FIND_ALL = "FindAllHospitals";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

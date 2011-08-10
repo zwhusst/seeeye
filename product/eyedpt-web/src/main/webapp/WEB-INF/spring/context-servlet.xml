@@ -39,16 +39,27 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
-	<!-- ========================= CONTROLLERS ========================= -->
+	<!-- ========================= BEANS ========================= -->
 
-	<!-- User-defined @Controller beans that process client requests -->
+	<!-- @Components -->
+	<context:component-scan base-package="com.ehealth.eyedpt.mvc.components" />
+
+	<!-- @Controller -->
+	<context:component-scan base-package="com.ehealth.eyedpt.mvc.controllers" />
+
+	<!-- @Services -->
 	<context:component-scan
-		base-package="com.ehealth.eyedpt.mvc.controllers,com.ehealth.eyedpt.mvc.services,com.ehealth.eyedpt.mvc.messages" />
+		base-package="com.ehealth.eyedpt.mvc.services,com.ehealth.eyedpt.mvc.services.userpanel" />
 
 	<!-- ========================= MESSAGE RESOLVER ========================= -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="/WEB-INF/messages/messages" />
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/messages/validation</value>
+				<value>/WEB-INF/messages/view</value>
+			</list>
+		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="cacheSeconds" value="1" />
 	</bean>

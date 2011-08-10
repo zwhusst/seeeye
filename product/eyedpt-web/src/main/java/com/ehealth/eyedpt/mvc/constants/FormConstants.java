@@ -11,9 +11,9 @@ public interface FormConstants
 {
 
     // User
-    public static final String OBJECT_USER          = "user";     //$NON-NLS-1$
-    public static final String FIELD_USER_NAME      = "name";     //$NON-NLS-1$
-    public static final String FIELD_USER_PASSWORD  = "password"; //$NON-NLS-1$
-    public static final String FIELD_USER_USERGROUP = "usergroup"; //$NON-NLS-1$
+    public static final String OBJECT_USER          = "user";
+    public static final String FIELD_USER_NAME      = "name";
+    public static final String FIELD_USER_PASSWORD  = "password";
+    public static final String FIELD_USER_USERGROUP = "usergroup";
 
 }
