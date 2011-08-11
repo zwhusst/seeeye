@@ -12,5 +12,6 @@ public interface SessionConstants
 
     public static final String ATTRIBUTE_MESSAGE = "message";
     public static final String ATTRIBUTE_USER    = "user";
+    public static final String ATTRIBUTE_PATIENT = "patient";
 
 }

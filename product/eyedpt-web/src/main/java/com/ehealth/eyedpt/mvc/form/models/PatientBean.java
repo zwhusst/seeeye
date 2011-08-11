@@ -1,22 +1,22 @@
 /*
- * Created on 2011-8-7
+ * Created on 2011-8-10
  */
 
-package com.ehealth.eyedpt.dal.entities;
+package com.ehealth.eyedpt.mvc.form.models;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.apache.bval.constraints.Email;
+import org.apache.bval.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
@@ -24,90 +24,88 @@ import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 /**
  * @author emac
  */
-@Entity(name = "patient")
-@Table(name = "patient")
-@NamedQueries(
-{ @NamedQuery(name = Patient.QUERY_FIND_ALL, query = "select p from patient p")})
-public class Patient
+public class PatientBean
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllPatients";
+    @Size(min = 2, max = 16)
+    private String       name;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long               id;
+    @Size(min = 6, max = 16)
+    private String       password;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @Column(name = "userid", nullable = false)
+    @Size(min = 2, max = 32)
+    private String       realname;
+
     @NotNull
-    private User               user;
+    private Gender       gender       = Gender.M;
 
-    @Column(nullable = false, length = 32)
-    private String             realname;
-    
-    @Column(nullable = false)
-    private Gender             gender;
+    @DateTimeFormat(iso = ISO.DATE)
+    @Past
+    private Date         birthday;
 
-    @Column
-    private Date               birthday;
+    @Min(1)
+    @Max(99)
+    private int          age;
 
-    @Column(nullable = false, columnDefinition = "TINYINT")
-    private int                age;
+    @NotEmpty
+    @Size(max = 32)
+    private String       province;
 
-    @Column(nullable = false, length = 32)
-    private String             province;
+    @NotEmpty
+    @Size(max = 32)
+    private String       city;
 
-    @Column(nullable = false, length = 32)
-    private String             city;
+    @NotNull
+    private RegistryType registrytype = RegistryType.ID;
 
-    @Column(nullable = false)
-    private RegistryType       registrytype;
+    @NotEmpty
+    @Size(max = 32)
+    private String       registryno;
 
-    @Column(nullable = false, length = 32)
-    private String             registryno;
+    @NotEmpty
+    @Email
+    @Size(max = 64)
+    private String       email;
 
-    @Column(nullable = false, length = 64)
-    private String             email;
+    @Pattern(regexp = "\\d{11}")
+    private String       cellphone;
 
-    @Column(nullable = false, length = 11)
-    private String             cellphone;
+    @Size(max = 32)
+    private String       telephone;
 
-    @Column(length = 32)
-    private String             telephone;
-
-    @Column(length = 32)
-    private String             faxno;
+    @Size(max = 32)
+    private String       faxno;
 
     /**
-     * @return the id
+     * @return the name
      */
-    public long getId()
+    public String getName()
     {
-        return id;
+        return this.name;
     }
 
     /**
-     * @param id the id to set
+     * @param name the name to set
      */
-    public void setId(long id)
+    public void setName(String name)
     {
-        this.id = id;
+        this.name = name;
     }
 
     /**
-     * @return the user
+     * @return the password
      */
-    public User getUser()
+    public String getPassword()
     {
-        return user;
+        return this.password;
     }
 
     /**
-     * @param user the user to set
+     * @param password the password to set
      */
-    public void setUser(User user)
+    public void setPassword(String password)
     {
-        this.user = user;
+        this.password = password;
     }
 
     /**
@@ -115,7 +113,7 @@ public class Patient
      */
     public String getRealname()
     {
-        return realname;
+        return this.realname;
     }
 
     /**
@@ -131,7 +129,7 @@ public class Patient
      */
     public Date getBirthday()
     {
-        return birthday;
+        return this.birthday;
     }
 
     /**
@@ -147,7 +145,7 @@ public class Patient
      */
     public int getAge()
     {
-        return age;
+        return this.age;
     }
 
     /**
@@ -163,7 +161,7 @@ public class Patient
      */
     public Gender getGender()
     {
-        return gender;
+        return this.gender;
     }
 
     /**
@@ -179,7 +177,7 @@ public class Patient
      */
     public String getProvince()
     {
-        return province;
+        return this.province;
     }
 
     /**
@@ -195,7 +193,7 @@ public class Patient
      */
     public String getCity()
     {
-        return city;
+        return this.city;
     }
 
     /**
@@ -211,7 +209,7 @@ public class Patient
      */
     public RegistryType getRegistrytype()
     {
-        return registrytype;
+        return this.registrytype;
     }
 
     /**
@@ -227,7 +225,7 @@ public class Patient
      */
     public String getRegistryno()
     {
-        return registryno;
+        return this.registryno;
     }
 
     /**
@@ -243,7 +241,7 @@ public class Patient
      */
     public String getEmail()
     {
-        return email;
+        return this.email;
     }
 
     /**
@@ -259,7 +257,7 @@ public class Patient
      */
     public String getCellphone()
     {
-        return cellphone;
+        return this.cellphone;
     }
 
     /**
@@ -275,7 +273,7 @@ public class Patient
      */
     public String getTelephone()
     {
-        return telephone;
+        return this.telephone;
     }
 
     /**
@@ -291,7 +289,7 @@ public class Patient
      */
     public String getFaxno()
     {
-        return faxno;
+        return this.faxno;
     }
 
     /**

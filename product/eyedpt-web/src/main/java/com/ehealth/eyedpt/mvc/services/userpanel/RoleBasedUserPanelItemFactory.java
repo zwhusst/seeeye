@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
@@ -33,6 +34,11 @@ public class RoleBasedUserPanelItemFactory
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
 
         // TODO#EMAC.P1 integrate with Spring security framework
+        if ( UserGroup.ADMIN != user.getUsergroup() )
+        {
+            return items;
+        }
+
         UserPanelItem regDoctorItem = new UserPanelItem();
         regDoctorItem.setName(this.msp.getMessage(ViewMessages.VW_REGISTER_DOCTOR));
         regDoctorItem.setHref("#");

@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="loginwrap">
-	<c:if test="${user!=null}">
+	<c:if test="${user.name!=null}">
 		<h1>用户面板</h1>
 		<p>欢迎，${user.name}!</p>
 		<%
@@ -24,7 +24,7 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-	<c:if test="${user==null}">
+	<c:if test="${user.name==null}">
 		<h1>用户登录</h1>
 		<form action="<c:url value="/login" />" method="post">
 			<c:if test="${message!=null}">
@@ -35,16 +35,16 @@
 				%>
 			</c:if>
 			<p>
-				账户: <input name="<%=FormConstants.FIELD_USER_NAME%>" type="text"
+				账户: <input name="<%=FormConstants.FIELD_NAME%>" type="text"
 					class="inputtext" />
 			</p>
 			<p>
-				密码: <input name="<%=FormConstants.FIELD_USER_PASSWORD%>"
+				密码: <input name="<%=FormConstants.FIELD_PASSWORD%>"
 					type="password" class="inputtext" />
 			</p>
 			<p>
 				<input name="login" type="submit" value="登录" class="loginbut" /> <a
-					href="<c:url value="/register"/>">注册</a>
+					href="<c:url value="/register/patient"/>">注册</a>
 			</p>
 		</form>
 	</c:if>

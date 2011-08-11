@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 
@@ -36,17 +34,12 @@ public class User
     private long               id;
 
     @Column(nullable = false, length = 16)
-    @NotNull
-    @Size(min = 4, max = 16)
     private String             name;
 
     @Column(nullable = false, length = 16)
-    @NotNull
-    @Size(min = 6, max = 16)
     private String             password;
 
     @Column(nullable = false)
-    @NotNull
     private UserGroup          usergroup;
 
     @Column(columnDefinition = "BIT(32)")
