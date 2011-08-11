@@ -8,11 +8,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ehealth.eyedpt.dal.entities.Patient;
+import com.ehealth.eyedpt.dal.entities.User;
 
 /**
  * @author emac
@@ -26,15 +28,23 @@ public class PatientDao extends BaseDao<Patient>
     private EntityManager em;
 
     @Override
-    public Patient find(long id)
-    {
-        return this.em.find(Patient.class, id);
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public List<Patient> findAll()
     {
         return this.em.createNamedQuery(Patient.QUERY_FIND_ALL).getResultList();
+    }
+
+    /**
+     * @param user
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Patient findByUser(User user)
+    {
+        Query query = this.em.createNamedQuery(Patient.QUERY_FIND_BY_USER);
+        query.setParameter("user", user);
+
+        return getSingleResult(query);
     }
 
 }

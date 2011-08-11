@@ -10,8 +10,8 @@ package com.ehealth.eyedpt.mvc.constants;
 public interface SessionConstants
 {
 
-    public static final String ATTRIBUTE_MESSAGE = "message";
-    public static final String ATTRIBUTE_USER    = "user";
-    public static final String ATTRIBUTE_PATIENT = "patient";
+    public static final String ATTR_MESSAGE = "message";
+    public static final String ATTR_USER    = "user";
+    public static final String ATTR_PATIENT = "patient";
 
 }

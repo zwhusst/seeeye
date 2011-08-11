@@ -18,6 +18,7 @@ import org.apache.bval.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 
@@ -298,6 +299,31 @@ public class PatientBean
     public void setFaxno(String faxno)
     {
         this.faxno = faxno;
+    }
+
+    /**
+     * @param patient
+     * @return
+     */
+    public static PatientBean fromEntity(Patient patient)
+    {
+        PatientBean bean = new PatientBean();
+        bean.setName(patient.getUser().getName());
+        bean.setPassword(patient.getUser().getPassword());
+        bean.setRealname(patient.getRealname());
+        bean.setGender(patient.getGender());
+        bean.setBirthday(patient.getBirthday());
+        bean.setAge(patient.getAge());
+        bean.setProvince(patient.getProvince());
+        bean.setCity(patient.getCity());
+        bean.setRegistrytype(patient.getRegistrytype());
+        bean.setRegistryno(patient.getRegistryno());
+        bean.setEmail(patient.getEmail());
+        bean.setCellphone(patient.getCellphone());
+        bean.setTelephone(patient.getTelephone());
+        bean.setFaxno(patient.getFaxno());
+
+        return bean;
     }
 
 }

@@ -28,25 +28,22 @@ public class UserDao extends BaseDao<User>
 
     @Override
     @Transactional(readOnly = true)
-    public User find(long id)
-    {
-        return this.em.find(User.class, id);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<User> findAll()
     {
         return this.em.createNamedQuery(User.QUERY_FIND_ALL).getResultList();
     }
 
+    /**
+     * @param name
+     * @return
+     */
     @Transactional(readOnly = true)
-    public List<User> findByName(String name)
+    public User findByName(String name)
     {
         Query query = this.em.createNamedQuery(User.QUERY_FIND_BY_NAME);
         query.setParameter("name", name);
 
-        return query.getResultList();
+        return getSingleResult(query);
     }
 
 }

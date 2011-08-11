@@ -16,7 +16,7 @@
 		<p>欢迎，${user.name}!</p>
 		<%
 		    List<UserPanelItem> items = UserPanelHelper.INSTANCE.getItems((User) session
-		                .getAttribute(SessionConstants.ATTRIBUTE_USER));
+		                .getAttribute(SessionConstants.ATTR_USER));
 		%>
 		<ul>
 			<c:forEach var="item" items="<%=items%>">
@@ -31,7 +31,7 @@
 				<span class="error">${message}</span>
 				<!-- clear message after shown -->
 				<%
-				    session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE, null);
+				    session.setAttribute(SessionConstants.ATTR_MESSAGE, null);
 				%>
 			</c:if>
 			<p>
@@ -44,7 +44,7 @@
 			</p>
 			<p>
 				<input name="login" type="submit" value="登录" class="loginbut" /> <a
-					href="<c:url value="/register/patient"/>">注册</a>
+					href="<c:url value="/patient/register"/>">注册</a>
 			</p>
 		</form>
 	</c:if>

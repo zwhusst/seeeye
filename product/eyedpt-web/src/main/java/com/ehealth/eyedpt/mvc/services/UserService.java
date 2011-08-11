@@ -4,8 +4,6 @@
 
 package com.ehealth.eyedpt.mvc.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class UserService
      * @param name
      * @return
      */
-    public List<User> findUserByName(String name)
+    public User findUserByName(String name)
     {
         return this.userDao.findByName(name);
     }

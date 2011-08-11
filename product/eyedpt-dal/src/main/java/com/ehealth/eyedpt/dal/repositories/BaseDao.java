@@ -5,7 +5,9 @@
 package com.ehealth.eyedpt.dal.repositories;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,25 @@ public abstract class BaseDao<T>
     {
         this.em.remove(object);
         this.em.flush();
+    }
+
+    /**
+     * Attempts to return a single result. Return {@code null} if there's no result (swallow
+     * {@code EntityNotFoundException}).
+     * 
+     * @param query
+     * @return
+     */
+    public T getSingleResult(Query query)
+    {
+        try
+        {
+            return (T) query.getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            return null;
+        }
     }
 
 }

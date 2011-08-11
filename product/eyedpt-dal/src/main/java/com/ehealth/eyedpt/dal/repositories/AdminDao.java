@@ -27,13 +27,6 @@ public class AdminDao extends BaseDao<Admin>
 
     @Override
     @Transactional(readOnly = true)
-    public Admin find(long id)
-    {
-        return this.em.find(Admin.class, id);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<Admin> findAll()
     {
         return this.em.createNamedQuery(Admin.QUERY_FIND_ALL).getResultList();

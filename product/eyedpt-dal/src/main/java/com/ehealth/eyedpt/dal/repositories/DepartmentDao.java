@@ -26,12 +26,7 @@ public class DepartmentDao extends BaseDao<Department>
     private EntityManager em;
 
     @Override
-    public Department find(long id)
-    {
-        return this.em.find(Department.class, id);
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public List<Department> findAll()
     {
         return this.em.createNamedQuery(Department.QUERY_FIND_ALL).getResultList();

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
+import com.ehealth.eyedpt.mvc.controllers.PatientController;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
@@ -59,10 +60,9 @@ public class GroupBasedUserPanelItemFactory
 
     private void fillPatientItems(List<UserPanelItem> items)
     {
-        // TODO#EMAC
         UserPanelItem profileItem = new UserPanelItem();
         profileItem.setName(this.msp.getMessage(ViewMessages.VW_PROFILE));
-        profileItem.setHref("#");
+        profileItem.setHref(PatientController.MAPPING_EDIT);
 
         items.add(profileItem);
     }

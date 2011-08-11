@@ -26,12 +26,7 @@ public class DoctorDao extends BaseDao<Doctor>
     private EntityManager em;
 
     @Override
-    public Doctor find(long id)
-    {
-        return this.em.find(Doctor.class, id);
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public List<Doctor> findAll()
     {
         return this.em.createNamedQuery(Doctor.QUERY_FIND_ALL).getResultList();

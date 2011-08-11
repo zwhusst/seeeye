@@ -15,9 +15,13 @@ import org.springframework.stereotype.Component;
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.Department;
 import com.ehealth.eyedpt.dal.entities.Hospital;
+import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.enums.Gender;
+import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
+import com.ehealth.eyedpt.dal.repositories.PatientDao;
 
 /**
  * @author emac
@@ -32,6 +36,9 @@ public class DatabaseInitializer
     @Autowired
     private AdminDao      adminDao;
 
+    @Autowired
+    private PatientDao    patientDao;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
     {
@@ -45,6 +52,12 @@ public class DatabaseInitializer
             return;
         }
 
+        createRootAdmin();
+        createSamplePatient();
+    }
+
+    private void createRootAdmin()
+    {
         // user
         User superUser = new User();
         superUser.setName("root");
@@ -79,6 +92,34 @@ public class DatabaseInitializer
         this.adminDao.create(root);
 
         logger.info("Super user created!");
+    }
+
+    private void createSamplePatient()
+    {
+        // user
+        User sampleUser = new User();
+        sampleUser.setName("samplep");
+        sampleUser.setPassword("samplep");
+        sampleUser.setUsergroup(UserGroup.PATIENT);
+        sampleUser.setRoleset(new byte[]
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+
+        // patient
+        Patient samplePatient = new Patient();
+        samplePatient.setUser(sampleUser);
+        samplePatient.setRealname("test");
+        samplePatient.setGender(Gender.M);
+        samplePatient.setAge(99);
+        samplePatient.setProvince("test");
+        samplePatient.setCity("test");
+        samplePatient.setRegistrytype(RegistryType.ID);
+        samplePatient.setRegistryno("test");
+        samplePatient.setEmail("test@seeeye.org");
+        samplePatient.setCellphone("11111111111");
+
+        this.patientDao.create(samplePatient);
+
+        logger.info("Sample patient created!");
     }
 
 }

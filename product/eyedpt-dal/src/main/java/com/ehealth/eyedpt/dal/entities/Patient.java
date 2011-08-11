@@ -27,11 +27,13 @@ import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 @Entity(name = "patient")
 @Table(name = "patient")
 @NamedQueries(
-{ @NamedQuery(name = Patient.QUERY_FIND_ALL, query = "select p from patient p")})
+{ @NamedQuery(name = Patient.QUERY_FIND_ALL, query = "select p from patient p"),
+        @NamedQuery(name = Patient.QUERY_FIND_BY_USER, query = "select p from patient p where p.user=:user")})
 public class Patient
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllPatients";
+    public static final String QUERY_FIND_ALL     = "FindAllPatients";
+    public static final String QUERY_FIND_BY_USER = "FindPatientByUser";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +46,7 @@ public class Patient
 
     @Column(nullable = false, length = 32)
     private String             realname;
-    
+
     @Column(nullable = false)
     private Gender             gender;
 

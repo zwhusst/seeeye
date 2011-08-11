@@ -67,14 +67,13 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
     {
         testCreate();
 
-        List<User> users = this.userDao.findByName(TEST_USER_NAME);
-        Assert.assertTrue(users.size() == 1);
+        User user = this.userDao.findByName(TEST_USER_NAME);
+        Assert.assertNotNull(user);
 
-        User user = users.get(0);
         user.setPassword(TEST_USER_PASSWORD_NEW);
         this.userDao.update(user);
 
-        user = this.userDao.findByName(TEST_USER_NAME).get(0);
+        user = this.userDao.findByName(TEST_USER_NAME);
         Assert.assertEquals(user.getPassword(), TEST_USER_PASSWORD_NEW);
     }
 
@@ -83,13 +82,11 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
     {
         testCreate();
 
-        List<User> users = this.userDao.findByName(TEST_USER_NAME);
-        Assert.assertTrue(users.size() == 1);
+        User user = this.userDao.findByName(TEST_USER_NAME);
+        Assert.assertNotNull(user);
 
-        for (User user : users)
-        {
-            this.userDao.delete(user);
-        }
-        Assert.assertEquals(0, this.userDao.findByName(TEST_USER_NAME).size());
+        this.userDao.delete(user);
+        Assert.assertNull(this.userDao.findByName(TEST_USER_NAME));
     }
+
 }

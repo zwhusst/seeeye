@@ -26,12 +26,7 @@ public class HospitalDao extends BaseDao<Hospital>
     private EntityManager em;
 
     @Override
-    public Hospital find(long id)
-    {
-        return this.em.find(Hospital.class, id);
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public List<Hospital> findAll()
     {
         return this.em.createNamedQuery(Hospital.QUERY_FIND_ALL).getResultList();

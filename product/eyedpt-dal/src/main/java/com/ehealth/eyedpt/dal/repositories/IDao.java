@@ -13,14 +13,6 @@ public interface IDao<T>
 {
 
     /**
-     * Finds an instance with given id.
-     * 
-     * @param id
-     * @return
-     */
-    public T find(long id);
-
-    /**
      * Finds all instances.
      * 
      * @return

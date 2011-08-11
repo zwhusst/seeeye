@@ -4,8 +4,6 @@
 
 package com.ehealth.eyedpt.mvc.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
@@ -37,7 +36,8 @@ public class PatientController
 
     private static Logger         logger           = Logger.getLogger(PatientController.class);
 
-    public static final String    MAPPING_REGISTER = "/register/patient";
+    public static final String    MAPPING_REGISTER = "/patient/register";
+    public static final String    MAPPING_EDIT     = "/patient/edit";
 
     @Autowired
     private UserService           userService;
@@ -49,10 +49,9 @@ public class PatientController
     private MessageSourceProvider msd;
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
-    public void doRegister(HttpSession session, Model model)
+    public void doRegister(Model model)
     {
-        PatientBean patientBean = (PatientBean) session.getAttribute(SessionConstants.ATTRIBUTE_PATIENT);
-        model.addAttribute(patientBean != null ? patientBean : new PatientBean());
+        model.addAttribute(new PatientBean());
     }
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
@@ -63,8 +62,8 @@ public class PatientController
             return null;
         }
 
-        List<User> users = this.userService.findUserByName(patientBean.getName());
-        if ( users.size() > 0 )
+        User user = this.userService.findUserByName(patientBean.getName());
+        if ( user != null )
         {
             result.addError(new FieldError(FormConstants.BEAN_PATIENT, FormConstants.FIELD_NAME, this.msd
                     .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
@@ -72,13 +71,48 @@ public class PatientController
             return null;
         }
 
-        this.patientService.createPatient(patientBean);
+        Patient patient = this.patientService.createPatient(patientBean);
+        session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
+        session.setAttribute(SessionConstants.ATTR_PATIENT, patient);
 
-        users = this.userService.findUserByName(patientBean.getName());
-        Assert.isTrue(users.size() == 1);
-        session.setAttribute(SessionConstants.ATTRIBUTE_USER, users.get(0));
+        logger.info("New patient registered!");
 
-        logger.info("Registered!");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
+    public void doEdit(HttpSession session, Model model)
+    {
+        // search session first
+        Patient patient = (Patient) session.getAttribute(SessionConstants.ATTR_PATIENT);
+        if ( patient == null )
+        {
+            // create new bean
+            User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
+            Assert.notNull(user);
+
+            patient = this.patientService.findByUser(user);
+            Assert.notNull(patient);
+            session.setAttribute(SessionConstants.ATTR_PATIENT, patient);
+        }
+
+        PatientBean patientBean = PatientBean.fromEntity(patient);
+        model.addAttribute(patientBean);
+    }
+
+    @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
+    public String doEdit(@Valid PatientBean patientBean, BindingResult result, HttpSession session)
+    {
+        if ( result.hasErrors() )
+        {
+            return null;
+        }
+
+        Patient patient = this.patientService.updatePatient(patientBean);
+        session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
+        session.setAttribute(SessionConstants.ATTR_PATIENT, patient);
+
+        logger.info("Patient updated!");
 
         return "redirect:/";
     }

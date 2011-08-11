@@ -4,8 +4,6 @@
 
 package com.ehealth.eyedpt.mvc.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -29,10 +27,10 @@ import com.ehealth.eyedpt.mvc.services.UserService;
 public class UserController
 {
 
-    private static Logger         logger           = Logger.getLogger(UserController.class);
+    private static Logger         logger         = Logger.getLogger(UserController.class);
 
-    public static final String    MAPPING_LOGIN    = "/login";
-    public static final String    MAPPING_LOGOUT   = "/logout";
+    public static final String    MAPPING_LOGIN  = "/login";
+    public static final String    MAPPING_LOGOUT = "/logout";
 
     @Autowired
     private UserService           userService;
@@ -45,31 +43,30 @@ public class UserController
     {
         if ( StringUtils.isEmpty(name) )
         {
-            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE,
+            session.setAttribute(SessionConstants.ATTR_MESSAGE,
                     this.msd.getMessage(ValidationMessages.VA_USER_NAME_EMPTY));
 
             return "redirect:/";
         }
 
-        List<User> users = this.userService.findUserByName(name);
-        if ( users.size() == 0 )
+        User user = this.userService.findUserByName(name);
+        if ( user == null )
         {
-            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE,
+            session.setAttribute(SessionConstants.ATTR_MESSAGE,
                     this.msd.getMessage(ValidationMessages.VA_USER_NAME_NONEXIST));
 
             return "redirect:/";
         }
 
-        User user = users.get(0);
         if ( !StringUtils.equals(password, user.getPassword()) )
         {
-            session.setAttribute(SessionConstants.ATTRIBUTE_MESSAGE,
+            session.setAttribute(SessionConstants.ATTR_MESSAGE,
                     this.msd.getMessage(ValidationMessages.VA_USER_PASSWORD_WRONG));
 
             return "redirect:/";
         }
 
-        session.setAttribute(SessionConstants.ATTRIBUTE_USER, user);
+        session.setAttribute(SessionConstants.ATTR_USER, user);
         logger.info("Logged in!");
 
         return "redirect:/";
@@ -78,7 +75,7 @@ public class UserController
     @RequestMapping(MAPPING_LOGOUT)
     public String doLogout(HttpSession session)
     {
-        session.setAttribute(SessionConstants.ATTRIBUTE_USER, null);
+        session.setAttribute(SessionConstants.ATTR_USER, null);
         logger.info("Logged out!");
 
         return "redirect:/";
