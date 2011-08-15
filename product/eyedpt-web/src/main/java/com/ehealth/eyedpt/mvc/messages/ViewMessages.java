@@ -17,6 +17,7 @@ public interface ViewMessages
     public static final String VW_PROFILE         = "VW_PROFILE";
 
     // User Panel
+    public static final String VW_CHNAGE_PWD      = "VW_CHNAGE_PWD";
     public static final String VW_REGISTER_DOCTOR = "VW_REGISTER_DOCTOR";
     public static final String VW_REGISTER_ADMIN  = "VW_REGISTER_ADMIN";
 

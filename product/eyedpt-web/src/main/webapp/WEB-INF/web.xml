@@ -28,7 +28,7 @@
 
 	<servlet-mapping>
 		<servlet-name>mvcServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Disables Servlet Container welcome file handling. Needed for compatibility 

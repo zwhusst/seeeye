@@ -78,7 +78,8 @@ public class Doctor
     @Size(max = 32)
     private String             telephone;
 
-    @Column(length = 256)
+    @Column(nullable = false, length = 256)
+    @NotNull
     @Size(max = 256)
     private String             address;
 

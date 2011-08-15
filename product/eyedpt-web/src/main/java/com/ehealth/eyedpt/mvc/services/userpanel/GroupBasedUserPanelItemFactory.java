@@ -32,6 +32,7 @@ public class GroupBasedUserPanelItemFactory
     public List<UserPanelItem> getItems(User user)
     {
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
+        // profile
         switch (user.getUsergroup())
         {
             case PATIENT:
@@ -54,8 +55,20 @@ public class GroupBasedUserPanelItemFactory
                 break;
             }
         }
+        // change password
+        addChangePwdItem(items);
 
         return Collections.unmodifiableList(items);
+    }
+
+    private void addChangePwdItem(ArrayList<UserPanelItem> items)
+    {
+        // TODO#EMAC
+        UserPanelItem pwdItem = new UserPanelItem();
+        pwdItem.setName(this.msp.getMessage(ViewMessages.VW_CHNAGE_PWD));
+        pwdItem.setHref("#");
+
+        items.add(pwdItem);
     }
 
     private void fillPatientItems(List<UserPanelItem> items)

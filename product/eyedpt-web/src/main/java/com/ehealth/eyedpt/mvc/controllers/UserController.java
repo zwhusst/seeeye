@@ -31,6 +31,7 @@ public class UserController
 
     public static final String    MAPPING_LOGIN  = "/login";
     public static final String    MAPPING_LOGOUT = "/logout";
+    public static final String    MAPPING_CHPWD  = "/profile/changepassword";
 
     @Autowired
     private UserService           userService;
