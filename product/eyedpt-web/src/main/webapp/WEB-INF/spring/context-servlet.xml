@@ -10,11 +10,7 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
 
-	<!-- ========================= RESOURCES ========================= -->
-	<import resource="classpath:WEB-INF/spring/context-jpa.xml" />
-
 	<!-- ========================= MVC ========================= -->
-
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
@@ -26,7 +22,6 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<!-- ========================= VIEW RESOLVERS========================= -->
-
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/jsp directory -->
 	<bean
@@ -40,28 +35,20 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
 	<!-- ========================= BEANS ========================= -->
+	<!-- Activates various annotations to be detected in bean classes: Spring's 
+		@Required and @Autowired, as well as JSR 250's @PostConstruct, @PreDestroy 
+		and @Resource (if available) and JPA's @PersistenceContext and @PersistenceUnit 
+		(if available). -->
+	<context:annotation-config />
 
 	<!-- @Components -->
 	<context:component-scan base-package="com.ehealth.eyedpt.mvc.components" />
 
-	<!-- @Controller -->
+	<!-- @Controllers -->
 	<context:component-scan base-package="com.ehealth.eyedpt.mvc.controllers" />
 
 	<!-- @Services -->
 	<context:component-scan
 		base-package="com.ehealth.eyedpt.mvc.services,com.ehealth.eyedpt.mvc.services.userpanel" />
-
-	<!-- ========================= MESSAGE RESOLVER ========================= -->
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>/WEB-INF/messages/validation</value>
-				<value>/WEB-INF/messages/view</value>
-			</list>
-		</property>
-		<property name="defaultEncoding" value="UTF-8" />
-		<property name="cacheSeconds" value="1" />
-	</bean>
 
 </beans>

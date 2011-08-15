@@ -45,7 +45,6 @@
 	<!-- 20110731#bishen: use class-based proxies instead of interface-based proxies  -->
 	<tx:annotation-driven proxy-target-class="true"/>
 	
-	
 	<!-- ========================= BEANS ========================= -->
 	<!--
 		Activates various annotations to be detected in bean classes: Spring's
