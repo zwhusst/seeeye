@@ -39,6 +39,12 @@ public class UserController
     @Autowired
     private MessageSourceProvider msd;
 
+    @RequestMapping(value = MAPPING_LOGIN, method = RequestMethod.GET)
+    public String doLogin()
+    {
+        return null;
+    }
+    
     @RequestMapping(value = MAPPING_LOGIN, method = RequestMethod.POST, params = "login")
     public String doLogin(@RequestParam String name, @RequestParam String password, HttpSession session)
     {

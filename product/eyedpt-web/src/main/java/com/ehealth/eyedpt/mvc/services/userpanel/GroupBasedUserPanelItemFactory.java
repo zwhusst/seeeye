@@ -63,7 +63,7 @@ public class GroupBasedUserPanelItemFactory
 
     private void addChangePwdItem(ArrayList<UserPanelItem> items)
     {
-        // TODO#EMAC
+        // TODO#EMAC.P1 add change password panel item
         UserPanelItem pwdItem = new UserPanelItem();
         pwdItem.setName(this.msp.getMessage(ViewMessages.VW_CHNAGE_PWD));
         pwdItem.setHref("#");
@@ -82,7 +82,7 @@ public class GroupBasedUserPanelItemFactory
 
     private void fillDoctorItems(List<UserPanelItem> items)
     {
-        // TODO#EMAC
+        // TODO#EMAC.P0 add doctor panel items
         UserPanelItem profileItem = new UserPanelItem();
         profileItem.setName(this.msp.getMessage(ViewMessages.VW_PROFILE));
         profileItem.setHref("#");
@@ -92,7 +92,7 @@ public class GroupBasedUserPanelItemFactory
 
     private void fillAdminItems(List<UserPanelItem> items)
     {
-        // TODO#EMAC
+        // TODO#EMAC.P0 add admin panel items
         UserPanelItem profileItem = new UserPanelItem();
         profileItem.setName(this.msp.getMessage(ViewMessages.VW_PROFILE));
         profileItem.setHref("#");

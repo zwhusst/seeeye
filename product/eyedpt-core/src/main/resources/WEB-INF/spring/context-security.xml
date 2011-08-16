@@ -12,7 +12,7 @@
 
 	<http use-expressions="true">
 		<intercept-url pattern="/patient/**" access="hasRole('patient')" />
-		<form-login login-page="/" />
+		<form-login login-page="/login"/>
 		<remember-me key="ehealth" />
 	</http>
 
