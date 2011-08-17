@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
-import com.ehealth.eyedpt.mvc.controllers.UserController;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
@@ -24,6 +23,8 @@ public class UniversalUserPanelItemFactory
         implements IUserPanelItemFactory
 {
 
+    private static String         MAPPING_SPRING_LOGOUT = "/j_spring_security_logout";
+
     @Autowired
     private MessageSourceProvider msp;
 
@@ -32,7 +33,7 @@ public class UniversalUserPanelItemFactory
     {
         UserPanelItem logoutItem = new UserPanelItem();
         logoutItem.setName(this.msp.getMessage(ViewMessages.VW_LOGOUT));
-        logoutItem.setHref(UserController.MAPPING_LOGOUT);
+        logoutItem.setHref(MAPPING_SPRING_LOGOUT);
 
         return Collections.singletonList(logoutItem);
     }

@@ -1,7 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- imports -->
-<%@ page import="java.util.*"%>
+<%@ page import="java.util.List"%>
+<%@ page import="org.springframework.security.web.WebAttributes"%>
 <%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
 <%@ page import="com.ehealth.eyedpt.mvc.constants.SessionConstants"%>
 <%@ page import="com.ehealth.eyedpt.mvc.view.helpers.UserPanelHelper"%>
@@ -26,21 +27,19 @@
 	</c:if>
 	<c:if test="${user.name==null}">
 		<h1>用户登录</h1>
-		<form action="<c:url value="/login" />" method="post">
-			<c:if test="${message!=null}">
-				<span class="error">${message}</span>
+		<form action="<c:url value="/j_spring_security_check"/>" method="post">
+			<c:if test="${SPRING_SECURITY_LAST_EXCEPTION!=null}">
+				<span class="error">${SPRING_SECURITY_LAST_EXCEPTION.message}</span>
 				<!-- clear message after shown -->
 				<%
-				    session.setAttribute(SessionConstants.ATTR_MESSAGE, null);
+				    session.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, null);
 				%>
 			</c:if>
 			<p>
-				账户: <input name="<%=FormConstants.FIELD_NAME%>" type="text"
-					class="inputtext" />
+				账户: <input name="j_username" type="text" class="inputtext" />
 			</p>
 			<p>
-				密码: <input name="<%=FormConstants.FIELD_PASSWORD%>"
-					type="password" class="inputtext" />
+				密码: <input name="j_password" type="password" class="inputtext" />
 			</p>
 			<p>
 				<input name="login" type="submit" value="登录" class="loginbut" /> <a

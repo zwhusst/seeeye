@@ -73,7 +73,6 @@ public class PatientController
 
         Patient patient = this.patientService.createPatient(patientBean);
         session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
-        session.setAttribute(SessionConstants.ATTR_PATIENT, patient);
 
         logger.info("New patient registered!");
 
@@ -83,18 +82,12 @@ public class PatientController
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
     public void doEdit(HttpSession session, Model model)
     {
-        // search session first
-        Patient patient = (Patient) session.getAttribute(SessionConstants.ATTR_PATIENT);
-        if ( patient == null )
-        {
-            // create new bean
-            User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
-            Assert.notNull(user);
+        // create new bean
+        User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
+        Assert.notNull(user);
 
-            patient = this.patientService.findByUser(user);
-            Assert.notNull(patient);
-            session.setAttribute(SessionConstants.ATTR_PATIENT, patient);
-        }
+        Patient patient = this.patientService.findByUser(user);
+        Assert.notNull(patient);
 
         PatientBean patientBean = PatientBean.fromEntity(patient);
         model.addAttribute(patientBean);
@@ -110,7 +103,6 @@ public class PatientController
 
         Patient patient = this.patientService.updatePatient(patientBean);
         session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
-        session.setAttribute(SessionConstants.ATTR_PATIENT, patient);
 
         logger.info("Patient updated!");
 

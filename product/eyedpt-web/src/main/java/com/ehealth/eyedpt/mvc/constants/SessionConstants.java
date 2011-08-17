@@ -12,6 +12,5 @@ public interface SessionConstants
 
     public static final String ATTR_MESSAGE = "message";
     public static final String ATTR_USER    = "user";
-    public static final String ATTR_PATIENT = "patient";
 
 }

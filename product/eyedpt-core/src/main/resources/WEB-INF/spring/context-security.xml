@@ -12,8 +12,8 @@
 
 	<http use-expressions="true">
 		<intercept-url pattern="/profile/**" access="isAuthenticated()" />
-		<form-login login-page="/login" />
-		<remember-me key="ehealth" />
+		<form-login login-page="/" />
+		<logout />
 	</http>
 
 	<authentication-manager>
