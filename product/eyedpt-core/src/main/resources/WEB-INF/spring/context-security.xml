@@ -11,8 +11,8 @@
 	<global-method-security pre-post-annotations="enabled" />
 
 	<http use-expressions="true">
-		<intercept-url pattern="/patient/**" access="hasRole('patient')" />
-		<form-login login-page="/login"/>
+		<intercept-url pattern="/profile/**" access="isAuthenticated()" />
+		<form-login login-page="/login" />
 		<remember-me key="ehealth" />
 	</http>
 
@@ -27,6 +27,7 @@
 		(if available). -->
 	<context:annotation-config />
 
-	<context:component-scan base-package="com.ehealth.eyedpt.core.security" />
+	<context:component-scan
+		base-package="com.ehealth.eyedpt.core.security.components,com.ehealth.eyedpt.core.security.services" />
 
 </b:beans>

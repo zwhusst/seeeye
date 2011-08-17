@@ -2,7 +2,7 @@
  * Created on 2011-8-15
  */
 
-package com.ehealth.eyedpt.core.security;
+package com.ehealth.eyedpt.core.security.components;
 
 import java.util.ArrayList;
 import java.util.List;

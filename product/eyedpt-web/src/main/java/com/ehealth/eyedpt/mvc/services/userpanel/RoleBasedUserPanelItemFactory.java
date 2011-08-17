@@ -33,7 +33,7 @@ public class RoleBasedUserPanelItemFactory
     {
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
 
-        // TODO#EMAC.P1 integrate with Spring security framework
+        // TODO#EMAC.P! integrate with Spring security framework
         if ( UserGroup.ADMIN != user.getUsergroup() )
         {
             return items;

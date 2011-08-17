@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
@@ -23,10 +24,13 @@ public class PatientService
 {
 
     @Autowired
-    private UserDao    userDao;
+    private UserDao     userDao;
 
     @Autowired
-    private PatientDao patientDao;
+    private PatientDao  patientDao;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * @param user
@@ -47,7 +51,8 @@ public class PatientService
         user.setName(bean.getName());
         user.setPassword(bean.getPassword());
         user.setUsergroup(UserGroup.PATIENT);
-        // TODO#EMAC.P1 assign default roles (patient)
+        // grant default roles
+        this.roleService.grantPatientRoleSet(user);
 
         Patient patient = new Patient();
         patient.setUser(user);

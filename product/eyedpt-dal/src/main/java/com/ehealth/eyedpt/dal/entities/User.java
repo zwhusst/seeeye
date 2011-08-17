@@ -42,8 +42,8 @@ public class User
     @Column(nullable = false)
     private UserGroup          usergroup;
 
-    @Column(columnDefinition = "BIT(32)")
-    private byte[]             roleset;
+    @Column(nullable = false, columnDefinition = "BIT(32)")
+    private byte[]             roleset            = new byte[32];
 
     /**
      * @return the id
