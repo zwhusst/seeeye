@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
+import com.ehealth.eyedpt.dal.components.DatabaseInitializer;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
 
@@ -20,22 +21,20 @@ import com.ehealth.eyedpt.dal.entities.User;
 public class PatientDaoTests extends AbstractTransactionalJUnit4SpringContextTests
 {
 
-    private static final String SAMPLE_PATIENT_NAME = "samplep";
+    @Autowired
+    private UserDao    userDao;
 
     @Autowired
-    private UserDao             userDao;
-
-    @Autowired
-    private PatientDao          patientDao;
+    private PatientDao patientDao;
 
     @Test
     public void testFindByUser()
     {
-        User sampleUser = this.userDao.findByName(SAMPLE_PATIENT_NAME);
-        Assert.assertNotNull(sampleUser);
+        User user = this.userDao.findByName(DatabaseInitializer.TEST_PATIENT);
+        Assert.assertNotNull(user);
 
-        Patient samplePatient = this.patientDao.findByUser(sampleUser);
-        Assert.assertNotNull(samplePatient);
+        Patient patient = this.patientDao.findByUser(user);
+        Assert.assertNotNull(patient);
     }
 
 }

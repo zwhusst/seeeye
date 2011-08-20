@@ -21,6 +21,8 @@ import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
+import com.ehealth.eyedpt.dal.repositories.DepartmentDao;
+import com.ehealth.eyedpt.dal.repositories.HospitalDao;
 import com.ehealth.eyedpt.dal.repositories.PatientDao;
 
 /**
@@ -33,6 +35,10 @@ public class DatabaseInitializer
 
     private static Logger      logger         = Logger.getLogger(DatabaseInitializer.class);
 
+    public static final String TEST_PATIENT   = "tp";
+    public static final String TEST_ADMIN     = "ta";
+    public static final String TEST_DOCTOR    = "td";
+
     public static final String HOSTPITAL_NO1  = "上海市第一人民医院";
     public static final String DEPARTMENT_EYE = "眼科";
 
@@ -41,6 +47,12 @@ public class DatabaseInitializer
 
     @Autowired
     private PatientDao         patientDao;
+
+    @Autowired
+    private HospitalDao        hospitalDao;
+
+    @Autowired
+    private DepartmentDao      departmentDao;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
@@ -56,17 +68,18 @@ public class DatabaseInitializer
         }
 
         createRootAdmin();
-        createSamplePatient();
+        createTestAdmin();
+        createTestPatient();
     }
 
     private void createRootAdmin()
     {
         // user
-        User superUser = new User();
-        superUser.setName("root");
-        superUser.setPassword("r00t");
-        superUser.setUsergroup(UserGroup.ADMIN);
-        superUser.setRoleset(new byte[]
+        User user = new User();
+        user.setName("root");
+        user.setPassword("r00t");
+        user.setUsergroup(UserGroup.ADMIN);
+        user.setRoleset(new byte[]
         { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
 
         // hospital
@@ -79,50 +92,77 @@ public class DatabaseInitializer
         firstHospital.setTelephone("021-63240090");
 
         // department
-        Department seeeyeDep = new Department();
-        seeeyeDep.setHospital(firstHospital);
-        seeeyeDep.setName(DEPARTMENT_EYE);
-        seeeyeDep.setFamous(true);
+        Department eyeDep = new Department();
+        eyeDep.setHospital(firstHospital);
+        eyeDep.setName(DEPARTMENT_EYE);
+        eyeDep.setFamous(true);
 
         // admin
         Admin root = new Admin();
-        root.setUser(superUser);
+        root.setUser(user);
         root.setRoot(true);
         root.setEmail("root@seeeye.org");
         root.setHospital(firstHospital);
-        root.setDepartments(Collections.singleton(seeeyeDep));
+        root.setDepartments(Collections.singleton(eyeDep));
 
         this.adminDao.create(root);
 
         logger.info("Super user created!");
     }
 
-    private void createSamplePatient()
+    private void createTestAdmin()
     {
         // user
-        User sampleUser = new User();
-        sampleUser.setName("samplep");
-        sampleUser.setPassword("samplep");
-        sampleUser.setUsergroup(UserGroup.PATIENT);
-        sampleUser.setRoleset(new byte[]
+        User user = new User();
+        user.setName(TEST_ADMIN);
+        user.setPassword(TEST_ADMIN);
+        user.setUsergroup(UserGroup.ADMIN);
+        user.setRoleset(new byte[]
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+
+        // admin
+        Admin ta = new Admin();
+        ta.setUser(user);
+        ta.setRoot(false);
+        ta.setEmail("ta@seeeye.org");
+
+        Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
+        ta.setHospital(hospital);
+        this.adminDao.create(ta);
+
+        Department department = this.departmentDao.findByHospitalAndName(hospital, DEPARTMENT_EYE);
+        ta.setDepartments(Collections.singleton(department));
+        this.adminDao.update(ta);
+
+        logger.info("Test admin created!");
+    }
+
+    private void createTestPatient()
+    {
+        // user
+        User user = new User();
+        user.setName(TEST_PATIENT);
+        user.setPassword(TEST_PATIENT);
+        user.setUsergroup(UserGroup.PATIENT);
+        user.setRoleset(new byte[]
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 
         // patient
-        Patient samplePatient = new Patient();
-        samplePatient.setUser(sampleUser);
-        samplePatient.setRealname("test");
-        samplePatient.setGender(Gender.M);
-        samplePatient.setAge(99);
-        samplePatient.setProvince("test");
-        samplePatient.setCity("test");
-        samplePatient.setRegistrytype(RegistryType.ID);
-        samplePatient.setRegistryno("test");
-        samplePatient.setEmail("test@seeeye.org");
-        samplePatient.setCellphone("11111111111");
+        Patient tp = new Patient();
+        tp.setUser(user);
+        tp.setRealname("test");
+        tp.setGender(Gender.M);
+        tp.setAge(99);
+        tp.setProvince("test");
+        tp.setCity("test");
+        tp.setRegistrytype(RegistryType.ID);
+        tp.setRegistryno("test");
+        tp.setEmail("tp@seeeye.org");
+        tp.setCellphone("11111111111");
 
-        this.patientDao.create(samplePatient);
+        this.patientDao.create(tp);
 
-        logger.info("Sample patient created!");
+        logger.info("Test patient created!");
     }
 
 }
