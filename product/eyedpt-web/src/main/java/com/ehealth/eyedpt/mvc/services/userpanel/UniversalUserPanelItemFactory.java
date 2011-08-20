@@ -90,7 +90,6 @@ public class UniversalUserPanelItemFactory
 
     private void addChangePwdItem(List<UserPanelItem> items)
     {
-        // TODO#EMAC.P1 add change password panel item
         UserPanelItem pwdItem = new UserPanelItem(this.msp.getMessage(ViewMessages.VW_CHNAGE_PWD),
                 ViewConstants.HREF_TODO);
 

@@ -15,8 +15,6 @@ import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
-import com.ehealth.eyedpt.mvc.constants.ViewConstants;
-import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
@@ -40,18 +38,12 @@ public class RoleBasedUserPanelItemFactory
 
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
 
-        addBasicRoleItems(user.getRoleset(), items);
-
-        // TODO#.P0 test root admin
-        if ( UserGroup.ADMIN == user.getUsergroup() )
-        {
-            addRootAdminItems(items);
-        }
+        adaptRolesToItems(user.getRoleset(), items);
 
         return Collections.unmodifiableList(items);
     }
 
-    private void addBasicRoleItems(byte[] rs, List<UserPanelItem> items)
+    private void adaptRolesToItems(byte[] rs, List<UserPanelItem> items)
     {
         for (int i = 0; i < rs.length; i++)
         {
@@ -67,13 +59,6 @@ public class RoleBasedUserPanelItemFactory
                 items.add(item);
             }
         }
-    }
-
-    private void addRootAdminItems(List<UserPanelItem> items)
-    {
-        UserPanelItem regAdminItem = new UserPanelItem(this.msp.getMessage(ViewMessages.VW_REG_ADMIN),
-                ViewConstants.HREF_TODO);
-        items.add(regAdminItem);
     }
 
 }

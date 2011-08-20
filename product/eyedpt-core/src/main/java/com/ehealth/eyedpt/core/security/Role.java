@@ -11,17 +11,29 @@ public enum Role
 {
 
     /**
-     * Doctor CRUD
+     * Patient Management
      */
-    DOCTOR_C(0), DOCTOR_R(1), DOCTOR_U(2), DOCTOR_D(3),
+    Patient_ADMIN(0),
     /**
-     * Booking CRUD
+     * Doctor Management
      */
-    BOOKING_C(4), BOOKING_R(5), BOOKING_U(6), BOOKING_D(7),
+    DOCTOR_ADMIN(1),
     /**
-     * Consulting CRUD
+     * Admin Management
      */
-    CONSULTING_C(8), CONSULTING_R(9), CONSULTING_U(10), CONSULTING_D(11);
+    ADMIN_ADMIN(2),
+    /**
+     * Booking Management
+     */
+    BOOKING_ADMIN(8),
+    /**
+     * Blacklist Management
+     */
+    BLACKLIST_ADMIN(9),
+    /**
+     * Consulting Management
+     */
+    CONSULTING_ADMIN(12);
 
     public int idx;
 

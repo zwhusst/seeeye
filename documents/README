@@ -1,4 +1,7 @@
 [seeeye.mwb]
+v1.0
+按业务逻辑重新设计roleset，放弃原先按CRUD划分的方案。
+
 v0.5
 增加doctor.address列，以及其他一些微调。
 
