@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.repositories.UserDao;
 
@@ -46,12 +47,31 @@ public class MyUserDetailsService
             throw new UsernameNotFoundException("");
         }
 
-        // TODO#EMAC.P! read authorities
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new GrantedAuthorityImpl("patient"));
+        List<GrantedAuthority> authorities = readAuthorities(user);
 
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), true, true,
                 true, true, authorities);
+    }
+
+    private List<GrantedAuthority> readAuthorities(User user)
+    {
+        ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        byte[] rs = user.getRoleset();
+        for (int i = 0; i < rs.length; i++)
+        {
+            if ( rs[i] == 0 )
+            {
+                continue;
+            }
+
+            Role role = Role.valueOf(i);
+            if ( role != null )
+            {
+                authorities.add(new GrantedAuthorityImpl(role.name()));
+            }
+        }
+
+        return authorities;
     }
 
 }

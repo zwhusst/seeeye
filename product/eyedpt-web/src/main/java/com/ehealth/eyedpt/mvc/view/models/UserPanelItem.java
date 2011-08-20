@@ -16,6 +16,16 @@ public class UserPanelItem
     private String href;
 
     /**
+     * @param name
+     * @param href
+     */
+    public UserPanelItem(String name, String href)
+    {
+        this.name = name;
+        this.href = href;
+    }
+
+    /**
      * @return the name
      */
     public String getName()
@@ -24,27 +34,11 @@ public class UserPanelItem
     }
 
     /**
-     * @param name the name to set
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    /**
      * @return the href
      */
     public String getHref()
     {
         return href;
-    }
-
-    /**
-     * @param href the href to set
-     */
-    public void setHref(String href)
-    {
-        this.href = href;
     }
 
 }

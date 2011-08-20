@@ -41,7 +41,7 @@ public class PostSpringSecurityFilter extends GenericFilterBean
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        // TODO#EMAC.P2 delegate to corresponding filter based on request URL
+        // TODO#EMAC.P3 delegate to corresponding filter based on request URL
         setUserSessionProperty(request);
 
         filterchain.doFilter(request, response);

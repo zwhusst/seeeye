@@ -30,4 +30,23 @@ public enum Role
         this.idx = idx;
     }
 
+    /**
+     * Returns the enum constant of the given index.
+     * 
+     * @param idx
+     * @return
+     */
+    public static Role valueOf(int idx)
+    {
+        for (Role r : values())
+        {
+            if ( idx == r.idx )
+            {
+                return r;
+            }
+        }
+
+        return null;
+    }
+
 }

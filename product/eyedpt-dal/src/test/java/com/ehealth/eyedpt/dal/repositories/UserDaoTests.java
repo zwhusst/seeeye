@@ -45,8 +45,6 @@ public class UserDaoTests extends AbstractTransactionalJUnit4SpringContextTests
         user.setName(TEST_USER_NAME);
         user.setPassword(TEST_USER_PASSWORD);
         user.setUsergroup(UserGroup.ADMIN);
-        user.setRoleset(new byte[]
-        { 0});
         this.userDao.create(user);
 
         int newSize = this.userDao.findAll().size();

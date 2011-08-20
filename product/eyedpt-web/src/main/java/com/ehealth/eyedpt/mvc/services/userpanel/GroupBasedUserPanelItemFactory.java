@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.dal.entities.User;
-import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
-import com.ehealth.eyedpt.mvc.controllers.PatientController;
-import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
@@ -26,28 +23,30 @@ public class GroupBasedUserPanelItemFactory
 {
 
     @Autowired
-    private MessageSourceProvider msp;
+    private PatientGroupUserPanelItemFactory patientFactory;
+
+    @Autowired
+    private DoctorGroupUserPanelItemFactory  doctorFactory;
 
     @Override
     public List<UserPanelItem> getItems(User user)
     {
+        if ( user == null )
+        {
+            return Collections.emptyList();
+        }
+
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
-        // profile
         switch (user.getUsergroup())
         {
             case PATIENT:
             {
-                fillPatientItems(items);
+                items.addAll(this.patientFactory.getItems(user));
                 break;
             }
             case DOCTOR:
             {
-                fillDoctorItems(items);
-                break;
-            }
-            case ADMIN:
-            {
-                fillAdminItems(items);
+                items.addAll(this.doctorFactory.getItems(user));
                 break;
             }
             default:
@@ -55,49 +54,8 @@ public class GroupBasedUserPanelItemFactory
                 break;
             }
         }
-        // change password
-        addChangePwdItem(items);
 
         return Collections.unmodifiableList(items);
-    }
-
-    private void addChangePwdItem(ArrayList<UserPanelItem> items)
-    {
-        // TODO#EMAC.P1 add change password panel item
-        UserPanelItem pwdItem = new UserPanelItem();
-        pwdItem.setName(this.msp.getMessage(ViewMessages.VW_CHNAGE_PWD));
-        pwdItem.setHref("#");
-
-        items.add(pwdItem);
-    }
-
-    private void fillPatientItems(List<UserPanelItem> items)
-    {
-        UserPanelItem profileItem = new UserPanelItem();
-        profileItem.setName(this.msp.getMessage(ViewMessages.VW_PROFILE));
-        profileItem.setHref(PatientController.MAPPING_EDIT);
-
-        items.add(profileItem);
-    }
-
-    private void fillDoctorItems(List<UserPanelItem> items)
-    {
-        // TODO#EMAC.P0 add doctor panel items
-        UserPanelItem profileItem = new UserPanelItem();
-        profileItem.setName(this.msp.getMessage(ViewMessages.VW_PROFILE));
-        profileItem.setHref("#");
-
-        items.add(profileItem);
-    }
-
-    private void fillAdminItems(List<UserPanelItem> items)
-    {
-        // TODO#EMAC.P0 add admin panel items
-        UserPanelItem profileItem = new UserPanelItem();
-        profileItem.setName(this.msp.getMessage(ViewMessages.VW_PROFILE));
-        profileItem.setHref("#");
-
-        items.add(profileItem);
     }
 
 }

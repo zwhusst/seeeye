@@ -11,9 +11,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
+import com.ehealth.eyedpt.mvc.constants.ViewConstants;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
@@ -26,30 +28,52 @@ public class RoleBasedUserPanelItemFactory
 {
 
     @Autowired
-    private MessageSourceProvider msp;
+    protected MessageSourceProvider msp;
 
     @Override
     public List<UserPanelItem> getItems(User user)
     {
-        ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
-
-        // TODO#EMAC.P! integrate with Spring security framework
-        if ( UserGroup.ADMIN != user.getUsergroup() )
+        if ( user == null || UserGroup.PATIENT == user.getUsergroup() )
         {
-            return items;
+            return Collections.emptyList();
         }
 
-        UserPanelItem regDoctorItem = new UserPanelItem();
-        regDoctorItem.setName(this.msp.getMessage(ViewMessages.VW_REGISTER_DOCTOR));
-        regDoctorItem.setHref("#");
-        items.add(regDoctorItem);
+        ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
 
-        UserPanelItem regAdminItem = new UserPanelItem();
-        regAdminItem.setName(this.msp.getMessage(ViewMessages.VW_REGISTER_ADMIN));
-        regAdminItem.setHref("#");
-        items.add(regAdminItem);
+        addBasicRoleItems(user.getRoleset(), items);
+
+        // TODO#.P0 test root admin
+        if ( UserGroup.ADMIN == user.getUsergroup() )
+        {
+            addRootAdminItems(items);
+        }
 
         return Collections.unmodifiableList(items);
+    }
+
+    private void addBasicRoleItems(byte[] rs, List<UserPanelItem> items)
+    {
+        for (int i = 0; i < rs.length; i++)
+        {
+            if ( rs[i] == 0 )
+            {
+                continue;
+            }
+
+            Role role = Role.valueOf(i);
+            UserPanelItem item = RolePanelAdapter.adapt(role);
+            if ( item != null )
+            {
+                items.add(item);
+            }
+        }
+    }
+
+    private void addRootAdminItems(List<UserPanelItem> items)
+    {
+        UserPanelItem regAdminItem = new UserPanelItem(this.msp.getMessage(ViewMessages.VW_REG_ADMIN),
+                ViewConstants.HREF_TODO);
+        items.add(regAdminItem);
     }
 
 }
