@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,19 @@ public class HospitalDao extends BaseDao<Hospital>
     public List<Hospital> findAll()
     {
         return this.em.createNamedQuery(Hospital.QUERY_FIND_ALL).getResultList();
+    }
+
+    /**
+     * @param name
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Hospital findByName(String name)
+    {
+        Query query = this.em.createNamedQuery(Hospital.QUERY_FIND_BY_NAME);
+        query.setParameter("name", name);
+
+        return getSingleResult(query);
     }
 
 }

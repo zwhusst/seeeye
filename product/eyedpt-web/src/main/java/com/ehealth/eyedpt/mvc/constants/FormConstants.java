@@ -17,12 +17,12 @@ public interface FormConstants
             75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99};
 
     // User
+    public static final String BEAN_PATIENT    = "patientBean";
+    public static final String BEAN_ADMIN      = "adminBean";
+
     public static final String FIELD_NAME      = "name";
     public static final String FIELD_PASSWORD  = "password";
     public static final String FIELD_USERGROUP = "usergroup";
-
-    // Patient
-    public static final String BEAN_PATIENT    = "patientBean";
     public static final String FIELD_REAL_NAME = "realname";
     public static final String FIELD_BIRTHDAY  = "birthday";
     public static final String FIELD_AGE       = "age";

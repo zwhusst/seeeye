@@ -20,14 +20,14 @@ import javax.validation.constraints.NotNull;
 /**
  * @author emac
  */
-@Entity(name = "doctorservice")
-@Table(name = "doctorservice")
+@Entity(name = "doctorcap")
+@Table(name = "doctorcap")
 @NamedQueries(
-{ @NamedQuery(name = DoctorService.QUERY_FIND_ALL, query = "select d from doctorservice d")})
-public class DoctorService
+{ @NamedQuery(name = DoctorCap.QUERY_FIND_ALL, query = "select d from doctorcap d")})
+public class DoctorCap
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllDoctorServices";
+    public static final String QUERY_FIND_ALL = "FindAllDoctorCapabilities";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

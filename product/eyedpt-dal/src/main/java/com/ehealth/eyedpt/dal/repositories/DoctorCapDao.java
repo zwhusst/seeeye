@@ -12,14 +12,14 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ehealth.eyedpt.dal.entities.DoctorService;
+import com.ehealth.eyedpt.dal.entities.DoctorCap;
 
 /**
  * @author emac
  */
 @Repository
 @Transactional
-public class DoctorServiceDao extends BaseDao<DoctorService>
+public class DoctorCapDao extends BaseDao<DoctorCap>
 {
 
     @PersistenceContext
@@ -27,9 +27,9 @@ public class DoctorServiceDao extends BaseDao<DoctorService>
 
     @Override
     @Transactional(readOnly = true)
-    public List<DoctorService> findAll()
+    public List<DoctorCap> findAll()
     {
-        return this.em.createNamedQuery(DoctorService.QUERY_FIND_ALL).getResultList();
+        return this.em.createNamedQuery(DoctorCap.QUERY_FIND_ALL).getResultList();
     }
 
 }

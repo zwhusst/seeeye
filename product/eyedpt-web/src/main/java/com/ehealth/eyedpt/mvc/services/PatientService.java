@@ -69,7 +69,7 @@ public class PatientService
     }
 
     /**
-     * @param patientBean
+     * @param bean
      */
     public Patient updatePatient(PatientBean bean)
     {

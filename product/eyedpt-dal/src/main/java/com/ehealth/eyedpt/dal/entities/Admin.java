@@ -29,11 +29,13 @@ import javax.validation.constraints.Size;
 @Entity(name = "admin")
 @Table(name = "admin")
 @NamedQueries(
-{ @NamedQuery(name = Admin.QUERY_FIND_ALL, query = "select a from admin a")})
+{ @NamedQuery(name = Admin.QUERY_FIND_ALL, query = "select a from admin a"),
+        @NamedQuery(name = Admin.QUERY_FIND_BY_USER, query = "select a from admin a where a.user=:user")})
 public class Admin
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllAdmins";
+    public static final String QUERY_FIND_ALL     = "FindAllAdmins";
+    public static final String QUERY_FIND_BY_USER = "FindAdminByUser";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +51,8 @@ public class Admin
     @NotNull
     private Hospital           hospital;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade =
+    { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "admdep", joinColumns = @JoinColumn(name = "departmentid", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "adminid", referencedColumnName = "id"))
     private Set<Department>    departments;
 

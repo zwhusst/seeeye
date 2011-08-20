@@ -26,6 +26,6 @@ public class UserController
     private UserService           userService;
 
     @Autowired
-    private MessageSourceProvider msd;
+    private MessageSourceProvider msp;
 
 }

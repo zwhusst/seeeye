@@ -1,5 +1,5 @@
 /*
- * Created on 2011-8-10
+ * Created on 2011-8-20
  */
 
 package com.ehealth.eyedpt.mvc.controllers;
@@ -18,68 +18,76 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ehealth.eyedpt.dal.entities.Patient;
+import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
-import com.ehealth.eyedpt.mvc.form.models.PatientBean;
+import com.ehealth.eyedpt.mvc.form.models.AdminBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
-import com.ehealth.eyedpt.mvc.services.PatientService;
+import com.ehealth.eyedpt.mvc.services.AdminService;
 import com.ehealth.eyedpt.mvc.services.UserService;
 
 /**
  * @author emac
  */
 @Controller
-public class PatientController
+public class AdminController
 {
 
-    private static Logger         logger           = Logger.getLogger(PatientController.class);
+    private static Logger         logger           = Logger.getLogger(AdminController.class);
 
-    public static final String    MAPPING_REGISTER = "/patient/register";
-    public static final String    MAPPING_EDIT     = "/patient/edit";
+    public static final String    MAPPING_MGMT     = "/admin/mgmt";
+    public static final String    MAPPING_REGISTER = "/admin/register";
+    public static final String    MAPPING_EDIT     = "/admin/edit";
+    public static final String    MAPPING_DELETE   = "/admin/delete";
 
     @Autowired
     private UserService           userService;
 
     @Autowired
-    private PatientService        patientService;
+    private AdminService          adminService;
 
     @Autowired
     private MessageSourceProvider msp;
 
+    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ADMIN_ADMIN')")
+    public void doManagement()
+    {
+        // NTD
+    }
+
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("hasRole('ADMIN_ADMIN')")
     public void doRegister(Model model)
     {
-        model.addAttribute(new PatientBean());
+        model.addAttribute(new AdminBean());
     }
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
-    @PreAuthorize("isAnonymous()")
-    public String doRegister(@Valid PatientBean patientBean, BindingResult result, HttpSession session)
+    @PreAuthorize("hasRole('ADMIN_ADMIN')")
+    public String doRegister(@Valid AdminBean adminBean, BindingResult result, HttpSession session)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        User user = this.userService.findByName(patientBean.getName());
+        User user = this.userService.findByName(adminBean.getName());
         if ( user != null )
         {
-            result.addError(new FieldError(FormConstants.BEAN_PATIENT, FormConstants.FIELD_NAME, this.msp
+            result.addError(new FieldError(FormConstants.BEAN_ADMIN, FormConstants.FIELD_NAME, this.msp
                     .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
 
             return null;
         }
 
-        Patient patient = this.patientService.createPatient(patientBean);
-        session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
+        this.adminService.createAdmin(adminBean);
 
-        logger.info("New patient registered: " + patientBean.getName());
+        logger.info("New admin registered: " + adminBean.getName());
 
-        return "redirect:/";
+        return "redirect:" + MAPPING_MGMT;
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
@@ -90,26 +98,26 @@ public class PatientController
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
         Assert.notNull(user);
 
-        Patient patient = this.patientService.findByUser(user);
-        Assert.notNull(patient);
+        Admin admin = this.adminService.findByUser(user);
+        Assert.notNull(admin);
 
-        PatientBean patientBean = PatientBean.fromEntity(patient);
-        model.addAttribute(patientBean);
+        AdminBean adminBean = AdminBean.fromEntity(admin);
+        model.addAttribute(adminBean);
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid PatientBean patientBean, BindingResult result, HttpSession session)
+    public String doEdit(@Valid AdminBean adminBean, BindingResult result, HttpSession session)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        Patient patient = this.patientService.updatePatient(patientBean);
-        session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
+        Admin admin = this.adminService.updateAdmin(adminBean);
+        session.setAttribute(SessionConstants.ATTR_USER, admin.getUser());
 
-        logger.info("Patient updated: " + patientBean.getName());
+        logger.info("Admin updated: " + adminBean.getName());
 
         return "redirect:/";
     }

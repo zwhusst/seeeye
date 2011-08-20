@@ -24,7 +24,7 @@ public class UserService
      * @param name
      * @return
      */
-    public User findUserByName(String name)
+    public User findByName(String name)
     {
         return this.userDao.findByName(name);
     }

@@ -70,7 +70,7 @@ public class PostSpringSecurityFilter extends GenericFilterBean
     {
         UserService userService = BeanResolver.getBean(UserService.class);
 
-        return userService.findUserByName(username);
+        return userService.findByName(username);
     }
 
 }

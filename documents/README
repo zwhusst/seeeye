@@ -1,4 +1,7 @@
 [seeeye.mwb]
+v1.1
+重命名DoctorService成DoctorCap。
+
 v1.0
 按业务逻辑重新设计roleset，放弃原先按CRUD划分的方案。
 

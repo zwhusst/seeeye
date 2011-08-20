@@ -31,13 +31,16 @@ public class DatabaseInitializer
         implements ApplicationListener<ContextRefreshedEvent>
 {
 
-    private static Logger logger = Logger.getLogger(DatabaseInitializer.class);
+    private static Logger      logger         = Logger.getLogger(DatabaseInitializer.class);
+
+    public static final String HOSTPITAL_NO1  = "上海市第一人民医院";
+    public static final String DEPARTMENT_EYE = "眼科";
 
     @Autowired
-    private AdminDao      adminDao;
+    private AdminDao           adminDao;
 
     @Autowired
-    private PatientDao    patientDao;
+    private PatientDao         patientDao;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
@@ -68,7 +71,7 @@ public class DatabaseInitializer
 
         // hospital
         Hospital firstHospital = new Hospital();
-        firstHospital.setName("上海市第一人民医院");
+        firstHospital.setName(HOSTPITAL_NO1);
         firstHospital.setProvince("上海");
         firstHospital.setCity("上海");
         firstHospital.setAddress("虹口区海宁路100号(近吴淞路)");
@@ -78,7 +81,7 @@ public class DatabaseInitializer
         // department
         Department seeeyeDep = new Department();
         seeeyeDep.setHospital(firstHospital);
-        seeeyeDep.setName("眼科");
+        seeeyeDep.setName(DEPARTMENT_EYE);
         seeeyeDep.setFamous(true);
 
         // admin

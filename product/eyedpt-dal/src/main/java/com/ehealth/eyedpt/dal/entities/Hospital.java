@@ -22,11 +22,13 @@ import javax.validation.constraints.Size;
 @Entity(name = "hospital")
 @Table(name = "hospital")
 @NamedQueries(
-{ @NamedQuery(name = Hospital.QUERY_FIND_ALL, query = "select h from hospital h")})
+{ @NamedQuery(name = Hospital.QUERY_FIND_ALL, query = "select h from hospital h"),
+        @NamedQuery(name = Hospital.QUERY_FIND_BY_NAME, query = "select h from hospital h where h.name=:name")})
 public class Hospital
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllHospitals";
+    public static final String QUERY_FIND_ALL     = "FindAllHospitals";
+    public static final String QUERY_FIND_BY_NAME = "FindHospitalByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
