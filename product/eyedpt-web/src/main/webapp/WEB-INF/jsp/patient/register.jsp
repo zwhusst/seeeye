@@ -2,7 +2,8 @@
 <%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- imports -->
 <%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
-<%@ page import="com.ehealth.eyedpt.dal.entities.enums.UserGroup"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.Gender"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.RegistryType"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -55,9 +56,9 @@
 						<p>
 							性别*:
 							<form:radiobutton path="<%=FormConstants.FIELD_GENDER%>"
-								value="M" label="男" />
+								value="<%=Gender.M.name()%>" label="<%=Gender.M.getLabel()%>" />
 							<form:radiobutton path="<%=FormConstants.FIELD_GENDER%>"
-								value="F" label="女" />
+								value="<%=Gender.F.name()%>" label="<%=Gender.F.getLabel()%>" />
 							<form:errors path="<%=FormConstants.FIELD_GENDER%>" class="error" />
 						</p>
 						<p>
@@ -89,9 +90,11 @@
 						<p>
 							注册方式*:
 							<form:radiobutton path="<%=FormConstants.FIELD_REG_TYPE%>"
-								value="ID" label="身份证" />
+								value="<%=RegistryType.ID.name()%>"
+								label="<%=RegistryType.ID.getLabel()%>" />
 							<form:radiobutton path="<%=FormConstants.FIELD_REG_TYPE%>"
-								value="MEDICARE" label="医保卡" />
+								value="<%=RegistryType.MEDICARE.name()%>"
+								label="<%=RegistryType.MEDICARE.getLabel()%>" />
 							<form:errors path="<%=FormConstants.FIELD_REG_TYPE%>"
 								class="error" />
 						</p>

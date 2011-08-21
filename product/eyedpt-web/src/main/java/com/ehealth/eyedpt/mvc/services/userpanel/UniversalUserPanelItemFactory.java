@@ -16,6 +16,7 @@ import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.ViewConstants;
 import com.ehealth.eyedpt.mvc.controllers.AdminController;
+import com.ehealth.eyedpt.mvc.controllers.DoctorController;
 import com.ehealth.eyedpt.mvc.controllers.PatientController;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
@@ -67,8 +68,8 @@ public class UniversalUserPanelItemFactory
             }
             case DOCTOR:
             {
-                // TODO#EMAC.P0 add edit doctor panel item
-                profileItem = new UserPanelItem(this.msp.getMessage(ViewMessages.VW_PROFILE), ViewConstants.HREF_TODO);
+                profileItem = new UserPanelItem(this.msp.getMessage(ViewMessages.VW_PROFILE),
+                        DoctorController.MAPPING_EDIT);
                 break;
             }
             case ADMIN:

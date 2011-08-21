@@ -11,5 +11,19 @@ package com.ehealth.eyedpt.dal.entities.enums;
  */
 public enum RegistryType
 {
-    ID, MEDICARE
+
+    ID("身份证"), MEDICARE("医保卡");
+
+    private String label;
+
+    private RegistryType(String label)
+    {
+        this.label = label;
+    }
+
+    public String getLabel()
+    {
+        return this.label;
+    }
+
 }

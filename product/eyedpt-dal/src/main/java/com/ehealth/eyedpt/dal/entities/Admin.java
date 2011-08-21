@@ -20,8 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * @author emac
@@ -43,12 +41,10 @@ public class Admin
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "userid", nullable = false)
-    @NotNull
     private User               user;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "hospitalid", nullable = false)
-    @NotNull
     private Hospital           hospital;
 
     @ManyToMany(cascade =
@@ -60,8 +56,6 @@ public class Admin
     private boolean            root;
 
     @Column(nullable = false, length = 64)
-    @NotNull
-    @Size(max = 64)
     private String             email;
 
     /**

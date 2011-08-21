@@ -14,14 +14,8 @@ import com.ehealth.eyedpt.dal.entities.Admin;
 /**
  * @author emac
  */
-public class AdminBean
+public class AdminBean extends UserBean
 {
-
-    @Size(min = 2, max = 16)
-    private String   name;
-
-    @Size(min = 6, max = 16)
-    private String   password;
 
     @NotEmpty
     @Email
@@ -30,38 +24,6 @@ public class AdminBean
 
     @Size(min = 1, max = 32)
     private String[] roleset;
-
-    /**
-     * @return the name
-     */
-    public String getName()
-    {
-        return this.name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword()
-    {
-        return this.password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
 
     /**
      * @return the email

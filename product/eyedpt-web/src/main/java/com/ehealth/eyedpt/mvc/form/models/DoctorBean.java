@@ -1,23 +1,24 @@
 /*
- * Created on 2011-8-7
+ * Created on 2011-8-21
  */
 
-package com.ehealth.eyedpt.dal.entities;
+package com.ehealth.eyedpt.mvc.form.models;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.apache.bval.constraints.Email;
+import org.apache.bval.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
@@ -25,131 +26,81 @@ import com.ehealth.eyedpt.dal.entities.enums.Gender;
 /**
  * @author emac
  */
-@Entity(name = "doctor")
-@Table(name = "doctor")
-@NamedQueries(
-{ @NamedQuery(name = Doctor.QUERY_FIND_ALL, query = "select d from doctor d"),
-        @NamedQuery(name = Doctor.QUERY_FIND_BY_USER, query = "select d from doctor d where d.user=:user")})
-public class Doctor
+public class DoctorBean extends UserBean
 {
 
-    public static final String QUERY_FIND_ALL     = "FindAllDoctors";
-    public static final String QUERY_FIND_BY_USER = "FindDoctorByUser";
+    @Size(min = 2, max = 32)
+    private String           realname;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long               id;
+    @NotNull
+    private Gender           gender = Gender.M;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @Column(name = "userid", nullable = false)
-    private User               user;
+    @DateTimeFormat(iso = ISO.DATE)
+    @Past
+    private Date             birthday;
 
-    @Column(nullable = false, length = 32)
-    private String             realname;
+    @Min(1)
+    @Max(99)
+    private int              age;
 
-    @Column(nullable = false)
-    private Gender             gender;
+    @NotEmpty
+    @Email
+    @Size(max = 64)
+    private String           email;
 
-    @Column
-    private Date               birthday;
+    @Pattern(regexp = "\\d{11}")
+    private String           cellphone;
 
-    @Column(nullable = false, columnDefinition = "TINYINT")
-    private int                age;
+    @Size(max = 32)
+    private String           telephone;
 
-    @Column(nullable = false, length = 64)
-    private String             email;
+    @NotEmpty
+    @Size(max = 256)
+    private String           address;
 
-    @Column(nullable = false, length = 11)
-    private String             cellphone;
+    @NotEmpty
+    @Size(max = 32)
+    private String           employeeid;
 
-    @Column(length = 32)
-    private String             telephone;
+    @NotNull
+    private DoctorTitle      title;
 
-    @Column(nullable = false, length = 256)
-    private String             address;
+    @NotNull
+    private DoctorAdminTitle admintitle;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @Column(name = "hospitalid", nullable = false)
-    private Hospital           hospital;
+    @DateTimeFormat(iso = ISO.DATE)
+    @Past
+    private Date             lastpromote;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @Column(name = "departmentid", nullable = false)
-    private Department         department;
+    @NotEmpty
+    @Size(max = 128)
+    private String           specialities;
 
-    @Column(nullable = false, length = 32)
-    private String             employeeid;
+    @Size(max = 128)
+    private String           colleage;
 
-    @Column(nullable = false)
-    private DoctorTitle        title;
+    @Size(max = 32)
+    private String           major;
 
-    @Column(nullable = false)
-    private DoctorAdminTitle   admintitle;
+    @Size(max = 32)
+    private String           secondmajor;
 
-    @Column
-    private Date               lastpromote;
+    @Size(max = 16)
+    private String           degree;
 
-    @Column(nullable = false, length = 128)
-    private String             specialities;
+    @Size(max = 16)
+    private String           education;
 
-    @Column(length = 128)
-    private String             colleage;
+    private boolean          supervisor;
 
-    @Column(length = 32)
-    private String             major;
-
-    @Column(length = 32)
-    private String             secondmajor;
-
-    @Column(length = 16)
-    private String             degree;
-
-    @Column(length = 16)
-    private String             education;
-
-    @Column
-    private boolean            supervisor;
-
-    @Column
-    private boolean            doctoralsupervisior;
-
-    /**
-     * @return the id
-     */
-    public long getId()
-    {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(long id)
-    {
-        this.id = id;
-    }
-
-    /**
-     * @return the user
-     */
-    public User getUser()
-    {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(User user)
-    {
-        this.user = user;
-    }
+    private boolean          doctoralsupervisior;
 
     /**
      * @return the realname
      */
     public String getRealname()
     {
-        return realname;
+        return this.realname;
     }
 
     /**
@@ -161,11 +112,27 @@ public class Doctor
     }
 
     /**
+     * @return the gender
+     */
+    public Gender getGender()
+    {
+        return this.gender;
+    }
+
+    /**
+     * @param gender the gender to set
+     */
+    public void setGender(Gender gender)
+    {
+        this.gender = gender;
+    }
+
+    /**
      * @return the birthday
      */
     public Date getBirthday()
     {
-        return birthday;
+        return this.birthday;
     }
 
     /**
@@ -181,7 +148,7 @@ public class Doctor
      */
     public int getAge()
     {
-        return age;
+        return this.age;
     }
 
     /**
@@ -193,27 +160,11 @@ public class Doctor
     }
 
     /**
-     * @return the gender
-     */
-    public Gender getGender()
-    {
-        return gender;
-    }
-
-    /**
-     * @param gender the gender to set
-     */
-    public void setGender(Gender gender)
-    {
-        this.gender = gender;
-    }
-
-    /**
      * @return the email
      */
     public String getEmail()
     {
-        return email;
+        return this.email;
     }
 
     /**
@@ -229,7 +180,7 @@ public class Doctor
      */
     public String getCellphone()
     {
-        return cellphone;
+        return this.cellphone;
     }
 
     /**
@@ -245,7 +196,7 @@ public class Doctor
      */
     public String getTelephone()
     {
-        return telephone;
+        return this.telephone;
     }
 
     /**
@@ -261,7 +212,7 @@ public class Doctor
      */
     public String getAddress()
     {
-        return address;
+        return this.address;
     }
 
     /**
@@ -273,43 +224,11 @@ public class Doctor
     }
 
     /**
-     * @return the hospital
-     */
-    public Hospital getHospital()
-    {
-        return hospital;
-    }
-
-    /**
-     * @param hospital the hospital to set
-     */
-    public void setHospital(Hospital hospital)
-    {
-        this.hospital = hospital;
-    }
-
-    /**
-     * @return the department
-     */
-    public Department getDepartment()
-    {
-        return department;
-    }
-
-    /**
-     * @param department the department to set
-     */
-    public void setDepartment(Department department)
-    {
-        this.department = department;
-    }
-
-    /**
      * @return the employeeid
      */
     public String getEmployeeid()
     {
-        return employeeid;
+        return this.employeeid;
     }
 
     /**
@@ -325,7 +244,7 @@ public class Doctor
      */
     public DoctorTitle getTitle()
     {
-        return title;
+        return this.title;
     }
 
     /**
@@ -341,7 +260,7 @@ public class Doctor
      */
     public DoctorAdminTitle getAdmintitle()
     {
-        return admintitle;
+        return this.admintitle;
     }
 
     /**
@@ -357,7 +276,7 @@ public class Doctor
      */
     public Date getLastpromote()
     {
-        return lastpromote;
+        return this.lastpromote;
     }
 
     /**
@@ -373,7 +292,7 @@ public class Doctor
      */
     public String getSpecialities()
     {
-        return specialities;
+        return this.specialities;
     }
 
     /**
@@ -389,7 +308,7 @@ public class Doctor
      */
     public String getColleage()
     {
-        return colleage;
+        return this.colleage;
     }
 
     /**
@@ -405,7 +324,7 @@ public class Doctor
      */
     public String getMajor()
     {
-        return major;
+        return this.major;
     }
 
     /**
@@ -421,7 +340,7 @@ public class Doctor
      */
     public String getSecondmajor()
     {
-        return secondmajor;
+        return this.secondmajor;
     }
 
     /**
@@ -437,7 +356,7 @@ public class Doctor
      */
     public String getDegree()
     {
-        return degree;
+        return this.degree;
     }
 
     /**
@@ -453,7 +372,7 @@ public class Doctor
      */
     public String getEducation()
     {
-        return education;
+        return this.education;
     }
 
     /**
@@ -469,7 +388,7 @@ public class Doctor
      */
     public boolean isSupervisor()
     {
-        return supervisor;
+        return this.supervisor;
     }
 
     /**
@@ -485,7 +404,7 @@ public class Doctor
      */
     public boolean isDoctoralsupervisior()
     {
-        return doctoralsupervisior;
+        return this.doctoralsupervisior;
     }
 
     /**
@@ -494,6 +413,39 @@ public class Doctor
     public void setDoctoralsupervisior(boolean doctoralsupervisior)
     {
         this.doctoralsupervisior = doctoralsupervisior;
+    }
+
+    /**
+     * @param doctor
+     * @return
+     */
+    public static DoctorBean fromEntity(Doctor doctor)
+    {
+        DoctorBean bean = new DoctorBean();
+        bean.setName(doctor.getUser().getName());
+        bean.setPassword(doctor.getUser().getPassword());
+        bean.setRealname(doctor.getRealname());
+        bean.setGender(doctor.getGender());
+        bean.setBirthday(doctor.getBirthday());
+        bean.setAge(doctor.getAge());
+        bean.setEmail(doctor.getEmail());
+        bean.setCellphone(doctor.getCellphone());
+        bean.setTelephone(doctor.getTelephone());
+        bean.setAddress(doctor.getAddress());
+        bean.setEmployeeid(doctor.getEmployeeid());
+        bean.setTitle(doctor.getTitle());
+        bean.setAdmintitle(doctor.getAdmintitle());
+        bean.setLastpromote(doctor.getLastpromote());
+        bean.setSpecialities(doctor.getSpecialities());
+        bean.setColleage(doctor.getColleage());
+        bean.setMajor(doctor.getMajor());
+        bean.setSecondmajor(doctor.getSecondmajor());
+        bean.setDegree(doctor.getDegree());
+        bean.setEducation(doctor.getEducation());
+        bean.setSupervisor(doctor.isSupervisor());
+        bean.setDoctoralsupervisior(doctor.isDoctoralsupervisior());
+
+        return bean;
     }
 
 }

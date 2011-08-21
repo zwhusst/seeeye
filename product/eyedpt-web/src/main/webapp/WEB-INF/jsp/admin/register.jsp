@@ -30,7 +30,7 @@
 			<!-- container -->
 			<div class="container left">
 				<div class="register">
-					<h1>用户注册</h1>
+					<h1>管理员注册</h1>
 					<form:form modelAttribute="<%=FormConstants.BEAN_ADMIN%>"
 						method="post">
 						<p>

@@ -16,7 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
@@ -41,7 +40,6 @@ public class Patient
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "userid", nullable = false)
-    @NotNull
     private User               user;
 
     @Column(nullable = false, length = 32)

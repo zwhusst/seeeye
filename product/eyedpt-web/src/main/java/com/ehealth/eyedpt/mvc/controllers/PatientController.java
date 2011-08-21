@@ -74,8 +74,8 @@ public class PatientController
             return null;
         }
 
-        Patient patient = this.patientService.createPatient(patientBean);
-        session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
+        this.patientService.createPatient(patientBean);
+        // TODO#EMAC.P2 automatically log in after registration
 
         logger.info("New patient registered: " + patientBean.getName());
 

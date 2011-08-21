@@ -38,17 +38,16 @@
 						</li>
 						<%
 						    List<AdminMgmtItem> items = AdminMgmtHelper.INSTANCE.getItems();
-							int i = 0;
+							int i = 1;
 						%>
 						<c:forEach var="item" items="<%=items%>">
 							<li>
-								<span class="col_no">${i}</span>
+								<span class="col_no"><%=i++%></span>
 								<span class="col_name">${item.name}</span>
 								<span class="col_ops">
 									<a href="#">删除</a>
 								</span>
 							</li>
-							<% i++; %>
 						</c:forEach>
 					</ul>
 					<a href="<c:url value="/admin/register"/>">注册</a>

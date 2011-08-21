@@ -14,14 +14,18 @@ import org.springframework.stereotype.Component;
 
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.Department;
+import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.Hospital;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
+import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
 import com.ehealth.eyedpt.dal.repositories.DepartmentDao;
+import com.ehealth.eyedpt.dal.repositories.DoctorDao;
 import com.ehealth.eyedpt.dal.repositories.HospitalDao;
 import com.ehealth.eyedpt.dal.repositories.PatientDao;
 
@@ -49,6 +53,9 @@ public class DatabaseInitializer
     private PatientDao         patientDao;
 
     @Autowired
+    private DoctorDao          doctorDao;
+
+    @Autowired
     private HospitalDao        hospitalDao;
 
     @Autowired
@@ -68,8 +75,9 @@ public class DatabaseInitializer
         }
 
         createRootAdmin();
-        createTestAdmin();
         createTestPatient();
+        createTestAdmin();
+        createTestDoctor();
     }
 
     private void createRootAdmin()
@@ -163,6 +171,39 @@ public class DatabaseInitializer
         this.patientDao.create(tp);
 
         logger.info("Test patient created!");
+    }
+
+    private void createTestDoctor()
+    {
+        // user
+        User user = new User();
+        user.setName(TEST_DOCTOR);
+        user.setPassword(TEST_DOCTOR);
+        user.setUsergroup(UserGroup.DOCTOR);
+        user.setRoleset(new byte[]
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+
+        // doctor
+        Doctor td = new Doctor();
+        td.setUser(user);
+        td.setRealname("test");
+        td.setGender(Gender.M);
+        td.setAge(99);
+        td.setEmail("tp@seeeye.org");
+        td.setCellphone("11111111111");
+        td.setAddress("test");
+        td.setEmployeeid("9528");
+        td.setTitle(DoctorTitle.PROFESSOR);
+        td.setAdmintitle(DoctorAdminTitle.KSZR);
+        td.setSpecialities("test");
+
+        Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
+        td.setHospital(hospital);
+        Department department = this.departmentDao.findByHospitalAndName(hospital, DEPARTMENT_EYE);
+        td.setDepartment(department);
+        this.doctorDao.create(td);
+
+        logger.info("Test doctor created!");
     }
 
 }
