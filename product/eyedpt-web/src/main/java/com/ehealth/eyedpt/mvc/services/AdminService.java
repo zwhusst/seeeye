@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.dal.components.DatabaseInitializer;
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.Department;
@@ -69,11 +70,19 @@ public class AdminService
         user.setName(bean.getName());
         user.setPassword(bean.getPassword());
         user.setUsergroup(UserGroup.ADMIN);
+        byte[] roleset = user.getRoleset();
+        for (String r : bean.getRoleset())
+        {
+            Role role = Role.valueOf(r);
+            if ( role != null )
+            {
+                roleset[role.idx] = 1;
+            }
+        }
 
         Admin admin = new Admin();
         admin.setUser(user);
         admin.setEmail(bean.getEmail());
-        // TODO#EMAC.P! set roleset
 
         admin.setRoot(false);
         Hospital hospital = this.hospitalDao.findByName(DatabaseInitializer.HOSTPITAL_NO1);

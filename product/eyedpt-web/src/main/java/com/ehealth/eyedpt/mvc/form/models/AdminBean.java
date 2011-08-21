@@ -18,15 +18,18 @@ public class AdminBean
 {
 
     @Size(min = 2, max = 16)
-    private String name;
+    private String   name;
 
     @Size(min = 6, max = 16)
-    private String password;
+    private String   password;
 
     @NotEmpty
     @Email
     @Size(max = 64)
-    private String email;
+    private String   email;
+
+    @Size(min = 1, max = 32)
+    private String[] roleset;
 
     /**
      * @return the name
@@ -74,6 +77,22 @@ public class AdminBean
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    /**
+     * @return the roleset
+     */
+    public String[] getRoleset()
+    {
+        return this.roleset;
+    }
+
+    /**
+     * @param roleset the roleset to set
+     */
+    public void setRoleset(String[] roleset)
+    {
+        this.roleset = roleset;
     }
 
     /**

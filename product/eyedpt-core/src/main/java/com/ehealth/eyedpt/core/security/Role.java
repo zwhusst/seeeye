@@ -13,7 +13,7 @@ public enum Role
     /**
      * Patient Management
      */
-    Patient_ADMIN(0),
+    PATIENT_ADMIN(0),
     /**
      * Doctor Management
      */

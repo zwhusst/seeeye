@@ -35,5 +35,6 @@ public interface FormConstants
     public static final String FIELD_CELLPHONE = "cellphone";
     public static final String FIELD_TELEPHONE = "telephone";
     public static final String FIELD_FAX       = "faxno";
+    public static final String FIELD_ROLESET   = "roleset";
 
 }
