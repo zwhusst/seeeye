@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
-import com.ehealth.eyedpt.mvc.constants.ViewConstants;
 import com.ehealth.eyedpt.mvc.controllers.AdminController;
 import com.ehealth.eyedpt.mvc.controllers.DoctorController;
 import com.ehealth.eyedpt.mvc.controllers.PatientController;
+import com.ehealth.eyedpt.mvc.controllers.UserController;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
@@ -93,7 +93,7 @@ public class UniversalUserPanelItemFactory
     private void addChangePwdItem(List<UserPanelItem> items)
     {
         UserPanelItem pwdItem = new UserPanelItem(this.msp.getMessage(ViewMessages.VW_CHNAGE_PWD),
-                ViewConstants.HREF_TODO);
+                UserController.MAPPING_CHPWD);
 
         items.add(pwdItem);
     }

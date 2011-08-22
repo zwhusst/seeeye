@@ -18,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ehealth.eyedpt.core.security.services.AuthenticationService;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
@@ -47,6 +48,9 @@ public class PatientController
     private PatientService        patientService;
 
     @Autowired
+    private AuthenticationService authenticationService;
+
+    @Autowired
     private MessageSourceProvider msp;
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
@@ -74,8 +78,12 @@ public class PatientController
             return null;
         }
 
-        this.patientService.createPatient(patientBean);
-        // TODO#EMAC.P2 automatically log in after registration
+        Patient patient = this.patientService.createPatient(patientBean);
+        user = patient.getUser();
+        session.setAttribute(SessionConstants.ATTR_USER, user);
+
+        // update spring authentication
+        this.authenticationService.resetAuthentication(user);
 
         logger.info("New patient registered: " + patientBean.getName());
 

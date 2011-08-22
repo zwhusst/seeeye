@@ -11,12 +11,16 @@
 	<global-method-security pre-post-annotations="enabled" />
 
 	<http use-expressions="true">
-		<intercept-url pattern="/profile/**" access="isAuthenticated()" />
+		<!-- <intercept-url pattern="/*/**" access="isAuthenticated()" /> -->
 		<form-login login-page="/" />
 		<logout />
+		<session-management>
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
+		</session-management>
 	</http>
 
-	<authentication-manager>
+	<authentication-manager alias="myAuthenticationManager">
 		<authentication-provider user-service-ref="myUserDetailsService" />
 	</authentication-manager>
 

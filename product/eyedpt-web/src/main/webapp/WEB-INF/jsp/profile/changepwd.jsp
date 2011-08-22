@@ -28,19 +28,33 @@
 
 			<!-- container -->
 			<div class="container left">
-				<div class="editprofile">
-					<h1>编辑档案</h1>
-					<form:form modelAttribute="<%=FormConstants.BEAN_ADMIN%>"
+				<div class="changepwd">
+					<h1>修改密码</h1>
+					<form:form modelAttribute="<%=FormConstants.BEAN_CHANGEPWD%>"
 						method="post">
 						<p>
-							<form:hidden path="<%=FormConstants.FIELD_NAME%>" />
-							邮箱地址*:
-							<form:input path="<%=FormConstants.FIELD_EMAIL%>"
+							原始密码*:
+							<form:password path="<%=FormConstants.FIELD_PASSWORD%>"
 								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_EMAIL%>" class="error" />
+							<form:errors path="<%=FormConstants.FIELD_PASSWORD%>"
+								class="error" />
 						</p>
 						<p>
-							<input name="edit" type="submit" value="确认" class="loginbut" />
+							设置新的密码*:
+							<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD1%>"
+								class="inputtext" />
+							<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD1%>"
+								class="error" />
+						</p>
+						<p>
+							重复新的密码*:
+							<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD2%>"
+								class="inputtext" />
+							<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD2%>"
+								class="error" />
+						</p>
+						<p>
+							<input name="changepwd" type="submit" value="确认" class="loginbut" />
 						</p>
 					</form:form>
 				</div>

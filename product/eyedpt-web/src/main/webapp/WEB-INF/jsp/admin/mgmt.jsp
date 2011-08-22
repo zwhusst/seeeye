@@ -30,26 +30,29 @@
 			<div class="container left">
 				<div class="mgmt">
 					<h1>权限管理</h1>
-					<ul>
-						<li class="headline">
-							<span class="col_no"></span>
-							<span class="col_name">账号</span>
-							<span class="col_ops">操作</span>
-						</li>
-						<%
-						    List<AdminMgmtItem> items = AdminMgmtHelper.INSTANCE.getItems();
-							int i = 1;
-						%>
-						<c:forEach var="item" items="<%=items%>">
-							<li>
-								<span class="col_no"><%=i++%></span>
-								<span class="col_name">${item.name}</span>
-								<span class="col_ops">
-									<a href="#">删除</a>
-								</span>
-							</li>
-						</c:forEach>
-					</ul>
+					<table>
+						<thead>
+							<tr>
+								<th class="col_no">行号</th>
+								<th class="col_name">账号</th>
+								<th class="col_ops">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							    List<AdminMgmtItem> items = AdminMgmtHelper.INSTANCE.getItems();
+							    int i = 1;
+							%>
+							<c:forEach var="item" items="<%=items%>">
+								<tr>
+									<td class="col_no"><%=i++%></td>
+									<td class="col_name">${item.name}</td>
+									<td class="col_ops"><a href="#">删除</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 					<a href="<c:url value="/admin/register"/>">注册</a>
 				</div>
 			</div>

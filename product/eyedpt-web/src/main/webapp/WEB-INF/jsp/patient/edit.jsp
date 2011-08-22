@@ -30,7 +30,7 @@
 
 			<!-- container -->
 			<div class="container left">
-				<div class="register">
+				<div class="editprofile">
 					<h1>编辑档案</h1>
 					<form:form modelAttribute="<%=FormConstants.BEAN_PATIENT%>"
 						method="post">
@@ -119,7 +119,7 @@
 							<form:errors path="<%=FormConstants.FIELD_FAX%>" class="error" />
 						</p>
 						<p>
-							<input name="edit" type="submit" value="保存" class="loginbut" />
+							<input name="edit" type="submit" value="确认" class="loginbut" />
 						</p>
 					</form:form>
 				</div>

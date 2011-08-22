@@ -29,4 +29,12 @@ public class UserService
         return this.userDao.findByName(name);
     }
 
+    /**
+     * @param user
+     */
+    public void update(User user)
+    {
+        this.userDao.update(user);
+    }
+
 }
