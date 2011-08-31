@@ -78,5 +78,11 @@
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
+	
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<!-- Displays a stack trace -->
+		<location>/WEB-INF/jsp/error.jsp</location>
+	</error-page>
 
 </web-app>
