@@ -59,6 +59,23 @@ public class DoctorService
     }
 
     /**
+     * @param employeeId
+     * @return
+     */
+    public Doctor findByEmployeeId(String employeeId)
+    {
+        return this.doctorDao.findByEmployeeId(employeeId);
+    }
+
+    /**
+     * @param doctor
+     */
+    public void delete(Doctor doctor)
+    {
+        this.doctorDao.delete(doctor);
+    }
+
+    /**
      * @param bean
      * @return
      */

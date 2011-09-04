@@ -28,13 +28,16 @@ import com.ehealth.eyedpt.dal.entities.enums.Gender;
 @Entity(name = "doctor")
 @Table(name = "doctor")
 @NamedQueries(
-{ @NamedQuery(name = Doctor.QUERY_FIND_ALL, query = "select d from doctor d"),
-        @NamedQuery(name = Doctor.QUERY_FIND_BY_USER, query = "select d from doctor d where d.user=:user")})
+{
+        @NamedQuery(name = Doctor.QUERY_FIND_ALL, query = "select d from doctor d"),
+        @NamedQuery(name = Doctor.QUERY_FIND_BY_USER, query = "select d from doctor d where d.user=:user"),
+        @NamedQuery(name = Doctor.QUERY_FIND_BY_EMPLOYEE_ID, query = "select d from doctor d where d.employeeid=:employeeid")})
 public class Doctor
 {
 
-    public static final String QUERY_FIND_ALL     = "FindAllDoctors";
-    public static final String QUERY_FIND_BY_USER = "FindDoctorByUser";
+    public static final String QUERY_FIND_ALL            = "FindAllDoctors";
+    public static final String QUERY_FIND_BY_USER        = "FindDoctorByUser";
+    public static final String QUERY_FIND_BY_EMPLOYEE_ID = "FindDoctorByEmployeeId";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

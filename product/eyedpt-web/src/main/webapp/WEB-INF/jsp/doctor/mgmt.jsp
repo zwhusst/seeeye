@@ -13,6 +13,10 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/mgmt.js"/>"></script>
 </head>
 
 <body>
@@ -33,7 +37,7 @@
 					<table>
 						<thead>
 							<tr>
-								<td class="col_no">行号</td>
+								<td class="col_no">序号</td>
 								<td class="col_employeeid">员工编号</td>
 								<td class="col_realname">姓名</td>
 								<td class="col_gender">性别</td>
@@ -57,7 +61,9 @@
 									<td class="col_title">${item.title.label}</td>
 									<td class="col_admintitle">${item.admintitle.label}</td>
 									<td class="col_name">${item.name}</td>
-									<td class="col_ops"><a href="#">删除</a></td>
+									<td class="col_ops"><button class="delBtn"
+											onclick="deleteDoctor(${item.employeeid})">删除</button>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

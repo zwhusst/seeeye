@@ -41,7 +41,8 @@ public abstract class BaseDao<T>
     @Override
     public void delete(T object)
     {
-        this.em.remove(object);
+        T attached = this.em.merge(object);
+        this.em.remove(attached);
         this.em.flush();
     }
 

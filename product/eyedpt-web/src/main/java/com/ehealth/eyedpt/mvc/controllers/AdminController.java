@@ -67,7 +67,7 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN_ADMIN')")
-    public String doRegister(@Valid AdminBean adminBean, BindingResult result, HttpSession session)
+    public String doRegister(@Valid AdminBean adminBean, BindingResult result)
     {
         if ( result.hasErrors() )
         {

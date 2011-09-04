@@ -33,7 +33,7 @@
 					<table>
 						<thead>
 							<tr>
-								<th class="col_no">行号</th>
+								<th class="col_no">序号</th>
 								<th class="col_name">账号</th>
 								<th class="col_ops">操作</th>
 							</tr>

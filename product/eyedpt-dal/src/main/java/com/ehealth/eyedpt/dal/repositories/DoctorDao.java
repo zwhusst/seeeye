@@ -47,4 +47,17 @@ public class DoctorDao extends BaseDao<Doctor>
         return getSingleResult(query);
     }
 
+    /**
+     * @param employeeId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Doctor findByEmployeeId(String employeeId)
+    {
+        Query query = this.em.createNamedQuery(Doctor.QUERY_FIND_BY_EMPLOYEE_ID);
+        query.setParameter("employeeid", employeeId);
+
+        return getSingleResult(query);
+    }
+
 }

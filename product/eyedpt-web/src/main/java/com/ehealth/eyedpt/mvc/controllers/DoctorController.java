@@ -7,6 +7,7 @@ package com.ehealth.eyedpt.mvc.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.User;
@@ -40,11 +42,10 @@ public class DoctorController
     public static final String    MAPPING_MGMT     = "/doctor/mgmt";
     public static final String    MAPPING_REGISTER = "/doctor/register";
     public static final String    MAPPING_EDIT     = "/doctor/edit";
-    public static final String    MAPPING_DELETE   = "/doctor/delete";
 
     @Autowired
     private UserService           userService;
-    
+
     @Autowired
     private DoctorService         doctorService;
 
@@ -56,7 +57,7 @@ public class DoctorController
     {
         // NTD
     }
-    
+
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
     @PreAuthorize("hasRole('DOCTOR_ADMIN')")
     public void doRegister(Model model)
@@ -66,7 +67,7 @@ public class DoctorController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("hasRole('DOCTOR_ADMIN')")
-    public String doRegister(@Valid DoctorBean doctorBean, BindingResult result, HttpSession session)
+    public String doRegister(@Valid DoctorBean doctorBean, BindingResult result)
     {
         if ( result.hasErrors() )
         {
@@ -87,6 +88,30 @@ public class DoctorController
         logger.info("New doctor registered: " + doctorBean.getName());
 
         return "redirect:" + MAPPING_MGMT;
+    }
+
+    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('DOCTOR_ADMIN')")
+    public void doDelete(@RequestParam String employeeId)
+    {
+        if ( StringUtils.isEmpty(employeeId) )
+        {
+            logger.error("The employee ID of doctor to be deleted cannot be empty!");
+
+            return;
+        }
+
+        Doctor doctor = this.doctorService.findByEmployeeId(employeeId);
+        if ( doctor == null )
+        {
+            logger.error("Unable to find doctor whose employ ID is '" + employeeId + "'");
+
+            return;
+        }
+
+        this.doctorService.delete(doctor);
+
+        logger.info("Doctor deleted: " + employeeId);
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
