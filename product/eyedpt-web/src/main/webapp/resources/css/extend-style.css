@@ -1,3 +1,11 @@
 .error {
 	color: red
 }
+
+.inputdate {
+	background: transparent url('../images/inputtextbg.gif') no-repeat
+		scroll 0 0;
+	width: 130px;
+	height: 24px;
+	padding-left: 5px;
+}

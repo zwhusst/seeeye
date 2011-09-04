@@ -23,10 +23,10 @@ public class PatientService
 {
 
     @Autowired
-    private UserDao     userDao;
+    private UserDao    userDao;
 
     @Autowired
-    private PatientDao  patientDao;
+    private PatientDao patientDao;
 
     /**
      * @param user
@@ -52,7 +52,10 @@ public class PatientService
         patient.setUser(user);
         patient.setRealname(bean.getRealname());
         patient.setGender(bean.getGender());
-        patient.setBirthday(bean.getBirthday());
+        if ( bean.getBirthday() != null )
+        {
+            patient.setBirthday(new java.sql.Date(bean.getBirthday().getTime()));
+        }
         patient.setAge(bean.getAge());
         patient.setProvince(bean.getProvince());
         patient.setCity(bean.getCity());
@@ -79,7 +82,10 @@ public class PatientService
         Patient patient = findByUser(user);
         patient.setRealname(bean.getRealname());
         patient.setGender(bean.getGender());
-        patient.setBirthday(bean.getBirthday());
+        if ( bean.getBirthday() != null )
+        {
+            patient.setBirthday(new java.sql.Date(bean.getBirthday().getTime()));
+        }
         patient.setAge(bean.getAge());
         patient.setProvince(bean.getProvince());
         patient.setCity(bean.getCity());

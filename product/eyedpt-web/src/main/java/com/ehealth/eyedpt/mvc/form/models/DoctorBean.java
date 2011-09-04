@@ -4,7 +4,7 @@
 
 package com.ehealth.eyedpt.mvc.form.models;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

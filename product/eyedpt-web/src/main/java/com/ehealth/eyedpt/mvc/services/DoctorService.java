@@ -90,7 +90,10 @@ public class DoctorService
         doctor.setUser(user);
         doctor.setRealname(bean.getRealname());
         doctor.setGender(bean.getGender());
-        doctor.setBirthday(bean.getBirthday());
+        if ( bean.getBirthday() != null )
+        {
+            doctor.setBirthday(new java.sql.Date(bean.getBirthday().getTime()));
+        }
         doctor.setAge(bean.getAge());
         doctor.setEmail(bean.getEmail());
         doctor.setCellphone(bean.getCellphone());
@@ -99,7 +102,10 @@ public class DoctorService
         doctor.setEmployeeid(bean.getEmployeeid());
         doctor.setTitle(bean.getTitle());
         doctor.setAdmintitle(bean.getAdmintitle());
-        doctor.setLastpromote(bean.getLastpromote());
+        if ( bean.getLastpromote() != null )
+        {
+            doctor.setLastpromote(new java.sql.Date(bean.getLastpromote().getTime()));
+        }
         doctor.setSpecialities(bean.getSpecialities());
         doctor.setColleage(bean.getColleage());
         doctor.setMajor(bean.getMajor());
@@ -129,7 +135,10 @@ public class DoctorService
         Doctor doctor = findByUser(user);
         doctor.setRealname(bean.getRealname());
         doctor.setGender(bean.getGender());
-        doctor.setBirthday(bean.getBirthday());
+        if ( bean.getBirthday() != null )
+        {
+            doctor.setBirthday(new java.sql.Date(bean.getBirthday().getTime()));
+        }
         doctor.setAge(bean.getAge());
         doctor.setEmail(bean.getEmail());
         doctor.setCellphone(bean.getCellphone());
@@ -138,7 +147,10 @@ public class DoctorService
         doctor.setEmployeeid(bean.getEmployeeid());
         doctor.setTitle(bean.getTitle());
         doctor.setAdmintitle(bean.getAdmintitle());
-        doctor.setLastpromote(bean.getLastpromote());
+        if ( bean.getLastpromote() != null )
+        {
+            doctor.setLastpromote(new java.sql.Date(bean.getLastpromote().getTime()));
+        }
         doctor.setSpecialities(bean.getSpecialities());
         doctor.setColleage(bean.getColleage());
         doctor.setMajor(bean.getMajor());

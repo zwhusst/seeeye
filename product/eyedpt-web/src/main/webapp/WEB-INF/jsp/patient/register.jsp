@@ -15,6 +15,18 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
+<link href="<c:url value="/resources/css/jquery-ui.css"/>"
+	type="text/css" rel="stylesheet" />
+<link href="<c:url value="/resources/css/jquery-ui-ext.css"/>"
+	type="text/css" rel="stylesheet" />
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/jquery-ui.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/jquery-ui-i18n.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common-ui.js"/>"></script>
 </head>
 
 <body>
@@ -64,7 +76,7 @@
 						<p>
 							生日:
 							<form:input path="<%=FormConstants.FIELD_BIRTHDAY%>"
-								class="inputtext" />
+								class="inputdate" />
 							<form:errors path="<%=FormConstants.FIELD_BIRTHDAY%>"
 								class="error" />
 						</p>
