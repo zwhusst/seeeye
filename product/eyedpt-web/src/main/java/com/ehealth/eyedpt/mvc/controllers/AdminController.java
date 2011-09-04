@@ -7,6 +7,7 @@ package com.ehealth.eyedpt.mvc.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.User;
@@ -88,6 +90,31 @@ public class AdminController
         logger.info("New admin registered: " + adminBean.getName());
 
         return "redirect:" + MAPPING_MGMT;
+    }
+
+    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ADMIN_ADMIN')")
+    public void doDelete(@RequestParam String name)
+    {
+        if ( StringUtils.isEmpty(name) )
+        {
+            logger.error("The name of admin to be deleted cannot be empty!");
+
+            return;
+        }
+
+        User user = this.userService.findByName(name);
+        Admin admin = this.adminService.findByUser(user);
+        if ( admin == null )
+        {
+            logger.error("Unable to find admin whose name is '" + name + "'");
+
+            return;
+        }
+
+        this.adminService.delete(admin);
+
+        logger.info("Admin deleted: " + name);
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)

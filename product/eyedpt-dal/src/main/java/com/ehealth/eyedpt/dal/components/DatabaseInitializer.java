@@ -126,7 +126,7 @@ public class DatabaseInitializer
         user.setPassword(TEST_ADMIN);
         user.setUsergroup(UserGroup.ADMIN);
         user.setRoleset(new byte[]
-        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+        { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 
         // admin
         Admin ta = new Admin();

@@ -40,7 +40,8 @@ public class Department
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long               id;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade =
+    { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @Column(name = "hospitalid", nullable = false)
     @NotNull
     private Hospital           hospital;

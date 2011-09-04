@@ -53,6 +53,7 @@ public class DoctorController
     private MessageSourceProvider msp;
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('DOCTOR_ADMIN')")
     public void doManagement()
     {
         // NTD

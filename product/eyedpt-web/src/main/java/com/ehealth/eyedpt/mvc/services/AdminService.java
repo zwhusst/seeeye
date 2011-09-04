@@ -61,6 +61,14 @@ public class AdminService
     }
 
     /**
+     * @param admin
+     */
+    public void delete(Admin admin)
+    {
+        this.adminDao.delete(admin);
+    }
+
+    /**
      * @param bean
      * @return
      */

@@ -34,9 +34,9 @@ public class DoctorBlob
     private long               id;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @Column(name = "hospitalid", nullable = false)
+    @Column(name = "doctorid", nullable = false)
     @NotNull
-    private Hospital           hospital;
+    private Doctor             doctor;
 
     @Lob
     @Column(columnDefinition = "BLOB")
@@ -64,19 +64,19 @@ public class DoctorBlob
     }
 
     /**
-     * @return the hospital
+     * @return the doctor
      */
-    public Hospital getHospital()
+    public Doctor getDoctor()
     {
-        return hospital;
+        return this.doctor;
     }
 
     /**
-     * @param hospital the hospital to set
+     * @param doctor the doctor to set
      */
-    public void setHospital(Hospital hospital)
+    public void setDoctor(Doctor doctor)
     {
-        this.hospital = hospital;
+        this.doctor = doctor;
     }
 
     /**

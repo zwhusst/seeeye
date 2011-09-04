@@ -43,7 +43,8 @@ public class Admin
     @Column(name = "userid", nullable = false)
     private User               user;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade =
+    { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @Column(name = "hospitalid", nullable = false)
     private Hospital           hospital;
 

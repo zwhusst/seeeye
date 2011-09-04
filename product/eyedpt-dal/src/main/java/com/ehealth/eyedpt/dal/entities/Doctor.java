@@ -71,11 +71,13 @@ public class Doctor
     @Column(nullable = false, length = 256)
     private String             address;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade =
+    { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @Column(name = "hospitalid", nullable = false)
     private Hospital           hospital;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade =
+    { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @Column(name = "departmentid", nullable = false)
     private Department         department;
 

@@ -13,6 +13,12 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/mgmt.js"/>"></script>
 </head>
 
 <body>
@@ -47,7 +53,8 @@
 								<tr>
 									<td class="col_no"><%=i++%></td>
 									<td class="col_name">${item.name}</td>
-									<td class="col_ops"><a href="#">删除</a>
+									<td class="col_ops"><button class="delBtn"
+											onclick="deleteAdmin('${item.name}')">删除</button>
 									</td>
 								</tr>
 							</c:forEach>

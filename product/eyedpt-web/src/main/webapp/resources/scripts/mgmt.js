@@ -1,5 +1,5 @@
 function deleteDoctor(employeeId) {
-	console.log("[Func] deleteDoctor");
+	_log("[Func] deleteDoctor: " + employeeId);
 
 	$.ajax({
 		url : "?employeeId=" + employeeId,
@@ -8,6 +8,18 @@ function deleteDoctor(employeeId) {
 	});
 }
 
+function deleteAdmin(name) {
+	_log("[Func] deleteAdmin: " + name);
+
+	$.ajax({
+		url : "?name=" + name,
+		type : "DELETE",
+		success : onDeleteDone
+	});
+}
+
 function onDeleteDone() {
-	console.log("[Func] onDeleteDone");
+	_log("[Func] onDeleteDone");
+
+	$("div.mgmt").fadeOut("slow").load("mgmt div.mgmt").fadeIn("slow");
 }
