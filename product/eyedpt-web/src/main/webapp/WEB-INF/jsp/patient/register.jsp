@@ -27,6 +27,8 @@
 	src="<c:url value="/resources/scripts/jquery-ui-i18n.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/common-ui.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/city.js"/>"></script>
 </head>
 
 <body>
@@ -88,15 +90,14 @@
 						</p>
 						<p>
 							省份*:
-							<form:input path="<%=FormConstants.FIELD_PROVINCE%>"
-								class="inputtext" />
+							<form:select path="<%=FormConstants.FIELD_PROVINCE%>"
+								id="provinceSelect" />
 							<form:errors path="<%=FormConstants.FIELD_PROVINCE%>"
 								class="error" />
 						</p>
 						<p>
 							城市*:
-							<form:input path="<%=FormConstants.FIELD_CITY%>"
-								class="inputtext" />
+							<form:select path="<%=FormConstants.FIELD_CITY%>" id="citySelect" />
 							<form:errors path="<%=FormConstants.FIELD_CITY%>" class="error" />
 						</p>
 						<p>

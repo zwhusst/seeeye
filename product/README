@@ -9,9 +9,10 @@
 1. Eclipse
 	a. Download latest JEE version of eclipse
 	b. Open eclipse and install latest version of M2Eclipse(http://download.eclipse.org/technology/m2e/releases), EGit plugins(http://download.eclipse.org/egit/updates)
+	c. Change default encoding of *.properties/*.js files to UTF-8 in eclipse (Preferences->General->Content Types)
 2. Install latest version of Tomcat and copy /documents/jstl-*.jar to ${tomcat}/lib
-2. Install latest version of MySQL
-3. Install msysgit or cygwin as git client
+3. Install latest version of MySQL
+4. Install msysgit or cygwin as git client
 
 #################################################### II. Source Code ##########
 
