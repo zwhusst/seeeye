@@ -28,7 +28,7 @@ public class RoleService
         Assert.notNull(user);
         Assert.notNull(role);
 
-        user.getRoleset()[role.idx] = 1;
+        user.getRoleset()[role.idx] = Role.GRANTED;
     }
 
     /**
@@ -45,8 +45,21 @@ public class RoleService
         byte[] rs = user.getRoleset();
         for (Role r : roles)
         {
-            rs[r.idx] = 1;
+            rs[r.idx] = Role.GRANTED;
         }
+    }
+
+    /**
+     * Checks whether the given user has been granted the given role.
+     * 
+     * @return
+     */
+    public boolean isGrantedRole(User user, Role role)
+    {
+        Assert.notNull(user);
+        Assert.notNull(role);
+
+        return user.getRoleset()[role.idx] == Role.GRANTED;
     }
 
 }

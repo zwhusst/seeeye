@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.ehealth.eyedpt.core.security.Role;
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.components.DatabaseInitializer;
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.Department;
@@ -42,6 +43,9 @@ public class AdminService
 
     @Autowired
     private DepartmentDao departmentDao;
+
+    @Autowired
+    private RoleService   roleService;
 
     /**
      * @return
@@ -78,14 +82,9 @@ public class AdminService
         user.setName(bean.getName());
         user.setPassword(bean.getPassword());
         user.setUsergroup(UserGroup.ADMIN);
-        byte[] roleset = user.getRoleset();
         for (String r : bean.getRoleset())
         {
-            Role role = Role.valueOf(r);
-            if ( role != null )
-            {
-                roleset[role.idx] = 1;
-            }
+            this.roleService.grantRole(user, Role.valueOf(r));
         }
 
         Admin admin = new Admin();

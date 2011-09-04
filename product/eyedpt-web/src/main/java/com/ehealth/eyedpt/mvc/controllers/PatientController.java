@@ -107,15 +107,14 @@ public class PatientController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid PatientBean patientBean, BindingResult result, HttpSession session)
+    public String doEdit(@Valid PatientBean patientBean, BindingResult result)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        Patient patient = this.patientService.updatePatient(patientBean);
-        session.setAttribute(SessionConstants.ATTR_USER, patient.getUser());
+        this.patientService.updatePatient(patientBean);
 
         logger.info("Patient updated: " + patientBean.getName());
 

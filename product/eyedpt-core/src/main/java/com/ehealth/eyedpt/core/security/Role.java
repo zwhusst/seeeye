@@ -35,7 +35,10 @@ public enum Role
      */
     CONSULTING_ADMIN(12);
 
-    public int idx;
+    public static final byte REVOKED = 0;
+    public static final byte GRANTED = 1;
+
+    public int               idx;
 
     private Role(int idx)
     {

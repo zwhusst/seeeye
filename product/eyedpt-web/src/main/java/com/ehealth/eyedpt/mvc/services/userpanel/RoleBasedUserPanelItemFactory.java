@@ -47,7 +47,7 @@ public class RoleBasedUserPanelItemFactory
     {
         for (int i = 0; i < rs.length; i++)
         {
-            if ( rs[i] == 0 )
+            if ( rs[i] == Role.REVOKED )
             {
                 continue;
             }

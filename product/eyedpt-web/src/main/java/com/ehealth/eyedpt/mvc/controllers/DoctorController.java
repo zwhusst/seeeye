@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ehealth.eyedpt.core.security.Role;
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
@@ -50,6 +52,9 @@ public class DoctorController
     private DoctorService         doctorService;
 
     @Autowired
+    private RoleService           roleService;
+
+    @Autowired
     private MessageSourceProvider msp;
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.GET)
@@ -57,6 +62,30 @@ public class DoctorController
     public void doManagement()
     {
         // NTD
+    }
+
+    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('DOCTOR_ADMIN')")
+    public void doDelete(@RequestParam String employeeId)
+    {
+        if ( StringUtils.isEmpty(employeeId) )
+        {
+            logger.error("The employee ID of doctor to be deleted cannot be empty!");
+
+            return;
+        }
+
+        Doctor doctor = this.doctorService.findByEmployeeId(employeeId);
+        if ( doctor == null )
+        {
+            logger.error("Unable to find doctor whose employ ID is '" + employeeId + "'");
+
+            return;
+        }
+
+        this.doctorService.delete(doctor);
+
+        logger.info("Doctor deleted: " + employeeId);
     }
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
@@ -91,39 +120,27 @@ public class DoctorController
         return "redirect:" + MAPPING_MGMT;
     }
 
-    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
-    @PreAuthorize("hasRole('DOCTOR_ADMIN')")
-    public void doDelete(@RequestParam String employeeId)
-    {
-        if ( StringUtils.isEmpty(employeeId) )
-        {
-            logger.error("The employee ID of doctor to be deleted cannot be empty!");
-
-            return;
-        }
-
-        Doctor doctor = this.doctorService.findByEmployeeId(employeeId);
-        if ( doctor == null )
-        {
-            logger.error("Unable to find doctor whose employ ID is '" + employeeId + "'");
-
-            return;
-        }
-
-        this.doctorService.delete(doctor);
-
-        logger.info("Doctor deleted: " + employeeId);
-    }
-
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public void doEdit(HttpSession session, Model model)
+    public void doEdit(HttpSession session, Model model, @RequestParam(required = false) String employeeId)
     {
         // create new bean
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
         Assert.notNull(user);
 
-        Doctor doctor = this.doctorService.findByUser(user);
+        Doctor doctor = null;
+        if ( !StringUtils.isEmpty(employeeId) )
+        {
+            // route from management page
+            Assert.isTrue(this.roleService.isGrantedRole(user, Role.DOCTOR_ADMIN));
+
+            doctor = this.doctorService.findByEmployeeId(employeeId);
+        }
+        else
+        {
+            doctor = this.doctorService.findByUser(user);
+        }
+
         Assert.notNull(doctor);
 
         DoctorBean doctorBean = DoctorBean.fromEntity(doctor);
@@ -132,17 +149,23 @@ public class DoctorController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid DoctorBean doctorBean, BindingResult result, HttpSession session)
+    public String doEdit(@Valid DoctorBean doctorBean, BindingResult result,
+            @RequestParam(required = false) String employeeId)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        Doctor doctor = this.doctorService.updateDoctor(doctorBean);
-        session.setAttribute(SessionConstants.ATTR_USER, doctor.getUser());
+        this.doctorService.updateDoctor(doctorBean);
 
         logger.info("Doctor updated: " + doctorBean.getName());
+
+        if ( !StringUtils.isEmpty(employeeId) )
+        {
+            // route from management page
+            return "redirect:" + MAPPING_MGMT;
+        }
 
         return "redirect:/";
     }

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ehealth.eyedpt.core.security.Role;
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
@@ -51,6 +53,9 @@ public class AdminController
     private AdminService          adminService;
 
     @Autowired
+    private RoleService           roleService;
+
+    @Autowired
     private MessageSourceProvider msp;
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.GET)
@@ -58,6 +63,31 @@ public class AdminController
     public void doManagement()
     {
         // NTD
+    }
+
+    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ADMIN_ADMIN')")
+    public void doDelete(@RequestParam String name)
+    {
+        if ( StringUtils.isEmpty(name) )
+        {
+            logger.error("The name of admin to be deleted cannot be empty!");
+
+            return;
+        }
+
+        User user = this.userService.findByName(name);
+        Admin admin = this.adminService.findByUser(user);
+        if ( admin == null )
+        {
+            logger.error("Unable to find admin whose name is '" + name + "'");
+
+            return;
+        }
+
+        this.adminService.delete(admin);
+
+        logger.info("Admin deleted: " + name);
     }
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
@@ -92,37 +122,19 @@ public class AdminController
         return "redirect:" + MAPPING_MGMT;
     }
 
-    @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
-    @PreAuthorize("hasRole('ADMIN_ADMIN')")
-    public void doDelete(@RequestParam String name)
-    {
-        if ( StringUtils.isEmpty(name) )
-        {
-            logger.error("The name of admin to be deleted cannot be empty!");
-
-            return;
-        }
-
-        User user = this.userService.findByName(name);
-        Admin admin = this.adminService.findByUser(user);
-        if ( admin == null )
-        {
-            logger.error("Unable to find admin whose name is '" + name + "'");
-
-            return;
-        }
-
-        this.adminService.delete(admin);
-
-        logger.info("Admin deleted: " + name);
-    }
-
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public void doEdit(HttpSession session, Model model)
+    public void doEdit(HttpSession session, Model model, @RequestParam(required = false) String username)
     {
         // create new bean
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
+        if ( !StringUtils.isEmpty(username) )
+        {
+            // route from management page
+            Assert.isTrue(this.roleService.isGrantedRole(user, Role.ADMIN_ADMIN));
+
+            user = this.userService.findByName(username);
+        }
         Assert.notNull(user);
 
         Admin admin = this.adminService.findByUser(user);
@@ -134,17 +146,23 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid AdminBean adminBean, BindingResult result, HttpSession session)
+    public String doEdit(@Valid AdminBean adminBean, BindingResult result,
+            @RequestParam(required = false) String username)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        Admin admin = this.adminService.updateAdmin(adminBean);
-        session.setAttribute(SessionConstants.ATTR_USER, admin.getUser());
+        this.adminService.updateAdmin(adminBean);
 
         logger.info("Admin updated: " + adminBean.getName());
+
+        if ( !StringUtils.isEmpty(username) )
+        {
+            // route from management page
+            return "redirect:" + MAPPING_MGMT;
+        }
 
         return "redirect:/";
     }
