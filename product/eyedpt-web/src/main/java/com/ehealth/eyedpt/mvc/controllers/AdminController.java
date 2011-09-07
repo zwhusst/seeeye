@@ -31,6 +31,7 @@ import com.ehealth.eyedpt.mvc.form.models.AdminBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
 import com.ehealth.eyedpt.mvc.services.AdminService;
 import com.ehealth.eyedpt.mvc.services.UserService;
+import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
 
 /**
  * @author emac
@@ -75,6 +76,7 @@ public class AdminController
             return;
         }
 
+        name = CharsetUtils.translate(name);
         User user = this.userService.findByName(name);
         Admin admin = this.adminService.findByUser(user);
         if ( admin == null )
@@ -132,7 +134,7 @@ public class AdminController
             // route from management page
             Assert.isTrue(this.roleService.isGrantedRole(user, Role.ADMIN_ADMIN));
 
-            // TODO#EMAC.P! fix encoding issue
+            username = CharsetUtils.translate(username);
             user = this.userService.findByName(username);
         }
         Assert.notNull(user);

@@ -53,8 +53,8 @@
 								<tr>
 									<td class="col_no"><%=i++%></td>
 									<td class="col_name">${item.name}</td>
-									<td class="col_ops"><a
-										href="<c:url value="/admin/edit?username=${item.name}"/>">编辑</a>
+									<td class="col_ops">
+										<button class="editBtn" onclick="editAdmin('${item.name}')">编辑</button>
 										<button class="delBtn" onclick="deleteAdmin('${item.name}')">删除</button>
 									</td>
 								</tr>

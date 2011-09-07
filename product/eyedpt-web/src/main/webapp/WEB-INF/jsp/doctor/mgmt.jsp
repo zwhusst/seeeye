@@ -63,11 +63,11 @@
 									<td class="col_title">${item.title.label}</td>
 									<td class="col_admintitle">${item.admintitle.label}</td>
 									<td class="col_name">${item.name}</td>
-									<td class="col_ops"><a
-										href="<c:url value="/doctor/edit?employeeId=${item.employeeid}"/>">编辑</a>
+									<td class="col_ops">
+										<button class="editBtn"
+											onclick="editDoctor('${item.employeeid}')">编辑</button>
 										<button class="delBtn"
-											onclick="deleteDoctor('${item.employeeid}')">删除</button>
-									</td>
+											onclick="deleteDoctor('${item.employeeid}')">删除</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>

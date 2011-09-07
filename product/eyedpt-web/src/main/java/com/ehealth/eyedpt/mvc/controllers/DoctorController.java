@@ -31,6 +31,7 @@ import com.ehealth.eyedpt.mvc.form.models.DoctorBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
 import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.services.UserService;
+import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
 
 /**
  * @author emac
@@ -75,6 +76,7 @@ public class DoctorController
             return;
         }
 
+        employeeId = CharsetUtils.translate(employeeId);
         Doctor doctor = this.doctorService.findByEmployeeId(employeeId);
         if ( doctor == null )
         {
@@ -134,7 +136,7 @@ public class DoctorController
             // route from management page
             Assert.isTrue(this.roleService.isGrantedRole(user, Role.DOCTOR_ADMIN));
 
-            // TODO#EMAC.P! fix encoding issue
+            employeeId = CharsetUtils.translate(employeeId);
             doctor = this.doctorService.findByEmployeeId(employeeId);
         }
         else
