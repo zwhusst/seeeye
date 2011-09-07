@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ehealth.eyedpt.core.security.Role;
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
-import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
@@ -26,7 +26,7 @@ public class RoleBasedUserPanelItemFactory
 {
 
     @Autowired
-    protected MessageSourceProvider msp;
+    private RoleService roleService;
 
     @Override
     public List<UserPanelItem> getItems(User user)
@@ -38,21 +38,15 @@ public class RoleBasedUserPanelItemFactory
 
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
 
-        adaptRolesToItems(user.getRoleset(), items);
+        adaptRolesToItems(this.roleService.getGrantedRoles(user), items);
 
         return Collections.unmodifiableList(items);
     }
 
-    private void adaptRolesToItems(byte[] rs, List<UserPanelItem> items)
+    private void adaptRolesToItems(List<Role> roles, List<UserPanelItem> items)
     {
-        for (int i = 0; i < rs.length; i++)
+        for (Role role : roles)
         {
-            if ( rs[i] == Role.REVOKED )
-            {
-                continue;
-            }
-
-            Role role = Role.valueOf(i);
             UserPanelItem item = RolePanelAdapter.adapt(role);
             if ( item != null )
             {

@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.ehealth.eyedpt.core.security.Role;
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.repositories.UserDao;
 
@@ -30,7 +31,10 @@ public class MyUserDetailsService
 {
 
     @Autowired
-    private UserDao userDao;
+    private UserDao     userDao;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public UserDetails loadUserByUsername(String username)
@@ -56,19 +60,9 @@ public class MyUserDetailsService
     private List<GrantedAuthority> readAuthorities(User user)
     {
         ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        byte[] rs = user.getRoleset();
-        for (int i = 0; i < rs.length; i++)
+        for (Role role : this.roleService.getGrantedRoles(user))
         {
-            if ( rs[i] == Role.REVOKED )
-            {
-                continue;
-            }
-
-            Role role = Role.valueOf(i);
-            if ( role != null )
-            {
-                authorities.add(new GrantedAuthorityImpl(role.name()));
-            }
+            authorities.add(new GrantedAuthorityImpl(role.name()));
         }
 
         return authorities;

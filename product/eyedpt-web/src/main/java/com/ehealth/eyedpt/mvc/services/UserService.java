@@ -32,9 +32,9 @@ public class UserService
     /**
      * @param user
      */
-    public void update(User user)
+    public User update(User user)
     {
-        this.userDao.update(user);
+        return this.userDao.update(user);
     }
 
 }

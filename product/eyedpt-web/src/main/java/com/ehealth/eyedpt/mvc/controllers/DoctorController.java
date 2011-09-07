@@ -134,13 +134,13 @@ public class DoctorController
             // route from management page
             Assert.isTrue(this.roleService.isGrantedRole(user, Role.DOCTOR_ADMIN));
 
+            // TODO#EMAC.P! fix encoding issue
             doctor = this.doctorService.findByEmployeeId(employeeId);
         }
         else
         {
             doctor = this.doctorService.findByUser(user);
         }
-
         Assert.notNull(doctor);
 
         DoctorBean doctorBean = DoctorBean.fromEntity(doctor);

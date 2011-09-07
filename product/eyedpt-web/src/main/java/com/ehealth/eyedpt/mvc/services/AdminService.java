@@ -99,7 +99,7 @@ public class AdminService
         // to set many-to-many fields which already exist, must use update statement
         Department department = this.departmentDao.findByHospitalAndName(hospital, DatabaseInitializer.DEPARTMENT_EYE);
         admin.setDepartments(Collections.singleton(department));
-        this.adminDao.update(admin);
+        admin = this.adminDao.update(admin);
 
         return admin;
     }
@@ -109,13 +109,22 @@ public class AdminService
      */
     public Admin updateAdmin(AdminBean bean)
     {
+        // TODO#EMAC.P! update roleset
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);
+        // update roleset
+        this.roleService.revokeAllRoles(user);
+        for (String r : bean.getRoleset())
+        {
+            this.roleService.grantRole(user, Role.valueOf(r));
+        }
+        user = this.userDao.update(user);
 
         Admin admin = findByUser(user);
+        Assert.notNull(admin);
+        // update email
         admin.setEmail(bean.getEmail());
-
-        this.adminDao.update(admin);
+        admin = this.adminDao.update(admin);
 
         return admin;
     }

@@ -80,6 +80,8 @@ public class PatientService
         Assert.notNull(user);
 
         Patient patient = findByUser(user);
+        Assert.notNull(patient);
+
         patient.setRealname(bean.getRealname());
         patient.setGender(bean.getGender());
         if ( bean.getBirthday() != null )
@@ -95,8 +97,7 @@ public class PatientService
         patient.setCellphone(bean.getCellphone());
         patient.setTelephone(bean.getTelephone());
         patient.setFaxno(bean.getFaxno());
-
-        this.patientDao.update(patient);
+        patient = this.patientDao.update(patient);
 
         return patient;
     }

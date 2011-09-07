@@ -4,12 +4,18 @@
 
 package com.ehealth.eyedpt.mvc.form.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.Size;
 
 import org.apache.bval.constraints.Email;
 import org.apache.bval.constraints.NotEmpty;
 
+import com.ehealth.eyedpt.core.security.Role;
+import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Admin;
+import com.ehealth.eyedpt.mvc.context.BeanResolver;
 
 /**
  * @author emac
@@ -17,13 +23,15 @@ import com.ehealth.eyedpt.dal.entities.Admin;
 public class AdminBean extends UserBean
 {
 
+    private static RoleService roleService = BeanResolver.getBean(RoleService.class);
+
     @NotEmpty
     @Email
     @Size(max = 64)
-    private String   email;
+    private String             email;
 
     @Size(min = 1, max = 32)
-    private String[] roleset;
+    private String[]           roleset;
 
     /**
      * @return the email
@@ -67,6 +75,14 @@ public class AdminBean extends UserBean
         bean.setName(admin.getUser().getName());
         bean.setPassword(admin.getUser().getPassword());
         bean.setEmail(admin.getEmail());
+
+        List<Role> roles = roleService.getGrantedRoles(admin.getUser());
+        ArrayList<String> roleset = new ArrayList<String>();
+        for (Role role : roles)
+        {
+            roleset.add(role.name());
+        }
+        bean.setRoleset(roleset.toArray(new String[roleset.size()]));
 
         return bean;
     }

@@ -66,7 +66,7 @@
 									<td class="col_ops"><a
 										href="<c:url value="/doctor/edit?employeeId=${item.employeeid}"/>">编辑</a>
 										<button class="delBtn"
-											onclick="deleteDoctor(${item.employeeid})">删除</button>
+											onclick="deleteDoctor('${item.employeeid}')">删除</button>
 									</td>
 								</tr>
 							</c:forEach>

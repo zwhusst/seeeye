@@ -32,10 +32,12 @@ public abstract class BaseDao<T>
     }
 
     @Override
-    public void update(T object)
+    public T update(T object)
     {
-        this.em.merge(object);
+        T merged = this.em.merge(object);
         this.em.flush();
+
+        return merged;
     }
 
     @Override

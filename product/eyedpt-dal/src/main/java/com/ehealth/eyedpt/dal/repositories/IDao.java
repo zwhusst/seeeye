@@ -30,8 +30,9 @@ public interface IDao<T>
      * Updates the given instance.
      * 
      * @param object
+     * @return
      */
-    public void update(T object);
+    public T update(T object);
 
     /**
      * Deletes the given instance.

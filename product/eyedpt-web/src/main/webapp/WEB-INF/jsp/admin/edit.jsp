@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- imports -->
 <%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
+<%@ page import="com.ehealth.eyedpt.mvc.view.helpers.RoleHelper"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -39,6 +40,15 @@
 								class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_EMAIL%>" class="error" />
 						</p>
+						<c:if test="${param.username!=null}">
+							<p>
+								权限*:
+								<form:checkboxes path="<%=FormConstants.FIELD_ROLESET%>"
+									items="<%=RoleHelper.ROLESET%>" />
+								<form:errors path="<%=FormConstants.FIELD_ROLESET%>"
+									class="error" />
+							</p>
+						</c:if>
 						<p>
 							<input name="edit" type="submit" value="确认" class="loginbut" />
 						</p>

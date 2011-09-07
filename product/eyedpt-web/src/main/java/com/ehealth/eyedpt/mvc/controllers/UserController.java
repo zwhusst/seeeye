@@ -83,7 +83,9 @@ public class UserController
         }
 
         user.setPassword(bean.getNewPassword1());
-        this.userService.update(user);
+        user = this.userService.update(user);
+        
+        session.setAttribute(SessionConstants.ATTR_USER, user);
 
         // update spring authentication
         this.authenticationService.resetAuthentication(user);

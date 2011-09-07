@@ -44,7 +44,6 @@ public class AdminController
     public static final String    MAPPING_MGMT     = "/admin/mgmt";
     public static final String    MAPPING_REGISTER = "/admin/register";
     public static final String    MAPPING_EDIT     = "/admin/edit";
-    public static final String    MAPPING_DELETE   = "/admin/delete";
 
     @Autowired
     private UserService           userService;
@@ -133,6 +132,7 @@ public class AdminController
             // route from management page
             Assert.isTrue(this.roleService.isGrantedRole(user, Role.ADMIN_ADMIN));
 
+            // TODO#EMAC.P! fix encoding issue
             user = this.userService.findByName(username);
         }
         Assert.notNull(user);

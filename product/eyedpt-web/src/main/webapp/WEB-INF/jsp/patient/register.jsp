@@ -78,14 +78,14 @@
 						<p>
 							生日:
 							<form:input path="<%=FormConstants.FIELD_BIRTHDAY%>"
-								class="inputdate" />
+								class="inputdate" id="birthday" />
 							<form:errors path="<%=FormConstants.FIELD_BIRTHDAY%>"
 								class="error" />
 						</p>
 						<p>
 							年龄*:
 							<form:select path="<%=FormConstants.FIELD_AGE%>"
-								items="<%=FormConstants.AGE_RANGE%>" />
+								items="<%=FormConstants.AGE_RANGE%>" id="age" />
 							<form:errors path="<%=FormConstants.FIELD_AGE%>" class="error" />
 						</p>
 						<p>
@@ -144,6 +144,7 @@
 						</p>
 						<p>
 							<input name="register" type="submit" value="注册" class="loginbut" />
+							<a href="<c:url value="/"/>">返回</a>
 						</p>
 					</form:form>
 				</div>

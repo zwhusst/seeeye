@@ -4,6 +4,10 @@
 
 package com.ehealth.eyedpt.core.security.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -32,21 +36,30 @@ public class RoleService
     }
 
     /**
-     * Grants the given roles to the given user.
+     * Returns all granted roles to the given user.
      * 
      * @param user
-     * @param roles
+     * @return
      */
-    public void grantRoles(User user, Role[] roles)
+    public List<Role> getGrantedRoles(User user)
     {
-        Assert.notNull(user);
-        Assert.notNull(roles);
-
+        ArrayList<Role> roles = new ArrayList<Role>();
         byte[] rs = user.getRoleset();
-        for (Role r : roles)
+        for (int i = 0; i < rs.length; i++)
         {
-            rs[r.idx] = Role.GRANTED;
+            if ( rs[i] == Role.REVOKED )
+            {
+                continue;
+            }
+
+            Role role = Role.valueOf(i);
+            if ( role != null )
+            {
+                roles.add(role);
+            }
         }
+
+        return Collections.unmodifiableList(roles);
     }
 
     /**
@@ -60,6 +73,20 @@ public class RoleService
         Assert.notNull(role);
 
         return user.getRoleset()[role.idx] == Role.GRANTED;
+    }
+
+    /**
+     * Revokes all roles from the given user.
+     * 
+     * @param user
+     */
+    public void revokeAllRoles(User user)
+    {
+        byte[] rs = user.getRoleset();
+        for (int i = 0; i < rs.length; i++)
+        {
+            rs[i] = Role.REVOKED;
+        }
     }
 
 }

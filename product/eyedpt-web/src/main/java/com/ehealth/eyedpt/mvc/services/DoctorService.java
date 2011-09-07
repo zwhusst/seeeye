@@ -133,6 +133,8 @@ public class DoctorService
         Assert.notNull(user);
 
         Doctor doctor = findByUser(user);
+        Assert.notNull(doctor);
+
         doctor.setRealname(bean.getRealname());
         doctor.setGender(bean.getGender());
         if ( bean.getBirthday() != null )
@@ -159,8 +161,7 @@ public class DoctorService
         doctor.setEducation(bean.getEducation());
         doctor.setSupervisor(bean.isSupervisor());
         doctor.setDoctoralsupervisior(bean.isDoctoralsupervisior());
-
-        this.doctorDao.update(doctor);
+        doctor = this.doctorDao.update(doctor);
 
         return doctor;
     }
