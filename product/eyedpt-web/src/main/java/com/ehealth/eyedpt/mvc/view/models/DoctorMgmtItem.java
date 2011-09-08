@@ -6,7 +6,9 @@ package com.ehealth.eyedpt.mvc.view.models;
 
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
+import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
+import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 
 /**
  * @author emac
@@ -20,6 +22,8 @@ public class DoctorMgmtItem
     private String           employeeid;
     private DoctorTitle      title;
     private DoctorAdminTitle admintitle;
+    private ExpertRank       expertrank;
+    private SupervisorType   supervisortype;
 
     /**
      * @param name
@@ -30,7 +34,7 @@ public class DoctorMgmtItem
      * @param admintitle
      */
     public DoctorMgmtItem(String name, String realname, Gender gender, String employeeid, DoctorTitle title,
-            DoctorAdminTitle admintitle)
+            DoctorAdminTitle admintitle, ExpertRank expertrank, SupervisorType supervisortype)
     {
         this.name = name;
         this.realname = realname;
@@ -38,6 +42,8 @@ public class DoctorMgmtItem
         this.employeeid = employeeid;
         this.title = title;
         this.admintitle = admintitle;
+        this.expertrank = expertrank;
+        this.supervisortype = supervisortype;
     }
 
     /**
@@ -86,6 +92,22 @@ public class DoctorMgmtItem
     public String getEmployeeid()
     {
         return this.employeeid;
+    }
+
+    /**
+     * @return the expertrank
+     */
+    public ExpertRank getExpertrank()
+    {
+        return this.expertrank;
+    }
+
+    /**
+     * @return the supervisortype
+     */
+    public SupervisorType getSupervisortype()
+    {
+        return this.supervisortype;
     }
 
 }

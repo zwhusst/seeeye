@@ -39,14 +39,16 @@
 					<table>
 						<thead>
 							<tr>
-								<td class="col_no">序号</td>
-								<td class="col_employeeid">员工编号</td>
-								<td class="col_realname">姓名</td>
-								<td class="col_gender">性别</td>
-								<td class="col_title">职称</td>
-								<td class="col_admintitle">行政岗位</td>
-								<td class="col_name">账号</td>
-								<td class="col_ops">操作</td>
+								<th class="col_no">序号</th>
+								<th class="col_employeeid">员工编号</th>
+								<th class="col_realname">姓名</th>
+								<th class="col_gender">性别</th>
+								<th class="col_title">职称</th>
+								<th class="col_admintitle">行政岗位</th>
+								<th class="col_admintitle">专家级别</th>
+								<th class="col_admintitle">导师类别</th>
+								<th class="col_name">账号</th>
+								<th class="col_ops">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -62,12 +64,15 @@
 									<td class="col_gender">${item.gender.label}</td>
 									<td class="col_title">${item.title.label}</td>
 									<td class="col_admintitle">${item.admintitle.label}</td>
+									<td class="col_expertrank">${item.expertrank.label}</td>
+									<td class="col_supervisortype">${item.supervisortype.label}</td>
 									<td class="col_name">${item.name}</td>
 									<td class="col_ops">
 										<button class="editBtn"
 											onclick="editDoctor('${item.employeeid}')">编辑</button>
 										<button class="delBtn"
-											onclick="deleteDoctor('${item.employeeid}')">删除</button></td>
+											onclick="deleteDoctor('${item.employeeid}')">删除</button>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -76,7 +76,7 @@ public class AdminService
      * @param bean
      * @return
      */
-    public Admin createAdmin(AdminBean bean)
+    public Admin create(AdminBean bean)
     {
         User user = new User();
         user.setName(bean.getName());
@@ -107,7 +107,7 @@ public class AdminService
     /**
      * @param bean
      */
-    public Admin updateAdmin(AdminBean bean)
+    public Admin update(AdminBean bean)
     {
         // TODO#EMAC.P! update roleset
         User user = this.userDao.findByName(bean.getName());

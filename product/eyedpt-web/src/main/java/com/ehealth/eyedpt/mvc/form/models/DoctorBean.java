@@ -19,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.ehealth.eyedpt.dal.entities.Doctor;
+import com.ehealth.eyedpt.dal.entities.DoctorBlob;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
 import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
@@ -104,6 +105,14 @@ public class DoctorBean extends UserBean
     private SupervisorType   supervisortype = SupervisorType.DOCTOR;
 
     private String           supervisiorcolleges;
+
+    @Size(max = 1024 * 1024 * 2)
+    // 2M
+    private byte[]           photo;
+
+    @Size(max = 1024 * 2)
+    // 2K
+    private String           description;
 
     /**
      * @return the realname
@@ -458,6 +467,38 @@ public class DoctorBean extends UserBean
     }
 
     /**
+     * @return the photo
+     */
+    public byte[] getPhoto()
+    {
+        return this.photo;
+    }
+
+    /**
+     * @param photo the photo to set
+     */
+    public void setPhoto(byte[] photo)
+    {
+        this.photo = photo;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription()
+    {
+        return this.description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    /**
      * @param doctor
      * @return
      */
@@ -490,6 +531,20 @@ public class DoctorBean extends UserBean
         bean.setSupervisiorcolleges(doctor.getSupervisiorcolleges());
 
         return bean;
+    }
+
+    /**
+     * @param doctorBlob
+     */
+    public void mergeBlob(DoctorBlob doctorBlob)
+    {
+        if ( doctorBlob == null )
+        {
+            return;
+        }
+
+        setPhoto(doctorBlob.getPhoto());
+        setDescription(doctorBlob.getDescription());
     }
 
 }

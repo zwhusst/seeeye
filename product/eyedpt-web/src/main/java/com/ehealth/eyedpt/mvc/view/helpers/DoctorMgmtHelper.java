@@ -38,7 +38,7 @@ public enum DoctorMgmtHelper
         for (Doctor d : doctorService.findAll())
         {
             DoctorMgmtItem item = new DoctorMgmtItem(d.getUser().getName(), d.getRealname(), d.getGender(),
-                    d.getEmployeeid(), d.getTitle(), d.getAdmintitle());
+                    d.getEmployeeid(), d.getTitle(), d.getAdmintitle(), d.getExpertrank(), d.getSupervisortype());
             items.add(item);
         }
 

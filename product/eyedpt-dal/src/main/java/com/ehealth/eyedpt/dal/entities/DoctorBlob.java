@@ -23,11 +23,14 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "doctorblob")
 @Table(name = "doctorblob")
 @NamedQueries(
-{ @NamedQuery(name = DoctorBlob.QUERY_FIND_ALL, query = "select d from doctorblob d")})
+{
+        @NamedQuery(name = DoctorBlob.QUERY_FIND_ALL, query = "select d from doctorblob d"),
+        @NamedQuery(name = DoctorBlob.QUERY_FIND_BY_DOCTOR, query = "select d from doctorblob d where d.doctor=:doctor")})
 public class DoctorBlob
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllDoctorBlobs";
+    public static final String QUERY_FIND_ALL       = "FindAllDoctorBlobs";
+    public static final String QUERY_FIND_BY_DOCTOR = "FindAdminByDoctor";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

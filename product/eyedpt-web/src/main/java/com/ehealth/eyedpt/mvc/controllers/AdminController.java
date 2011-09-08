@@ -116,7 +116,7 @@ public class AdminController
             return null;
         }
 
-        this.adminService.createAdmin(adminBean);
+        this.adminService.create(adminBean);
 
         logger.info("New admin registered: " + adminBean.getName());
 
@@ -156,7 +156,7 @@ public class AdminController
             return null;
         }
 
-        this.adminService.updateAdmin(adminBean);
+        this.adminService.update(adminBean);
 
         logger.info("Admin updated: " + adminBean.getName());
 

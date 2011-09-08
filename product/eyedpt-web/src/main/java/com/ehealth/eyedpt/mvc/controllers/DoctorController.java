@@ -23,12 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Doctor;
+import com.ehealth.eyedpt.dal.entities.DoctorBlob;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
 import com.ehealth.eyedpt.mvc.form.models.DoctorBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
+import com.ehealth.eyedpt.mvc.services.DoctorBlobService;
 import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.services.UserService;
 import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
@@ -51,6 +53,9 @@ public class DoctorController
 
     @Autowired
     private DoctorService         doctorService;
+
+    @Autowired
+    private DoctorBlobService     doctorBlobService;
 
     @Autowired
     private RoleService           roleService;
@@ -115,7 +120,7 @@ public class DoctorController
             return null;
         }
 
-        this.doctorService.createDoctor(doctorBean);
+        this.doctorService.create(doctorBean);
 
         logger.info("New doctor registered: " + doctorBean.getName());
 
@@ -146,6 +151,13 @@ public class DoctorController
         Assert.notNull(doctor);
 
         DoctorBean doctorBean = DoctorBean.fromEntity(doctor);
+
+        DoctorBlob doctorBlob = this.doctorBlobService.findByDoctor(doctor);
+        if ( doctorBlob != null )
+        {
+            doctorBean.mergeBlob(doctorBlob);
+        }
+
         model.addAttribute(doctorBean);
     }
 
@@ -159,7 +171,7 @@ public class DoctorController
             return null;
         }
 
-        this.doctorService.updateDoctor(doctorBean);
+        this.doctorService.update(doctorBean);
 
         logger.info("Doctor updated: " + doctorBean.getName());
 

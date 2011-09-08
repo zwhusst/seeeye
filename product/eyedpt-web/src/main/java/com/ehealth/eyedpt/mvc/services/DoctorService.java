@@ -30,16 +30,19 @@ public class DoctorService
 {
 
     @Autowired
-    private UserDao       userDao;
+    private DoctorBlobService doctorBlobService;
 
     @Autowired
-    private DoctorDao     doctorDao;
+    private UserDao           userDao;
 
     @Autowired
-    private HospitalDao   hospitalDao;
+    private DoctorDao         doctorDao;
 
     @Autowired
-    private DepartmentDao departmentDao;
+    private HospitalDao       hospitalDao;
+
+    @Autowired
+    private DepartmentDao     departmentDao;
 
     /**
      * @return
@@ -79,7 +82,7 @@ public class DoctorService
      * @param bean
      * @return
      */
-    public Doctor createDoctor(DoctorBean bean)
+    public Doctor create(DoctorBean bean)
     {
         User user = new User();
         user.setName(bean.getName());
@@ -126,13 +129,19 @@ public class DoctorService
         doctor.setDepartment(department);
         this.doctorDao.create(doctor);
 
+        // create doctor blob on demand
+        if ( this.doctorBlobService.shouldCreate(bean) )
+        {
+            this.doctorBlobService.create(doctor, bean);
+        }
+
         return doctor;
     }
 
     /**
      * @param bean
      */
-    public Doctor updateDoctor(DoctorBean bean)
+    public Doctor update(DoctorBean bean)
     {
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);
@@ -172,6 +181,9 @@ public class DoctorService
         doctor.setSupervisortype(bean.getSupervisortype());
         doctor.setSupervisiorcolleges(bean.getSupervisiorcolleges());
         doctor = this.doctorDao.update(doctor);
+
+        // update doctor blob
+        this.doctorBlobService.update(doctor, bean);
 
         return doctor;
     }

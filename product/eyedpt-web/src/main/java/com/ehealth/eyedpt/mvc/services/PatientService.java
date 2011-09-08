@@ -41,7 +41,7 @@ public class PatientService
      * @param bean
      * @return
      */
-    public Patient createPatient(PatientBean bean)
+    public Patient create(PatientBean bean)
     {
         User user = new User();
         user.setName(bean.getName());
@@ -74,7 +74,7 @@ public class PatientService
     /**
      * @param bean
      */
-    public Patient updatePatient(PatientBean bean)
+    public Patient update(PatientBean bean)
     {
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);

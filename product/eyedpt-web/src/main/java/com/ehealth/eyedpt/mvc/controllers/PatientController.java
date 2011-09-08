@@ -78,7 +78,7 @@ public class PatientController
             return null;
         }
 
-        Patient patient = this.patientService.createPatient(patientBean);
+        Patient patient = this.patientService.create(patientBean);
         user = patient.getUser();
         session.setAttribute(SessionConstants.ATTR_USER, user);
 
@@ -114,7 +114,7 @@ public class PatientController
             return null;
         }
 
-        this.patientService.updatePatient(patientBean);
+        this.patientService.update(patientBean);
 
         logger.info("Patient updated: " + patientBean.getName());
 
