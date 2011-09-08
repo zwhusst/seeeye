@@ -20,7 +20,9 @@ import javax.persistence.Table;
 
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
+import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
+import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 
 /**
  * @author emac
@@ -90,6 +92,12 @@ public class Doctor
     @Column(nullable = false)
     private DoctorAdminTitle   admintitle;
 
+    @Column(nullable = false)
+    private ExpertRank         expertrank;
+
+    @Column
+    private Date               firstrecruit;
+
     @Column
     private Date               lastpromote;
 
@@ -111,11 +119,11 @@ public class Doctor
     @Column(length = 16)
     private String             education;
 
-    @Column
-    private boolean            supervisor;
+    @Column(nullable = false)
+    private SupervisorType     supervisortype;
 
     @Column
-    private boolean            doctoralsupervisior;
+    private String             supervisiorcolleges;
 
     /**
      * @return the id
@@ -470,35 +478,67 @@ public class Doctor
     }
 
     /**
-     * @return the supervisor
+     * @return the expertrank
      */
-    public boolean isSupervisor()
+    public ExpertRank getExpertrank()
     {
-        return supervisor;
+        return this.expertrank;
     }
 
     /**
-     * @param supervisor the supervisor to set
+     * @param expertrank the expertrank to set
      */
-    public void setSupervisor(boolean supervisor)
+    public void setExpertrank(ExpertRank expertrank)
     {
-        this.supervisor = supervisor;
+        this.expertrank = expertrank;
     }
 
     /**
-     * @return the doctoralsupervisior
+     * @return the firstrecruit
      */
-    public boolean isDoctoralsupervisior()
+    public Date getFirstrecruit()
     {
-        return doctoralsupervisior;
+        return this.firstrecruit;
     }
 
     /**
-     * @param doctoralsupervisior the doctoralsupervisior to set
+     * @param firstrecruit the firstrecruit to set
      */
-    public void setDoctoralsupervisior(boolean doctoralsupervisior)
+    public void setFirstrecruit(Date firstrecruit)
     {
-        this.doctoralsupervisior = doctoralsupervisior;
+        this.firstrecruit = firstrecruit;
+    }
+
+    /**
+     * @return the supervisortype
+     */
+    public SupervisorType getSupervisortype()
+    {
+        return this.supervisortype;
+    }
+
+    /**
+     * @param supervisortype the supervisortype to set
+     */
+    public void setSupervisortype(SupervisorType supervisortype)
+    {
+        this.supervisortype = supervisortype;
+    }
+
+    /**
+     * @return the supervisiorcolleges
+     */
+    public String getSupervisiorcolleges()
+    {
+        return this.supervisiorcolleges;
+    }
+
+    /**
+     * @param supervisiorcolleges the supervisiorcolleges to set
+     */
+    public void setSupervisiorcolleges(String supervisiorcolleges)
+    {
+        this.supervisiorcolleges = supervisiorcolleges;
     }
 
 }

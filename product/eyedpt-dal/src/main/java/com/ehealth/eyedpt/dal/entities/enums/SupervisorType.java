@@ -1,22 +1,20 @@
 /*
- * Created on 2011-8-7
+ * Created on 2011-9-8
  */
 
 package com.ehealth.eyedpt.dal.entities.enums;
 
 /**
- * Enumerates all supported registry types of patients.
- * 
  * @author emac
  */
-public enum RegistryType
+public enum SupervisorType
 {
 
-    ID("身份证"), MEDICARE("医保卡");
+    DOCTOR("博士研究生导师"), MASTER("硕士研究生导师"), NOPE("暂不是导师");
 
     private String label;
 
-    private RegistryType(String label)
+    private SupervisorType(String label)
     {
         this.label = label;
     }
@@ -25,7 +23,7 @@ public enum RegistryType
     {
         return this.label;
     }
-
+    
     public String getName()
     {
         return name();

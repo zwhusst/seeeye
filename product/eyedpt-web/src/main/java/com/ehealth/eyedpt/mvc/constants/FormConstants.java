@@ -55,6 +55,8 @@ public interface FormConstants
     public static final String   FIELD_EMPLOYEE_ID          = "employeeid";
     public static final String   FIELD_TITLE                = "title";
     public static final String   FIELD_ADMIN_TITLE          = "admintitle";
+    public static final String   FIELD_EXPERT_RANK          = "expertrank";
+    public static final String   FIELD_FIRST_RECRUIT        = "firstrecruit";
     public static final String   FIELD_LAST_PROMOTE         = "lastpromote";
     public static final String   FIELD_SPECIALITIES         = "specialities";
     public static final String   FIELD_COLLEAGE             = "colleage";
@@ -62,8 +64,8 @@ public interface FormConstants
     public static final String   FIELD_SECOND_MAJOR         = "secondmajor";
     public static final String   FIELD_DEGREE               = "degree";
     public static final String   FIELD_EDUCATION            = "education";
-    public static final String   FIELD_SUPERVISOR           = "supervisor";
-    public static final String   FIELD_DOCTORAL_SUPERVISIOR = "doctoralsupervisior";
+    public static final String   FIELD_SUPERVISOR_TYPE      = "supervisortype";
+    public static final String   FIELD_SUPERVISIOR_COLLEGES = "supervisiorcolleges";
 
     /**
      * Change Password

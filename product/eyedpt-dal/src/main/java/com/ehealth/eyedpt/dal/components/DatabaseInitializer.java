@@ -20,8 +20,10 @@ import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
+import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
+import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
 import com.ehealth.eyedpt.dal.repositories.DepartmentDao;
@@ -195,7 +197,9 @@ public class DatabaseInitializer
         td.setEmployeeid("9528");
         td.setTitle(DoctorTitle.PROFESSOR);
         td.setAdmintitle(DoctorAdminTitle.KSZR);
+        td.setExpertrank(ExpertRank.VIP);
         td.setSpecialities("test");
+        td.setSupervisortype(SupervisorType.DOCTOR);
 
         Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
         td.setHospital(hospital);

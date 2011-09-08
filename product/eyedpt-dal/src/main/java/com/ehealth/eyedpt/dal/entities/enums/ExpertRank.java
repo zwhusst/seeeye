@@ -1,22 +1,20 @@
 /*
- * Created on 2011-8-7
+ * Created on 2011-9-8
  */
 
 package com.ehealth.eyedpt.dal.entities.enums;
 
 /**
- * Enumerates all supported registry types of patients.
- * 
  * @author emac
  */
-public enum RegistryType
+public enum ExpertRank
 {
 
-    ID("身份证"), MEDICARE("医保卡");
+    VIP("特需专家"), GENERAL("普通专家");
 
     private String label;
 
-    private RegistryType(String label)
+    private ExpertRank(String label)
     {
         this.label = label;
     }
@@ -25,7 +23,7 @@ public enum RegistryType
     {
         return this.label;
     }
-
+    
     public String getName()
     {
         return name();

@@ -102,6 +102,11 @@ public class DoctorService
         doctor.setEmployeeid(bean.getEmployeeid());
         doctor.setTitle(bean.getTitle());
         doctor.setAdmintitle(bean.getAdmintitle());
+        doctor.setExpertrank(bean.getExpertrank());
+        if ( bean.getFirstrecruit() != null )
+        {
+            doctor.setFirstrecruit(new java.sql.Date(bean.getFirstrecruit().getTime()));
+        }
         if ( bean.getLastpromote() != null )
         {
             doctor.setLastpromote(new java.sql.Date(bean.getLastpromote().getTime()));
@@ -112,8 +117,8 @@ public class DoctorService
         doctor.setSecondmajor(bean.getSecondmajor());
         doctor.setDegree(bean.getDegree());
         doctor.setEducation(bean.getEducation());
-        doctor.setSupervisor(bean.isSupervisor());
-        doctor.setDoctoralsupervisior(bean.isDoctoralsupervisior());
+        doctor.setSupervisortype(bean.getSupervisortype());
+        doctor.setSupervisiorcolleges(bean.getSupervisiorcolleges());
 
         Hospital hospital = this.hospitalDao.findByName(DatabaseInitializer.HOSTPITAL_NO1);
         doctor.setHospital(hospital);
@@ -149,6 +154,11 @@ public class DoctorService
         doctor.setEmployeeid(bean.getEmployeeid());
         doctor.setTitle(bean.getTitle());
         doctor.setAdmintitle(bean.getAdmintitle());
+        doctor.setExpertrank(bean.getExpertrank());
+        if ( bean.getFirstrecruit() != null )
+        {
+            doctor.setFirstrecruit(new java.sql.Date(bean.getFirstrecruit().getTime()));
+        }
         if ( bean.getLastpromote() != null )
         {
             doctor.setLastpromote(new java.sql.Date(bean.getLastpromote().getTime()));
@@ -159,8 +169,8 @@ public class DoctorService
         doctor.setSecondmajor(bean.getSecondmajor());
         doctor.setDegree(bean.getDegree());
         doctor.setEducation(bean.getEducation());
-        doctor.setSupervisor(bean.isSupervisor());
-        doctor.setDoctoralsupervisior(bean.isDoctoralsupervisior());
+        doctor.setSupervisortype(bean.getSupervisortype());
+        doctor.setSupervisiorcolleges(bean.getSupervisiorcolleges());
         doctor = this.doctorDao.update(doctor);
 
         return doctor;

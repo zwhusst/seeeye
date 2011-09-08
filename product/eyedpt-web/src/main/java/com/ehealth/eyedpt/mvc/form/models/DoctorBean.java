@@ -21,7 +21,9 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
+import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
+import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 
 /**
  * @author emac
@@ -33,7 +35,7 @@ public class DoctorBean extends UserBean
     private String           realname;
 
     @NotNull
-    private Gender           gender = Gender.M;
+    private Gender           gender         = Gender.M;
 
     @DateTimeFormat(iso = ISO.DATE)
     @Past
@@ -68,6 +70,13 @@ public class DoctorBean extends UserBean
     @NotNull
     private DoctorAdminTitle admintitle;
 
+    @NotNull
+    private ExpertRank       expertrank     = ExpertRank.VIP;
+
+    @DateTimeFormat(iso = ISO.DATE)
+    @Past
+    private Date             firstrecruit;
+
     @DateTimeFormat(iso = ISO.DATE)
     @Past
     private Date             lastpromote;
@@ -91,9 +100,10 @@ public class DoctorBean extends UserBean
     @Size(max = 16)
     private String           education;
 
-    private boolean          supervisor;
+    @NotNull
+    private SupervisorType   supervisortype = SupervisorType.DOCTOR;
 
-    private boolean          doctoralsupervisior;
+    private String           supervisiorcolleges;
 
     /**
      * @return the realname
@@ -384,35 +394,67 @@ public class DoctorBean extends UserBean
     }
 
     /**
-     * @return the supervisor
+     * @return the expertrank
      */
-    public boolean isSupervisor()
+    public ExpertRank getExpertrank()
     {
-        return this.supervisor;
+        return this.expertrank;
     }
 
     /**
-     * @param supervisor the supervisor to set
+     * @param expertrank the expertrank to set
      */
-    public void setSupervisor(boolean supervisor)
+    public void setExpertrank(ExpertRank expertrank)
     {
-        this.supervisor = supervisor;
+        this.expertrank = expertrank;
     }
 
     /**
-     * @return the doctoralsupervisior
+     * @return the firstrecruit
      */
-    public boolean isDoctoralsupervisior()
+    public Date getFirstrecruit()
     {
-        return this.doctoralsupervisior;
+        return this.firstrecruit;
     }
 
     /**
-     * @param doctoralsupervisior the doctoralsupervisior to set
+     * @param firstrecruit the firstrecruit to set
      */
-    public void setDoctoralsupervisior(boolean doctoralsupervisior)
+    public void setFirstrecruit(Date firstrecruit)
     {
-        this.doctoralsupervisior = doctoralsupervisior;
+        this.firstrecruit = firstrecruit;
+    }
+
+    /**
+     * @return the supervisortype
+     */
+    public SupervisorType getSupervisortype()
+    {
+        return this.supervisortype;
+    }
+
+    /**
+     * @param supervisortype the supervisortype to set
+     */
+    public void setSupervisortype(SupervisorType supervisortype)
+    {
+        this.supervisortype = supervisortype;
+    }
+
+    /**
+     * @return the supervisiorcolleges
+     */
+    public String getSupervisiorcolleges()
+    {
+        return this.supervisiorcolleges;
+    }
+
+    /**
+     * @param supervisiorcolleges the supervisiorcolleges to set
+     */
+    public void setSupervisiorcolleges(String supervisiorcolleges)
+    {
+        this.supervisiorcolleges = supervisiorcolleges;
     }
 
     /**
@@ -435,6 +477,8 @@ public class DoctorBean extends UserBean
         bean.setEmployeeid(doctor.getEmployeeid());
         bean.setTitle(doctor.getTitle());
         bean.setAdmintitle(doctor.getAdmintitle());
+        bean.setExpertrank(doctor.getExpertrank());
+        bean.setFirstrecruit(doctor.getFirstrecruit());
         bean.setLastpromote(doctor.getLastpromote());
         bean.setSpecialities(doctor.getSpecialities());
         bean.setColleage(doctor.getColleage());
@@ -442,8 +486,8 @@ public class DoctorBean extends UserBean
         bean.setSecondmajor(doctor.getSecondmajor());
         bean.setDegree(doctor.getDegree());
         bean.setEducation(doctor.getEducation());
-        bean.setSupervisor(doctor.isSupervisor());
-        bean.setDoctoralsupervisior(doctor.isDoctoralsupervisior());
+        bean.setSupervisortype(doctor.getSupervisortype());
+        bean.setSupervisiorcolleges(doctor.getSupervisiorcolleges());
 
         return bean;
     }

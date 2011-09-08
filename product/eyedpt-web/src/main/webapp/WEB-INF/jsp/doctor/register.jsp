@@ -5,6 +5,8 @@
 <%@ page import="com.ehealth.eyedpt.dal.entities.enums.Gender"%>
 <%@ page import="com.ehealth.eyedpt.dal.entities.enums.DoctorTitle"%>
 <%@ page import="com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.ExpertRank"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.SupervisorType"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -140,6 +142,22 @@
 								class="error" />
 						</p>
 						<p>
+							专家级别*:
+							<form:select path="<%=FormConstants.FIELD_EXPERT_RANK%>">
+								<form:options items="<%=ExpertRank.values()%>" itemLabel="label"
+									itemValue="name" />
+							</form:select>
+							<form:errors path="<%=FormConstants.FIELD_EXPERT_RANK%>"
+								class="error" />
+						</p>
+						<p>
+							参加工作日期:
+							<form:input path="<%=FormConstants.FIELD_FIRST_RECRUIT%>"
+								class="inputdate" />
+							<form:errors path="<%=FormConstants.FIELD_FIRST_RECRUIT%>"
+								class="error" />
+						</p>
+						<p>
 							上次晋升日期:
 							<form:input path="<%=FormConstants.FIELD_LAST_PROMOTE%>"
 								class="inputdate" />
@@ -187,16 +205,19 @@
 								class="error" />
 						</p>
 						<p>
-							博士生导师:
-							<form:checkbox
-								path="<%=FormConstants.FIELD_DOCTORAL_SUPERVISIOR%>" />
-							<form:errors path="<%=FormConstants.FIELD_DOCTORAL_SUPERVISIOR%>"
+							导师类别*:
+							<form:select path="<%=FormConstants.FIELD_SUPERVISOR_TYPE%>">
+								<form:options items="<%=SupervisorType.values()%>"
+									itemLabel="label" itemValue="name" />
+							</form:select>
+							<form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE%>"
 								class="error" />
 						</p>
 						<p>
-							硕士生导师:
-							<form:checkbox path="<%=FormConstants.FIELD_SUPERVISOR%>" />
-							<form:errors path="<%=FormConstants.FIELD_SUPERVISOR%>"
+							导师院校:
+							<form:input path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGES%>"
+								class="inputtext" />
+							<form:errors path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGES%>"
 								class="error" />
 						</p>
 						<p>

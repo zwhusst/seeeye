@@ -24,4 +24,9 @@ public enum Gender
         return this.label;
     }
 
+    public String getName()
+    {
+        return name();
+    }
+
 }
