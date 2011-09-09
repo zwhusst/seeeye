@@ -48,7 +48,7 @@
 				<div class="editprofile">
 					<h1>编辑档案</h1>
 					<form:form modelAttribute="<%=FormConstants.BEAN_DOCTOR%>"
-						method="post">
+						method="post" enctype="multipart/form-data">
 						<p>
 							<form:hidden path="<%=FormConstants.FIELD_NAME%>" />
 							真实姓名*:
@@ -206,6 +206,17 @@
 							<form:input path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGES%>"
 								class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGES%>"
+								class="error" />
+						</p>
+						<p>
+							照片(2M以内):<input name="<%=FormConstants.FIELD_PHOTO%>" type="file"
+								value="照片" class="inputtext" />
+						</p>
+						<p>
+							个人简介:
+							<form:textarea path="<%=FormConstants.FIELD_DESCRIPTION%>"
+								rows="4" cols="80" />
+							<form:errors path="<%=FormConstants.FIELD_DESCRIPTION%>"
 								class="error" />
 						</p>
 						<p>

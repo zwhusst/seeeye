@@ -66,6 +66,8 @@ public interface FormConstants
     public static final String   FIELD_EDUCATION            = "education";
     public static final String   FIELD_SUPERVISOR_TYPE      = "supervisortype";
     public static final String   FIELD_SUPERVISIOR_COLLEGES = "supervisiorcolleges";
+    public static final String   FIELD_PHOTO                = "_photo";
+    public static final String   FIELD_DESCRIPTION          = "description";
 
     /**
      * Change Password

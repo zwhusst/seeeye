@@ -4,6 +4,8 @@
 
 package com.ehealth.eyedpt.mvc.controllers;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,6 +21,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.core.security.services.RoleService;
@@ -104,8 +107,11 @@ public class DoctorController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("hasRole('DOCTOR_ADMIN')")
-    public String doRegister(@Valid DoctorBean doctorBean, BindingResult result)
+    public String doRegister(@Valid DoctorBean doctorBean, BindingResult result,
+            @RequestParam(value = FormConstants.FIELD_PHOTO, required = false) MultipartFile photo)
+            throws IOException
     {
+        // TODO#EMAC.P! add validation message for exceeding max size
         if ( result.hasErrors() )
         {
             return null;
@@ -120,6 +126,13 @@ public class DoctorController
             return null;
         }
 
+        // get uploaded photo
+        // TODO#EMAC.P! validate file type
+        if ( photo != null )
+        {
+            doctorBean.setPhoto(photo.getBytes());
+        }
+        
         this.doctorService.create(doctorBean);
 
         logger.info("New doctor registered: " + doctorBean.getName());
@@ -131,6 +144,7 @@ public class DoctorController
     @PreAuthorize("isAuthenticated()")
     public void doEdit(HttpSession session, Model model, @RequestParam(required = false) String employeeId)
     {
+        // TODO#EMAC.P! show photo to user
         // create new bean
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
         Assert.notNull(user);
@@ -164,13 +178,22 @@ public class DoctorController
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     public String doEdit(@Valid DoctorBean doctorBean, BindingResult result,
-            @RequestParam(required = false) String employeeId)
+            @RequestParam(required = false) String employeeId,
+            @RequestParam(value = FormConstants.FIELD_PHOTO, required = false) MultipartFile photo)
+            throws IOException
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
+        // get uploaded photo
+        // TODO#EMAC.P! validate file type
+        if ( photo != null )
+        {
+            doctorBean.setPhoto(photo.getBytes());
+        }
+        
         this.doctorService.update(doctorBean);
 
         logger.info("Doctor updated: " + doctorBean.getName());

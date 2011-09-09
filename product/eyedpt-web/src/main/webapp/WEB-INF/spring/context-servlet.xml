@@ -33,7 +33,9 @@
 
 	<!-- Only needed because we require fileupload -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="2097152" />
+	</bean>
 
 	<!-- ========================= BEANS ========================= -->
 	<!-- Activates various annotations to be detected in bean classes: Spring's 
