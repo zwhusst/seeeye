@@ -14,11 +14,11 @@
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/common.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/mgmt.js"/>"></script>
+	src="<c:url value="/resources/scripts/profile.js"/>"></script>
 </head>
 
 <body>

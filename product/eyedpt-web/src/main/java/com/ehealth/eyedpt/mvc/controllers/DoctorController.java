@@ -111,7 +111,6 @@ public class DoctorController
             @RequestParam(value = FormConstants.FIELD_PHOTO, required = false) MultipartFile photo)
             throws IOException
     {
-        // TODO#EMAC.P! add validation message for exceeding max size
         if ( result.hasErrors() )
         {
             return null;

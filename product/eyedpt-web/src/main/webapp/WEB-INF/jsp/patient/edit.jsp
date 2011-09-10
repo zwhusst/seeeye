@@ -20,11 +20,13 @@
 <link href="<c:url value="/resources/css/jquery-ui-ext.css"/>"
 	type="text/css" rel="stylesheet" />
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery-ui.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery-ui.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery-ui-i18n.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery-ui-i18n.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/common-ui.js"/>"></script>
 <script type="text/javascript"
@@ -67,14 +69,14 @@
 						<p>
 							生日:
 							<form:input path="<%=FormConstants.FIELD_BIRTHDAY%>"
-								class="inputdate" id="birthday" />
+								class="inputdate" id="ubirthday" />
 							<form:errors path="<%=FormConstants.FIELD_BIRTHDAY%>"
 								class="error" />
 						</p>
 						<p>
 							年龄*:
 							<form:select path="<%=FormConstants.FIELD_AGE%>"
-								items="<%=FormConstants.AGE_RANGE%>" id="age" />
+								items="<%=FormConstants.AGE_RANGE%>" id="uage" />
 							<form:errors path="<%=FormConstants.FIELD_AGE%>" class="error" />
 						</p>
 						<p>

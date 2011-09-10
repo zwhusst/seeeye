@@ -112,9 +112,10 @@ $(function() {
 	$("#citySelect option:first").attr("selected", "selected");
 
 	// refresh city list responding to province change
-	$("#provinceSelect").bind(
-			"change",
+	$("#provinceSelect").change(
 			function() {
+				_log("[event.change] #provinceSelect");
+
 				var i = $(this)[0].selectedIndex;
 				$("#citySelect").empty();
 				for ( var j = 0; j < CITY[i].length; j++) {

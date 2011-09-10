@@ -23,11 +23,13 @@
 <link href="<c:url value="/resources/css/jquery-ui-ext.css"/>"
 	type="text/css" rel="stylesheet" />
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery-ui.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery-ui.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery-ui-i18n.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery-ui-i18n.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/common-ui.js"/>"></script>
 </head>
@@ -68,14 +70,14 @@
 						<p>
 							生日:
 							<form:input path="<%=FormConstants.FIELD_BIRTHDAY%>"
-								class="inputdate" id="birthday" />
+								class="inputdate" id="ubirthday" />
 							<form:errors path="<%=FormConstants.FIELD_BIRTHDAY%>"
 								class="error" />
 						</p>
 						<p>
 							年龄*:
 							<form:select path="<%=FormConstants.FIELD_AGE%>"
-								items="<%=FormConstants.AGE_RANGE%>" id="age" />
+								items="<%=FormConstants.AGE_RANGE%>" id="uage" />
 							<form:errors path="<%=FormConstants.FIELD_AGE%>" class="error" />
 						</p>
 						<p>
@@ -209,13 +211,14 @@
 								class="error" />
 						</p>
 						<p>
-							照片(2M以内):<input name="<%=FormConstants.FIELD_PHOTO%>" type="file"
-								value="照片" class="inputtext" />
+							照片(小于2M):<input name="<%=FormConstants.FIELD_PHOTO%>" type="file"
+								value="照片" class="inputtext" id="uphoto" /> <span><img
+								width="128px" id="uphoto_preview" /> </span>
 						</p>
 						<p>
-							个人简介:
+							个人简介(2000字以内):
 							<form:textarea path="<%=FormConstants.FIELD_DESCRIPTION%>"
-								rows="4" cols="80" />
+								rows="4" cols="64" />
 							<form:errors path="<%=FormConstants.FIELD_DESCRIPTION%>"
 								class="error" />
 						</p>

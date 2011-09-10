@@ -13,14 +13,14 @@
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet">
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/jquery.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/cufon-yui.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/cufon-yui.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/scripts/cufon-replace.js"/>"></script>
+	src="<c:url value="/resources/scripts/lib/cufon-replace.js"/>"></script>
 
 <!--[if IE 6]>
-    <script type="text/javascript" src="<c:url value="/resources/scripts/ie_png.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/scripts/lib/ie_png.js"/>"></script>
      <script type="text/javascript">
        ie_png.fix('.png');
      </script>

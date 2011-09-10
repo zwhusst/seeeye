@@ -1,11 +1,11 @@
 function editDoctor(employeeId) {
-	_log("[Func] editDoctor: " + employeeId);
+	_log("[func] editDoctor: " + employeeId);
 
 	location.href = "edit?employeeId=" + encodeURIComponent(employeeId);
 }
 
 function deleteDoctor(employeeId) {
-	_log("[Func] deleteDoctor: " + employeeId);
+	_log("[func] deleteDoctor: " + employeeId);
 
 	$.ajax({
 		url : "?employeeId=" + encodeURIComponent(employeeId),
@@ -15,13 +15,13 @@ function deleteDoctor(employeeId) {
 }
 
 function editAdmin(name) {
-	_log("[Func] editAdmin: " + name);
+	_log("[func] editAdmin: " + name);
 
 	location.href = "edit?username=" + encodeURIComponent(name);
 }
 
 function deleteAdmin(name) {
-	_log("[Func] deleteAdmin: " + name);
+	_log("[func] deleteAdmin: " + name);
 
 	$.ajax({
 		url : "?name=" + encodeURIComponent(name),
@@ -31,7 +31,7 @@ function deleteAdmin(name) {
 }
 
 function onDeleteDone() {
-	_log("[Func] onDeleteDone");
+	_log("[func] onDeleteDone");
 
 	$("div.mgmt").fadeOut("slow").load("mgmt div.mgmt").fadeIn("slow");
 }
