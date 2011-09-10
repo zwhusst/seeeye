@@ -18,10 +18,7 @@ public class ChangePwdBean
     private String password;
 
     @Size(min = 6, max = 16)
-    private String newPassword1;
-
-    @Size(min = 6, max = 16)
-    private String newPassword2;
+    private String newPassword;
 
     /**
      * @return the password
@@ -40,35 +37,19 @@ public class ChangePwdBean
     }
 
     /**
-     * @return the newPassword1
+     * @return the newPassword
      */
-    public String getNewPassword1()
+    public String getNewPassword()
     {
-        return this.newPassword1;
+        return this.newPassword;
     }
 
     /**
-     * @param newPassword1 the newPassword1 to set
+     * @param newPassword the newPassword to set
      */
-    public void setNewPassword1(String newPassword1)
+    public void setNewPassword(String newPassword)
     {
-        this.newPassword1 = newPassword1;
-    }
-
-    /**
-     * @return the newPassword2
-     */
-    public String getNewPassword2()
-    {
-        return this.newPassword2;
-    }
-
-    /**
-     * @param newPassword2 the newPassword2 to set
-     */
-    public void setNewPassword2(String newPassword2)
-    {
-        this.newPassword2 = newPassword2;
+        this.newPassword = newPassword;
     }
 
 }

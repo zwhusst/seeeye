@@ -3,7 +3,7 @@ var VALID_PHOTO_PATTERN = /\.(jpg|jpeg|png|gif)$/i;
 
 $(function() {
 	/**
-	 * Date Widget
+	 * [Widget] Date
 	 */
 	$.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
 	$("input.inputdate").datepicker(
@@ -21,7 +21,7 @@ $(function() {
 			});
 
 	/**
-	 * Birthday & Age
+	 * [Widget] Birthday & Age
 	 */
 	$("input#ubirthday").change(function() {
 		_log("[event.change] input#ubirthday");
@@ -37,7 +37,7 @@ $(function() {
 	});
 
 	/**
-	 * Photo Widget
+	 * [Widget] Photo
 	 */
 	$("input#uphoto").change(function() {
 		_log("[event.change] input#uphoto");

@@ -1,3 +1,6 @@
+/**
+ * [Widget] Province & City
+ */
 var PROVINCE = new Array();
 PROVINCE[0] = "北京";
 PROVINCE[1] = "上海";

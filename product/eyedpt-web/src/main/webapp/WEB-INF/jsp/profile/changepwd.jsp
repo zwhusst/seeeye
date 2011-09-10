@@ -13,6 +13,12 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/profile.js"/>"></script>
 </head>
 
 <body>
@@ -41,17 +47,14 @@
 						</p>
 						<p>
 							设置新的密码*:
-							<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD1%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD1%>"
+							<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD%>"
+								class="inputtext" id="new_pwd" />
+							<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD%>"
 								class="error" />
 						</p>
 						<p>
-							重复新的密码*:
-							<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD2%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD2%>"
-								class="error" />
+							重复新的密码*: <input type="password" class="inputtext" id="repeat_pwd" />
+							<span class="error" id="error_unmatch_pwd"></span>
 						</p>
 						<p>
 							<input name="changepwd" type="submit" value="确认" class="loginbut" />

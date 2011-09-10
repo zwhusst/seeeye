@@ -73,7 +73,6 @@ public interface FormConstants
      * Change Password
      */
     public static final String   BEAN_CHANGEPWD             = "changePwdBean";
-    public static final String   FIELD_NEW_PASSWORD1        = "newPassword1";
-    public static final String   FIELD_NEW_PASSWORD2        = "newPassword2";
+    public static final String   FIELD_NEW_PASSWORD         = "newPassword";
 
 }

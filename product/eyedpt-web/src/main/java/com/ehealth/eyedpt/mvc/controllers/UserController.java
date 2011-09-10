@@ -74,15 +74,7 @@ public class UserController
             return null;
         }
 
-        if ( !bean.getNewPassword1().equals(bean.getNewPassword2()) )
-        {
-            result.addError(new FieldError(FormConstants.BEAN_CHANGEPWD, FormConstants.FIELD_NEW_PASSWORD1, this.msp
-                    .getMessage(ValidationMessages.VA_CHANGEPWD_NOT_MATCH)));
-
-            return null;
-        }
-
-        user.setPassword(bean.getNewPassword1());
+        user.setPassword(bean.getNewPassword());
         user = this.userService.update(user);
         
         session.setAttribute(SessionConstants.ATTR_USER, user);

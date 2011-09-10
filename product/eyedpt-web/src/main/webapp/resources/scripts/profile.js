@@ -1,3 +1,32 @@
+$(function() {
+	/**
+	 * [Widget] Password
+	 */
+	$("input#new_pwd").focus(function() {
+		_log("[event.focus] input#new_pwd");
+
+		$("input#repeat_pwd")[0].value = "";
+	});
+
+	$("input#new_pwd").keyup(function() {
+		_log("[event.keyup] input#new_pwd");
+
+		$("span#error_unmatch_pwd").text("请再次输入密码");
+	});
+
+	$("input#repeat_pwd").keyup(function() {
+		_log("[event.keyup] input#repeat_pwd");
+
+		var pwd = $("input#new_pwd")[0].value;
+		var pwd2 = $("input#repeat_pwd")[0].value;
+		if (pwd != pwd2) {
+			$("span#error_unmatch_pwd").text("两次输入的密码不一致");
+		} else {
+			$("span#error_unmatch_pwd").text("");
+		}
+	});
+});
+
 function editDoctor(employeeId) {
 	_log("[func] editDoctor: " + employeeId);
 

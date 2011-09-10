@@ -31,6 +31,8 @@
 	src="<c:url value="/resources/scripts/common-ui.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/city.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/profile.js"/>"></script>
 </head>
 
 <body>
@@ -58,9 +60,13 @@
 						<p>
 							密码*:
 							<form:password path="<%=FormConstants.FIELD_PASSWORD%>"
-								class="inputtext" />
+								class="inputtext" id="new_pwd" />
 							<form:errors path="<%=FormConstants.FIELD_PASSWORD%>"
 								class="error" />
+						</p>
+						<p>
+							再次输入密码*: <input type="password" class="inputtext" id="repeat_pwd" />
+							<span class="error" id="error_unmatch_pwd"></span>
 						</p>
 						<p>
 							真实姓名*:

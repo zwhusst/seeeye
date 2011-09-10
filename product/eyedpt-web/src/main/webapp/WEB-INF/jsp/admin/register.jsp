@@ -14,6 +14,12 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/profile.js"/>"></script>
 </head>
 
 <body>
@@ -42,9 +48,13 @@
 						<p>
 							密码*:
 							<form:password path="<%=FormConstants.FIELD_PASSWORD%>"
-								class="inputtext" />
+								class="inputtext" id="new_pwd" />
 							<form:errors path="<%=FormConstants.FIELD_PASSWORD%>"
 								class="error" />
+						</p>
+						<p>
+							再次输入密码*: <input type="password" class="inputtext" id="repeat_pwd" />
+							<span class="error" id="error_unmatch_pwd"></span>
 						</p>
 						<p>
 							邮箱地址*:
