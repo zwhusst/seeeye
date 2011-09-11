@@ -37,7 +37,6 @@ public class FileCache
      * @throws IOException
      */
     public void setCacheBaseDir(File cacheBaseDir)
-            throws IOException
     {
         if ( this.cacheBaseDir != null )
         {
@@ -49,8 +48,6 @@ public class FileCache
 
         this.cacheBaseDir = cacheBaseDir;
         this.cacheDir = new File(this.cacheBaseDir, this.cacheDirName);
-
-        FileUtils.forceDeleteOnExit(this.cacheDir);
     }
 
     /**
@@ -68,6 +65,9 @@ public class FileCache
         cacheFileName += fileExt;
         File cacheFile = new File(this.cacheDir, cacheFileName);
         FileUtils.copyInputStreamToFile(inputStream, cacheFile);
+        
+        // clean cache on exit
+        cacheFile.deleteOnExit();
 
         return cacheFile;
     }

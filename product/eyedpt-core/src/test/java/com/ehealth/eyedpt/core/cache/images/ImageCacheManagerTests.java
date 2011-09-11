@@ -36,7 +36,6 @@ public class ImageCacheManagerTests extends AbstractTransactionalJUnit4SpringCon
 
     @Before
     public void before()
-            throws IOException
     {
         File baseDir = new File(BASE_DIR_NAME);
         baseDir.mkdirs();
