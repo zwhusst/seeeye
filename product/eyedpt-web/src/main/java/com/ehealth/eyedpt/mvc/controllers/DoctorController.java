@@ -4,6 +4,7 @@
 
 package com.ehealth.eyedpt.mvc.controllers;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
@@ -54,6 +55,7 @@ public class DoctorController
     public static final String    MAPPING_EDIT     = "/doctor/edit";
 
     private static final String   PARAM_PHOTO      = "_photo";
+    private static final String   ATTR_IMAGE_NAME  = "imageName";
 
     @Autowired
     private UserService           userService;
@@ -160,7 +162,6 @@ public class DoctorController
     @PreAuthorize("isAuthenticated()")
     public void doEdit(HttpSession session, Model model, @RequestParam(required = false) String employeeId)
     {
-        // TODO#EMAC.P! show photo to user
         // create new bean
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
         Assert.notNull(user);
@@ -189,6 +190,14 @@ public class DoctorController
         }
 
         model.addAttribute(doctorBean);
+
+        // add attribute of cache image name
+        String userName = doctor.getUser().getName();
+        File image = this.imageCacheManager.get(userName);
+        if ( image != null )
+        {
+            model.addAttribute(ATTR_IMAGE_NAME, image.getName());
+        }
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)

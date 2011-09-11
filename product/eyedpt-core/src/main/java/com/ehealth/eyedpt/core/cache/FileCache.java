@@ -55,15 +55,17 @@ public class FileCache
 
     /**
      * @param inputStream
+     * @param fileExt
      * @return
      * @throws IOException
      */
-    public File add(InputStream inputStream)
+    public File add(InputStream inputStream, String fileExt)
             throws IOException
     {
         Assert.notNull(inputStream);
 
         String cacheFileName = RandomStringUtils.randomAlphanumeric(this.cacheFileLength);
+        cacheFileName += fileExt;
         File cacheFile = new File(this.cacheDir, cacheFileName);
         FileUtils.copyInputStreamToFile(inputStream, cacheFile);
 
