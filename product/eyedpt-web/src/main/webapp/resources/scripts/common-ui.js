@@ -1,6 +1,3 @@
-var MAX_PHOTO_SIZE = 2 * 1024 * 1024; // 2M
-var VALID_PHOTO_PATTERN = /\.(jpg|jpeg|png|gif)$/i;
-
 $(function() {
 	/**
 	 * [Widget] Date
@@ -34,29 +31,5 @@ $(function() {
 			age = 1;
 		}
 		$("select#uage")[0].selectedIndex = age - 1;
-	});
-
-	/**
-	 * [Widget] Photo
-	 */
-	$("input#uphoto").change(function() {
-		_log("[event.change] input#uphoto");
-
-		var filePath = $(this)[0].value;
-		if (filePath.length == 0) {
-			// hide preview span
-			$("img#uphoto_preview").hide("slow");
-			return;
-		}
-
-		// check type
-		if (!filePath.match(VALID_PHOTO_PATTERN)) {
-			alert("抱歉，仅支持.jpg, .jpeg, .png, .gif格式的照片。请重新选择。");
-			return;
-		}
-
-		// show preview span
-		$("img#uphoto_preview")[0].src = filePath;
-		$("img#uphoto_preview").show("slow");
 	});
 });

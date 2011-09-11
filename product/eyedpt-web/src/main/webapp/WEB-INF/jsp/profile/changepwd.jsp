@@ -54,7 +54,7 @@
 						</p>
 						<p>
 							重复新的密码*: <input type="password" class="inputtext" id="repeat_pwd" />
-							<span class="error" id="error_unmatch_pwd"></span>
+							<span class="error" id="error_pwd"></span>
 						</p>
 						<p>
 							<input name="changepwd" type="submit" value="确认" class="loginbut" />

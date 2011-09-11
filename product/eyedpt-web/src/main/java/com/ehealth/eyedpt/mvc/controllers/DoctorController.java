@@ -37,6 +37,7 @@ import com.ehealth.eyedpt.mvc.services.DoctorBlobService;
 import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.services.UserService;
 import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
+import com.ehealth.eyedpt.mvc.utils.ImageUtils;
 
 /**
  * @author emac
@@ -50,6 +51,8 @@ public class DoctorController
     public static final String    MAPPING_MGMT     = "/doctor/mgmt";
     public static final String    MAPPING_REGISTER = "/doctor/register";
     public static final String    MAPPING_EDIT     = "/doctor/edit";
+
+    private static final String   PARAM_PHOTO      = "_photo";
 
     @Autowired
     private UserService           userService;
@@ -108,7 +111,7 @@ public class DoctorController
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("hasRole('DOCTOR_ADMIN')")
     public String doRegister(@Valid DoctorBean doctorBean, BindingResult result,
-            @RequestParam(value = FormConstants.FIELD_PHOTO, required = false) MultipartFile photo)
+            @RequestParam(value = PARAM_PHOTO, required = false) MultipartFile photo)
             throws IOException
     {
         if ( result.hasErrors() )
@@ -126,12 +129,16 @@ public class DoctorController
         }
 
         // get uploaded photo
-        // TODO#EMAC.P! validate file type
         if ( photo != null )
         {
+            if ( !ImageUtils.isAcceptableImageType(photo.getOriginalFilename()) )
+            {
+                return null;
+            }
+
             doctorBean.setPhoto(photo.getBytes());
         }
-        
+
         this.doctorService.create(doctorBean);
 
         logger.info("New doctor registered: " + doctorBean.getName());
@@ -178,7 +185,7 @@ public class DoctorController
     @PreAuthorize("isAuthenticated()")
     public String doEdit(@Valid DoctorBean doctorBean, BindingResult result,
             @RequestParam(required = false) String employeeId,
-            @RequestParam(value = FormConstants.FIELD_PHOTO, required = false) MultipartFile photo)
+            @RequestParam(value = PARAM_PHOTO, required = false) MultipartFile photo)
             throws IOException
     {
         if ( result.hasErrors() )
@@ -187,12 +194,16 @@ public class DoctorController
         }
 
         // get uploaded photo
-        // TODO#EMAC.P! validate file type
         if ( photo != null )
         {
+            if ( !ImageUtils.isAcceptableImageType(photo.getOriginalFilename()) )
+            {
+                return null;
+            }
+
             doctorBean.setPhoto(photo.getBytes());
         }
-        
+
         this.doctorService.update(doctorBean);
 
         logger.info("Doctor updated: " + doctorBean.getName());

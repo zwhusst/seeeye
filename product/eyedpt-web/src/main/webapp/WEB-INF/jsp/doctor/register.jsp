@@ -68,7 +68,7 @@
 						</p>
 						<p>
 							再次输入密码*: <input type="password" class="inputtext" id="repeat_pwd" />
-							<span class="error" id="error_unmatch_pwd"></span>
+							<span class="error" id="error_pwd"></span>
 						</p>
 						<p>
 							真实姓名*:
@@ -229,9 +229,10 @@
 								class="error" />
 						</p>
 						<p>
-							照片(小于2M):<input name="<%=FormConstants.FIELD_PHOTO%>" type="file"
-								value="照片" class="inputtext" id="uphoto" /> <span><img
-								width="128px" id="uphoto_preview" /> </span>
+							照片(小于2M):<input name="_photo" type="file" value="照片"
+								class="inputtext" id="uphoto" /> <span class="error"
+								id="error_uphoto"></span> <span><img width="128px"
+								id="uphoto_preview" /> </span>
 						</p>
 						<p>
 							个人简介(2000字以内):

@@ -54,7 +54,7 @@
 						</p>
 						<p>
 							再次输入密码*: <input type="password" class="inputtext" id="repeat_pwd" />
-							<span class="error" id="error_unmatch_pwd"></span>
+							<span class="error" id="error_pwd"></span>
 						</p>
 						<p>
 							邮箱地址*:

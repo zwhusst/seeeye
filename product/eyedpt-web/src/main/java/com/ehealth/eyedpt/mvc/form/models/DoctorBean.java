@@ -106,7 +106,7 @@ public class DoctorBean extends UserBean
 
     private String           supervisiorcolleges;
 
-    @Size(max = 1024 * 1024 * 2)
+    // @Size(max = 1024 * 1024 * 2)
     // 2M
     private byte[]           photo;
 
