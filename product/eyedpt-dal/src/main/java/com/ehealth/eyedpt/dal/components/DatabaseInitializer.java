@@ -4,8 +4,11 @@
 
 package com.ehealth.eyedpt.dal.components;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.ehealth.eyedpt.dal.entities.Admin;
 import com.ehealth.eyedpt.dal.entities.Department;
 import com.ehealth.eyedpt.dal.entities.Doctor;
+import com.ehealth.eyedpt.dal.entities.DoctorBlob;
 import com.ehealth.eyedpt.dal.entities.Hospital;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
@@ -27,6 +31,7 @@ import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
 import com.ehealth.eyedpt.dal.repositories.DepartmentDao;
+import com.ehealth.eyedpt.dal.repositories.DoctorBlobDao;
 import com.ehealth.eyedpt.dal.repositories.DoctorDao;
 import com.ehealth.eyedpt.dal.repositories.HospitalDao;
 import com.ehealth.eyedpt.dal.repositories.PatientDao;
@@ -46,6 +51,7 @@ public class DatabaseInitializer
     public static final String TEST_PATIENT   = "tp";
     public static final String TEST_ADMIN     = "ta";
     public static final String TEST_DOCTOR    = "td";
+    public static final String TEST_PHOTO     = "emacoo.jpg";
 
     public static final String HOSTPITAL_NO1  = "上海市第一人民医院";
     public static final String DEPARTMENT_EYE = "眼科";
@@ -60,6 +66,9 @@ public class DatabaseInitializer
     private DoctorDao          doctorDao;
 
     @Autowired
+    private DoctorBlobDao      doctorBlobDao;
+
+    @Autowired
     private HospitalDao        hospitalDao;
 
     @Autowired
@@ -68,10 +77,20 @@ public class DatabaseInitializer
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
     {
-        initDB();
+        try
+        {
+            initDB();
+
+            logger.info("Database initialized!");
+        }
+        catch (IOException e)
+        {
+            logger.error("Error occurs when initializing database!", e);
+        }
     }
 
     private void initDB()
+            throws IOException
     {
         if ( this.adminDao.findAll().size() > 0 )
         {
@@ -178,6 +197,7 @@ public class DatabaseInitializer
     }
 
     private void createTestDoctor()
+            throws IOException
     {
         // user
         User user = new User();
@@ -208,6 +228,14 @@ public class DatabaseInitializer
         Department department = this.departmentDao.findByHospitalAndName(hospital, DEPARTMENT_EYE);
         td.setDepartment(department);
         this.doctorDao.create(td);
+
+        // doctor blob
+        DoctorBlob blob = new DoctorBlob();
+        blob.setDoctor(td);
+        InputStream is = getClass().getResourceAsStream(TEST_PHOTO);
+        blob.setPhoto(IOUtils.toByteArray(is));
+        blob.setDescription("test");
+        this.doctorBlobDao.create(blob);
 
         logger.info("Test doctor created!");
     }
