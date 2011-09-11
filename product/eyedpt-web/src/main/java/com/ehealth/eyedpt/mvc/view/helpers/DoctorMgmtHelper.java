@@ -13,6 +13,8 @@ import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.view.models.DoctorMgmtItem;
 
 /**
+ * Utility class to create items in doctor management page.
+ * 
  * @author emac
  */
 public enum DoctorMgmtHelper

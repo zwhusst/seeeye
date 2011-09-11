@@ -16,6 +16,8 @@ import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
+ * Adapts a user role to a user panel item if it applies.
+ * 
  * @author emac
  */
 public class RolePanelAdapter

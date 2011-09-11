@@ -22,6 +22,8 @@ import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
+ * Factory to create universal items.
+ * 
  * @author emac
  */
 @Service

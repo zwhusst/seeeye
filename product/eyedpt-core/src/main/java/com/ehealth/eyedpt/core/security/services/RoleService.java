@@ -15,6 +15,8 @@ import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.dal.entities.User;
 
 /**
+ * Services to grant/revoke roles to/from any user.
+ * 
  * @author emac
  */
 @Service

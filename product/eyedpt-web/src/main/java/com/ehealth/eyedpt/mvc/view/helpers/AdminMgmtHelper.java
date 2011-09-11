@@ -13,6 +13,8 @@ import com.ehealth.eyedpt.mvc.services.AdminService;
 import com.ehealth.eyedpt.mvc.view.models.AdminMgmtItem;
 
 /**
+ * Utility class to create items in admin management page.
+ * 
  * @author emac
  */
 public enum AdminMgmtHelper

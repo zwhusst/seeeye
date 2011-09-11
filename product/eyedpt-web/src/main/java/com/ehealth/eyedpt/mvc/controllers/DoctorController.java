@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ehealth.eyedpt.core.cache.images.ImageCacheManager;
 import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Doctor;
@@ -65,6 +66,9 @@ public class DoctorController
 
     @Autowired
     private RoleService           roleService;
+
+    @Autowired
+    private ImageCacheManager     imageCacheManager;
 
     @Autowired
     private MessageSourceProvider msp;
@@ -141,6 +145,12 @@ public class DoctorController
 
         this.doctorService.create(doctorBean);
 
+        // add to cache
+        if ( photo != null )
+        {
+            this.imageCacheManager.put(doctorBean.getName(), photo.getInputStream());
+        }
+
         logger.info("New doctor registered: " + doctorBean.getName());
 
         return "redirect:" + MAPPING_MGMT;
@@ -205,6 +215,12 @@ public class DoctorController
         }
 
         this.doctorService.update(doctorBean);
+
+        // update cache
+        if ( photo != null )
+        {
+            this.imageCacheManager.put(doctorBean.getName(), photo.getInputStream());
+        }
 
         logger.info("Doctor updated: " + doctorBean.getName());
 

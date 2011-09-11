@@ -7,6 +7,8 @@ package com.ehealth.eyedpt.mvc.context;
 import org.springframework.context.ApplicationContext;
 
 /**
+ * A utility class to resolve spring beans outside spring context.
+ * 
  * @author emac
  */
 public class BeanResolver
@@ -28,11 +30,11 @@ public class BeanResolver
     }
 
     /**
-     * @param context
+     * @param appContext
      */
-    public static void setApplicationContext(ApplicationContext context)
+    public static void setApplicationContext(ApplicationContext appContext)
     {
-        appContext = context;
+        BeanResolver.appContext = appContext;
     }
 
     /**

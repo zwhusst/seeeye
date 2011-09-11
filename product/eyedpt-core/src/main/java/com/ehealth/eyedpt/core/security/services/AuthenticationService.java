@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.ehealth.eyedpt.dal.entities.User;
 
 /**
+ * Service to manage authentication.
+ * 
  * @author emac
  */
 @Service

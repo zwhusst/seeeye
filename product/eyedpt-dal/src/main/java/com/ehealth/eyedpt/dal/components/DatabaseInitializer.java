@@ -32,6 +32,8 @@ import com.ehealth.eyedpt.dal.repositories.HospitalDao;
 import com.ehealth.eyedpt.dal.repositories.PatientDao;
 
 /**
+ * Sets up database for dev/test use.
+ * 
  * @author emac
  */
 @Component

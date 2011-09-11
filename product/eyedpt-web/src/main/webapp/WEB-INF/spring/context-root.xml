@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+
 	<!-- ========================= RESOURCES ========================= -->
 	<import resource="classpath:WEB-INF/spring/context-jpa.xml" />
-	<import resource="classpath:WEB-INF/spring/context-security.xml" />
+	<import resource="classpath:WEB-INF/spring/context-core.xml" />
+
+	<!-- ========================= SECURITY ========================= -->
+	<sec:http use-expressions="true">
+		<!-- <intercept-url pattern="/*/**" access="isAuthenticated()" /> -->
+		<sec:form-login login-page="/" />
+		<sec:logout />
+		<sec:session-management>
+			<sec:concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
+		</sec:session-management>
+	</sec:http>
 
 	<!-- ========================= MESSAGE RESOLVER ========================= -->
 	<bean id="messageSource"

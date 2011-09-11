@@ -15,6 +15,8 @@ import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
+ * Factory to create items related to user group.
+ * 
  * @author emac
  */
 @Service

@@ -16,7 +16,7 @@ import com.ehealth.eyedpt.mvc.services.userpanel.UniversalUserPanelItemFactory;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
- * Acts as a bridge between user panel view and backend services.
+ * Utility class to create items in user control panel.
  * 
  * @author emac
  */

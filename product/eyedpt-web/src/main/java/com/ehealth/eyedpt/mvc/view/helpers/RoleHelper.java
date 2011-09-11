@@ -13,6 +13,8 @@ import com.ehealth.eyedpt.mvc.context.BeanResolver;
 import com.ehealth.eyedpt.mvc.messages.ViewMessages;
 
 /**
+ * Utility class to list all grantable roles.
+ * 
  * @author emac
  */
 public enum RoleHelper

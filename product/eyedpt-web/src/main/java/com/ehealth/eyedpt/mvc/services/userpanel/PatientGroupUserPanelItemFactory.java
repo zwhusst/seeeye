@@ -13,6 +13,8 @@ import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
+ * Factory to create items specific to patients.
+ * 
  * @author emac
  */
 @Service

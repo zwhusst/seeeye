@@ -18,6 +18,8 @@ import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.mvc.view.models.UserPanelItem;
 
 /**
+ * Factory to create items related to user roles.
+ * 
  * @author emac
  */
 @Service
