@@ -42,7 +42,7 @@ public class ImageCacheManager
         File oldCacheFile = get(key);
 
         // TODO#EMAC.P2 uniform image size, format
-        File newCacheFile = this.imageCache.add(inputStream, ".jpg");
+        File newCacheFile = this.imageCache.add(inputStream, null);
         this.imageMap.put(key, newCacheFile);
 
         // clean old cache

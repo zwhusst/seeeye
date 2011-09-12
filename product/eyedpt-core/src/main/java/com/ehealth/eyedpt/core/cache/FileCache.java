@@ -51,6 +51,18 @@ public class FileCache
     }
 
     /**
+     * Returns the cache directory.
+     * 
+     * @return
+     */
+    public File getCacheDir()
+    {
+        return this.cacheDir;
+    }
+
+    /**
+     * Generates a cache file from the given input stream.
+     * 
      * @param inputStream
      * @param fileExt
      * @return
@@ -65,7 +77,7 @@ public class FileCache
         cacheFileName += fileExt;
         File cacheFile = new File(this.cacheDir, cacheFileName);
         FileUtils.copyInputStreamToFile(inputStream, cacheFile);
-        
+
         // clean cache on exit
         cacheFile.deleteOnExit();
 
