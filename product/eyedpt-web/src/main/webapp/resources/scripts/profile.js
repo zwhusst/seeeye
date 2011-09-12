@@ -55,10 +55,12 @@ $(function() {
 		if (!filePath.match(PATTERN_ACCEPTABLE_IMAGE_TYPES)) {
 			alert("抱歉，只接受.jpg/.jpeg/.png/.gif格式的照片。请重新选择。");
 			$("span#error_uphoto").text("只接受.jpg/.jpeg/.png/.gif格式的照片");
+			$("img#uphoto_preview").hide("slow");
 			return;
-		} else {
-			$("span#error_uphoto").text("");
 		}
+		
+		// clear error message
+		$("span#error_uphoto").text("");
 
 		// show preview span
 		$("img#uphoto_preview")[0].src = filePath;

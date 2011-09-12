@@ -84,11 +84,10 @@ public class RoleService
      */
     public void revokeAllRoles(User user)
     {
-        byte[] rs = user.getRoleset();
-        for (int i = 0; i < rs.length; i++)
-        {
-            rs[i] = Role.REVOKED;
-        }
+        Assert.notNull(user);
+
+        // HAVE TO CREATE NEW BYTE ARRAY IN ORDER TO REVOKE ALL. UPDATE EXISTING ARRRY DOES NOT WORK IN SPRING CONTEXT.
+        user.setRoleset(new byte[32]);
     }
 
 }
