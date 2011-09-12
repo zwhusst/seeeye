@@ -10,6 +10,6 @@ package com.ehealth.eyedpt.mvc.constants;
 public interface ViewConstants
 {
 
-    public static final String HREF_TODO = "#";
+    public static final String REDIRECT_HOME = "redirect:/";
 
 }

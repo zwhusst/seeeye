@@ -27,6 +27,7 @@ import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
+import com.ehealth.eyedpt.mvc.constants.ViewConstants;
 import com.ehealth.eyedpt.mvc.form.models.AdminBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
 import com.ehealth.eyedpt.mvc.services.AdminService;
@@ -166,7 +167,7 @@ public class AdminController
             return "redirect:" + MAPPING_MGMT;
         }
 
-        return "redirect:/";
+        return ViewConstants.REDIRECT_HOME;
     }
 
 }

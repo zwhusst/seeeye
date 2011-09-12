@@ -43,7 +43,10 @@
 			</p>
 			<p>
 				<input name="login" type="submit" value="登录" class="loginbut" /> <a
-					href="<c:url value="/patient/register"/>">注册</a>
+					href="<c:url value="/profile/forgotpwd"/>">忘记密码</a>
+			</p>
+			<p>
+				<a href="<c:url value="/patient/register"/>">注册</a>
 			</p>
 		</form>
 	</c:if>

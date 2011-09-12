@@ -75,4 +75,9 @@ public interface FormConstants
     public static final String   BEAN_CHANGEPWD             = "changePwdBean";
     public static final String   FIELD_NEW_PASSWORD         = "newPassword";
 
+    /**
+     * Forgot Password
+     */
+    public static final String   BEAN_FORGOTPWD             = "forgotPwdBean";
+
 }

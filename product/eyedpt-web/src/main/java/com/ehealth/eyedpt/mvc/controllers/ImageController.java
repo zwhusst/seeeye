@@ -21,9 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ehealth.eyedpt.com.vogoal.util.img.RandImgCreater;
 import com.ehealth.eyedpt.core.cache.images.ImageCache;
-import com.ehealth.eyedpt.mvc.constants.SessionConstants;
+import com.ehealth.eyedpt.mvc.services.CheckcodeService;
 
 /**
  * @author emac
@@ -40,6 +39,9 @@ public class ImageController
     @Autowired
     private ImageCache         imageCache;
 
+    @Autowired
+    private CheckcodeService   checkcodeService;
+
     @RequestMapping(value = MAPPING_CHECKCODE, method = RequestMethod.GET)
     public void genCheckcode(HttpServletResponse response, HttpSession session)
     {
@@ -47,9 +49,7 @@ public class ImageController
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
 
-        RandImgCreater creator = new RandImgCreater(response);
-        String checkcode = creator.createRandImage();
-        session.setAttribute(SessionConstants.ATTR_CHECKCODE, checkcode);
+        this.checkcodeService.genCheckcode(response, session);
 
         logger.info("Checkcode generated!");
     }

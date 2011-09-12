@@ -7,7 +7,6 @@ package com.ehealth.eyedpt.mvc.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,8 +25,10 @@ import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
+import com.ehealth.eyedpt.mvc.constants.ViewConstants;
 import com.ehealth.eyedpt.mvc.form.models.PatientBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
+import com.ehealth.eyedpt.mvc.services.CheckcodeService;
 import com.ehealth.eyedpt.mvc.services.PatientService;
 import com.ehealth.eyedpt.mvc.services.UserService;
 
@@ -53,6 +54,9 @@ public class PatientController
     private AuthenticationService authenticationService;
 
     @Autowired
+    private CheckcodeService      checkcodeService;
+
+    @Autowired
     private MessageSourceProvider msp;
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
@@ -68,17 +72,7 @@ public class PatientController
             @RequestParam String checkcode)
     {
         // check checkcode
-        if ( !StringUtils.equals(checkcode, (String) session.getAttribute(SessionConstants.ATTR_CHECKCODE)) )
-        {
-            session.setAttribute(SessionConstants.MESSAGE_CHECKCODE,
-                    this.msp.getMessage(ValidationMessages.VA_CHECKCODE_NOT_MATCH));
-
-            return null;
-        }
-        // clear previous message
-        session.setAttribute(SessionConstants.MESSAGE_CHECKCODE, null);
-
-        if ( result.hasErrors() )
+        if ( !this.checkcodeService.checkCheckcode(checkcode, session) )
         {
             return null;
         }
@@ -101,7 +95,7 @@ public class PatientController
 
         logger.info("New patient registered: " + patientBean.getName());
 
-        return "redirect:/";
+        return ViewConstants.REDIRECT_HOME;
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
@@ -132,7 +126,7 @@ public class PatientController
 
         logger.info("Patient updated: " + patientBean.getName());
 
-        return "redirect:/";
+        return ViewConstants.REDIRECT_HOME;
     }
 
 }

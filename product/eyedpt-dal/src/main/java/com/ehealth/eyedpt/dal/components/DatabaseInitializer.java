@@ -51,7 +51,6 @@ public class DatabaseInitializer
     public static final String TEST_PATIENT   = "tp";
     public static final String TEST_ADMIN     = "ta";
     public static final String TEST_DOCTOR    = "td";
-    public static final String TEST_PHOTO     = "emacoo.jpg";
 
     public static final String HOSTPITAL_NO1  = "上海市第一人民医院";
     public static final String DEPARTMENT_EYE = "眼科";
@@ -101,6 +100,7 @@ public class DatabaseInitializer
         createTestPatient();
         createTestAdmin();
         createTestDoctor();
+        createSuperDoctor();
     }
 
     private void createRootAdmin()
@@ -229,15 +229,51 @@ public class DatabaseInitializer
         td.setDepartment(department);
         this.doctorDao.create(td);
 
+        logger.info("Test doctor created!");
+    }
+
+    private void createSuperDoctor()
+            throws IOException
+    {
+        // user
+        User user = new User();
+        user.setName("emac");
+        user.setPassword("came");
+        user.setUsergroup(UserGroup.DOCTOR);
+        user.setRoleset(new byte[]
+        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1});
+
+        // doctor
+        Doctor td = new Doctor();
+        td.setUser(user);
+        td.setRealname("super");
+        td.setGender(Gender.M);
+        td.setAge(99);
+        td.setEmail("emac_0024@163.com");
+        td.setCellphone("99999999999");
+        td.setAddress("super");
+        td.setEmployeeid("9528");
+        td.setTitle(DoctorTitle.PROFESSOR);
+        td.setAdmintitle(DoctorAdminTitle.KSZR);
+        td.setExpertrank(ExpertRank.VIP);
+        td.setSpecialities("super");
+        td.setSupervisortype(SupervisorType.DOCTOR);
+
+        Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
+        td.setHospital(hospital);
+        Department department = this.departmentDao.findByHospitalAndName(hospital, DEPARTMENT_EYE);
+        td.setDepartment(department);
+        this.doctorDao.create(td);
+
         // doctor blob
         DoctorBlob blob = new DoctorBlob();
         blob.setDoctor(td);
-        InputStream is = getClass().getResourceAsStream(TEST_PHOTO);
+        InputStream is = getClass().getResourceAsStream("emacoo.jpg");
         blob.setPhoto(IOUtils.toByteArray(is));
-        blob.setDescription("test");
+        blob.setDescription("super");
         this.doctorBlobDao.create(blob);
 
-        logger.info("Test doctor created!");
+        logger.info("Super doctor created!");
     }
 
 }

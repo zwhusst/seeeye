@@ -2,20 +2,22 @@ $(function() {
 	/**
 	 * [Widget] Date
 	 */
-	$.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
-	$("input.inputdate").datepicker(
-			{
-				showOn : "button",
-				buttonImage : "../resources/images/calendar.gif",
-				buttonImageOnly : true,
-				dateFormat : "yy-mm-dd",
-				changeYear : true,
-				changeMonth : true,
-				yearRange : "c-99:c",
-				yearSuffix : "",
-				monthNamesShort : [ "1", "2", "3", "4", "5", "6", "7", "8",
-						"9", "10", "11", "12" ]
-			});
+	if ($.datepicker != undefined) {
+		$.datepicker.setDefaults($.datepicker.regional["zh-CN"]);
+		$("input.inputdate").datepicker(
+				{
+					showOn : "button",
+					buttonImage : "../resources/images/calendar.gif",
+					buttonImageOnly : true,
+					dateFormat : "yy-mm-dd",
+					changeYear : true,
+					changeMonth : true,
+					yearRange : "c-99:c",
+					yearSuffix : "",
+					monthNamesShort : [ "1", "2", "3", "4", "5", "6", "7", "8",
+							"9", "10", "11", "12" ]
+				});
+	}
 
 	/**
 	 * [Widget] Birthday & Age
