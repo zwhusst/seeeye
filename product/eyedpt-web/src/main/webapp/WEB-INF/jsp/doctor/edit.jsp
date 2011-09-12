@@ -215,10 +215,8 @@
 						<p>
 							照片(小于2M):<input name="_photo" type="file" value="照片"
 								class="inputtext" id="uphoto" /> <span class="error"
-								id="error_uphoto"></span> <span><img width="128px"
-								id="uphoto_preview"
+								id="error_uphoto"></span> <img width="128px" id="uphoto_preview"
 								src="<c:url value="/resources/cache/images/${imageName}"/>" />
-							</span>
 						</p>
 						<p>
 							个人简介(2000字以内):

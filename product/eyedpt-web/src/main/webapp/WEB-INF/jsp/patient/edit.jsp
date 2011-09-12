@@ -82,13 +82,13 @@
 						<p>
 							省份*:
 							<form:select path="<%=FormConstants.FIELD_PROVINCE%>"
-								id="provinceSelect" />
+								id="province" />
 							<form:errors path="<%=FormConstants.FIELD_PROVINCE%>"
 								class="error" />
 						</p>
 						<p>
 							城市*:
-							<form:select path="<%=FormConstants.FIELD_CITY%>" id="citySelect" />
+							<form:select path="<%=FormConstants.FIELD_CITY%>" id="city" />
 							<form:errors path="<%=FormConstants.FIELD_CITY%>" class="error" />
 						</p>
 						<p>

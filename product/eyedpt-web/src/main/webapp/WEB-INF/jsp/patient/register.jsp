@@ -99,13 +99,13 @@
 						<p>
 							省份*:
 							<form:select path="<%=FormConstants.FIELD_PROVINCE%>"
-								id="provinceSelect" />
+								id="province" />
 							<form:errors path="<%=FormConstants.FIELD_PROVINCE%>"
 								class="error" />
 						</p>
 						<p>
 							城市*:
-							<form:select path="<%=FormConstants.FIELD_CITY%>" id="citySelect" />
+							<form:select path="<%=FormConstants.FIELD_CITY%>" id="city" />
 							<form:errors path="<%=FormConstants.FIELD_CITY%>" class="error" />
 						</p>
 						<p>
@@ -149,6 +149,12 @@
 							传真号码:
 							<form:input path="<%=FormConstants.FIELD_FAX%>" class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_FAX%>" class="error" />
+						</p>
+						<p>
+							验证码: <input type="text" name="checkcode" class="inputtext" id="checkcode" /> <img
+								src="<c:url value="/images/checkcode"/>" class="inline"
+								id="img_checkcode">看不清？<a href="#" id="change_checkcode">换一张</a><span
+								class="error">${MESSAGE_CHECKCODE}</span>
 						</p>
 						<p>
 							<input name="register" type="submit" value="注册" class="loginbut" />

@@ -7,6 +7,7 @@ package com.ehealth.eyedpt.mvc.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ehealth.eyedpt.core.security.services.AuthenticationService;
 import com.ehealth.eyedpt.dal.entities.Patient;
@@ -62,8 +64,20 @@ public class PatientController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("isAnonymous()")
-    public String doRegister(@Valid PatientBean patientBean, BindingResult result, HttpSession session)
+    public String doRegister(@Valid PatientBean patientBean, BindingResult result, HttpSession session,
+            @RequestParam String checkcode)
     {
+        // check checkcode
+        if ( !StringUtils.equals(checkcode, (String) session.getAttribute(SessionConstants.ATTR_CHECKCODE)) )
+        {
+            session.setAttribute(SessionConstants.MESSAGE_CHECKCODE,
+                    this.msp.getMessage(ValidationMessages.VA_CHECKCODE_NOT_MATCH));
+
+            return null;
+        }
+        // clear previous message
+        session.setAttribute(SessionConstants.MESSAGE_CHECKCODE, null);
+
         if ( result.hasErrors() )
         {
             return null;

@@ -96,33 +96,33 @@ CITY[33] = new Array("台北", "高雄", "台中", "台南", "屏东", "南投",
 $(function() {
 	// initialize provinces
 	for ( var i = 0; i < PROVINCE.length; i++) {
-		$("#provinceSelect").append(
+		$("#province").append(
 				"<option value='" + PROVINCE[i] + "'>" + PROVINCE[i]
 						+ "</option>");
 	}
 
 	// initialize cities
 	for ( var j = 0; j < CITY[1].length; j++) {
-		$("#citySelect").append(
+		$("#city").append(
 				"<option value='" + CITY[1][j] + "'>" + CITY[1][j]
 						+ "</option>");
 	}
 
 	// select default province
-	$("#provinceSelect option:eq(1)").attr("selected", "selected");
+	$("#province option:eq(1)").attr("selected", "selected");
 
 	// select default city
-	$("#citySelect option:first").attr("selected", "selected");
+	$("#city option:first").attr("selected", "selected");
 
 	// refresh city list responding to province change
-	$("#provinceSelect").change(
+	$("#province").change(
 			function() {
-				_log("[event.change] #provinceSelect");
+				_log("[event.change] #province");
 
 				var i = $(this)[0].selectedIndex;
-				$("#citySelect").empty();
+				$("#city").empty();
 				for ( var j = 0; j < CITY[i].length; j++) {
-					$("#citySelect").append(
+					$("#city").append(
 							"<option value='" + CITY[i][j] + "'>" + CITY[i][j]
 									+ "</option>");
 				}

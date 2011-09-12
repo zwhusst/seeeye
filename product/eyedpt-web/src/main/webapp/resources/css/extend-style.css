@@ -9,3 +9,7 @@
 	height: 24px;
 	padding-left: 5px;
 }
+
+img.inline {
+	display: inline;
+}

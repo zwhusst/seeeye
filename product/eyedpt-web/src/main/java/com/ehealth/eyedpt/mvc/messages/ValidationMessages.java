@@ -20,6 +20,8 @@ public interface ValidationMessages
 
     // Change Password
     public static final String VA_CHANGEPWD_PASSWORD_WRONG = "VA_CHANGEPWD_PASSWORD_WRONG";
-    public static final String VA_CHANGEPWD_NOT_MATCH      = "VA_CHANGEPWD_NOT_MATCH";
+
+    // Checkcode
+    public static final String VA_CHECKCODE_NOT_MATCH      = "VA_CHECKCODE_NOT_MATCH";
 
 }

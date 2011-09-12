@@ -68,9 +68,9 @@
 									<td class="col_supervisortype">${item.supervisortype.label}</td>
 									<td class="col_name">${item.name}</td>
 									<td class="col_ops">
-										<button class="editBtn"
+										<button class="btn_edit"
 											onclick="editDoctor('${item.employeeid}')">编辑</button>
-										<button class="delBtn"
+										<button class="btn_del"
 											onclick="deleteDoctor('${item.employeeid}')">删除</button>
 									</td>
 								</tr>

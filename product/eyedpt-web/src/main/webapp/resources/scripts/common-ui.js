@@ -32,4 +32,18 @@ $(function() {
 		}
 		$("select#uage")[0].selectedIndex = age - 1;
 	});
+
+	/**
+	 * [Widget] Checkcode
+	 */
+	$("a#change_checkcode").click(function() {
+		_log("[event.click] a#change_checkcode");
+
+		// force to reload checkcode image
+		var imgSrc = $("img#img_checkcode")[0].src;
+		$("img#img_checkcode")[0].src = "";
+		$("img#img_checkcode").show();
+		$("img#img_checkcode")[0].src = imgSrc;
+		$("img#img_checkcode").show("slow");
+	});
 });
