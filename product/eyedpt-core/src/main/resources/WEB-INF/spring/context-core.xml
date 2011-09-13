@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<b:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:b="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sec="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
-	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 	<!-- ========================= RESOURCES ========================= -->
-	<b:import resource="classpath:WEB-INF/spring/context-jpa.xml" />
+	<import resource="classpath:WEB-INF/spring/context-jpa.xml" />
 
 	<!-- ========================= SECURITY ========================= -->
-	<global-method-security pre-post-annotations="enabled" />
+	<sec:global-method-security
+		pre-post-annotations="enabled" />
 
-	<authentication-manager alias="myAuthenticationManager">
-		<authentication-provider user-service-ref="myUserDetailsService" />
-	</authentication-manager>
+	<sec:authentication-manager alias="myAuthenticationManager">
+		<sec:authentication-provider
+			user-service-ref="myUserDetailsService" />
+	</sec:authentication-manager>
 
 	<!-- ========================= BEANS ========================= -->
 	<!-- Activates various annotations to be detected in bean classes: Spring's 
@@ -27,4 +29,4 @@
 	<context:component-scan
 		base-package="com.ehealth.eyedpt.core.security.components,com.ehealth.eyedpt.core.security.services,com.ehealth.eyedpt.core.cache" />
 
-</b:beans>
+</beans>

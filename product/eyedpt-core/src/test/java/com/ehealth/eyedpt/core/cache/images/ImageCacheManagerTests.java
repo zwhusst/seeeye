@@ -15,13 +15,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 /**
  * @author emac
  */
 @ContextConfiguration("classpath:WEB-INF/spring/context-core.xml")
-public class ImageCacheManagerTests extends AbstractTransactionalJUnit4SpringContextTests
+public class ImageCacheManagerTests extends AbstractJUnit4SpringContextTests
 {
 
     private static final String BASE_DIR_NAME      = "/temp";

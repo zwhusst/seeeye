@@ -109,7 +109,6 @@ public class AdminService
      */
     public Admin update(AdminBean bean)
     {
-        // TODO#EMAC.P! update roleset
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);
         // update roleset

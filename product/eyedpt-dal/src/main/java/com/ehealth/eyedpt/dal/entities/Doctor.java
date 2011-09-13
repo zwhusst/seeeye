@@ -83,7 +83,7 @@ public class Doctor
     @Column(name = "departmentid", nullable = false)
     private Department         department;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, unique = true, length = 32)
     private String             employeeid;
 
     @Column(nullable = false)

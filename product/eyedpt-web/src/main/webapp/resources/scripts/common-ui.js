@@ -48,4 +48,7 @@ $(function() {
 		$("img#img_checkcode")[0].src = imgSrc;
 		$("img#img_checkcode").show("slow");
 	});
+	
+	// work around to resolve stale checkcode image in IE
+	$("a#change_checkcode").click();
 });

@@ -135,6 +135,15 @@ public class DoctorController
             return null;
         }
 
+        Doctor doctor = this.doctorService.findByEmployeeId(doctorBean.getEmployeeid());
+        if ( doctor != null )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_EMPLOYEE_ID, this.msp
+                    .getMessage(ValidationMessages.VA_DOCTOR_EMPLOYE_ID_EXIST)));
+
+            return null;
+        }
+
         // get uploaded photo
         if ( photo != null )
         {
@@ -144,6 +153,10 @@ public class DoctorController
             }
 
             doctorBean.setPhoto(photo.getBytes());
+        }
+        else
+        {
+            // TODO#EMAC.P2 give default anonymous photo
         }
 
         this.doctorService.create(doctorBean);

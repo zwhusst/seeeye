@@ -197,7 +197,6 @@ public class DatabaseInitializer
     }
 
     private void createTestDoctor()
-            throws IOException
     {
         // user
         User user = new User();
@@ -216,7 +215,7 @@ public class DatabaseInitializer
         td.setEmail("tp@seeeye.org");
         td.setCellphone("11111111111");
         td.setAddress("test");
-        td.setEmployeeid("9528");
+        td.setEmployeeid("1111");
         td.setTitle(DoctorTitle.PROFESSOR);
         td.setAdmintitle(DoctorAdminTitle.KSZR);
         td.setExpertrank(ExpertRank.VIP);

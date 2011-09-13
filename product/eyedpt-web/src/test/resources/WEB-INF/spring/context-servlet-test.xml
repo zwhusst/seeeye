@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- ========================= BEANS ========================= -->
+	<!-- Activates various annotations to be detected in bean classes: Spring's 
+		@Required and @Autowired, as well as JSR 250's @PostConstruct, @PreDestroy 
+		and @Resource (if available) and JPA's @PersistenceContext and @PersistenceUnit 
+		(if available). -->
+	<context:annotation-config />
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value></value>
+		</property>
+		<property name="port">
+			<value>25</value>
+		</property>
+		<property name="username">
+			<value></value>
+		</property>
+		<property name="password">
+			<value></value>
+		</property>
+	</bean>
+
+	<bean id="mailService" class="com.ehealth.eyedpt.mvc.services.MailService" />
+
+</beans>

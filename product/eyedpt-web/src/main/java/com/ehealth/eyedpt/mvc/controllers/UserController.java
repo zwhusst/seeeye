@@ -7,6 +7,7 @@ package com.ehealth.eyedpt.mvc.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +30,7 @@ import com.ehealth.eyedpt.mvc.form.models.ChangePwdBean;
 import com.ehealth.eyedpt.mvc.form.models.ForgotPwdBean;
 import com.ehealth.eyedpt.mvc.messages.ValidationMessages;
 import com.ehealth.eyedpt.mvc.services.CheckcodeService;
+import com.ehealth.eyedpt.mvc.services.MailService;
 import com.ehealth.eyedpt.mvc.services.UserService;
 
 /**
@@ -51,6 +53,9 @@ public class UserController
 
     @Autowired
     private CheckcodeService      checkcodeService;
+
+    @Autowired
+    private MailService           mailService;
 
     @Autowired
     private MessageSourceProvider msp;
@@ -126,6 +131,18 @@ public class UserController
 
             return;
         }
+
+        String email = this.userService.getEmail(user);
+        if ( StringUtils.isEmpty(email) )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_FORGOTPWD, FormConstants.FIELD_NAME, this.msp
+                    .getMessage(ValidationMessages.VA_USER_EMAIL_EMPTY)));
+
+            return;
+        }
+
+        // TODO#EMAC.P? send mail after mail system is set up
+//        this.mailService.sendSimpleTextMail(email, "", "");
 
         session.setAttribute(SessionConstants.RESULT_FORGOTPWD, Boolean.TRUE);
 
