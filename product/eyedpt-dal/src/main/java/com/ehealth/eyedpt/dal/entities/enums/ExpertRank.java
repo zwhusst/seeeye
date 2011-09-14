@@ -10,7 +10,7 @@ package com.ehealth.eyedpt.dal.entities.enums;
 public enum ExpertRank
 {
 
-    VIP("特需专家"), GENERAL("普通专家");
+    VIP("特需专家"), GENERAL("普通专家"), NA("暂不是专家");
 
     private String label;
 

@@ -125,7 +125,7 @@
 							<form:errors path="<%=FormConstants.FIELD_TITLE%>" class="error" />
 						</p>
 						<p>
-							行政岗位*:
+							行政岗位:
 							<form:select path="<%=FormConstants.FIELD_ADMIN_TITLE%>">
 								<form:options items="<%=DoctorAdminTitle.values()%>"
 									itemLabel="label" itemValue="name" />
@@ -134,7 +134,7 @@
 								class="error" />
 						</p>
 						<p>
-							专家级别*:
+							专家级别:
 							<form:select path="<%=FormConstants.FIELD_EXPERT_RANK%>">
 								<form:options items="<%=ExpertRank.values()%>" itemLabel="label"
 									itemValue="name" />
@@ -197,7 +197,7 @@
 								class="error" />
 						</p>
 						<p>
-							导师类别*:
+							导师类别:
 							<form:select path="<%=FormConstants.FIELD_SUPERVISOR_TYPE%>">
 								<form:options items="<%=SupervisorType.values()%>"
 									itemLabel="label" itemValue="name" />

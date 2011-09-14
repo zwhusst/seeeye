@@ -71,7 +71,10 @@ public class DoctorBlobService
         }
         else
         {
-            blob.setPhoto(bean.getPhoto());
+            if ( bean.getPhoto() != null && bean.getPhoto().length > 0 )
+            {
+                blob.setPhoto(bean.getPhoto());
+            }
             blob.setDescription(bean.getDescription());
             this.doctorBlobDao.update(blob);
         }

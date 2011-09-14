@@ -51,7 +51,7 @@
 						method="post">
 						<p>
 							账户*:
-							<form:password path="<%=FormConstants.FIELD_NAME%>"
+							<form:input path="<%=FormConstants.FIELD_NAME%>"
 								class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_NAME%>" class="error" />
 						</p>

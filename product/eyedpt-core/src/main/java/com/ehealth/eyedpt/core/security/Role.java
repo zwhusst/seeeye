@@ -33,7 +33,11 @@ public enum Role
     /**
      * Consulting Management
      */
-    CONSULTING_ADMIN(12);
+    CONSULTING_ADMIN(12),
+    /**
+     * Information Management
+     */
+    INFO_ADMIN(16);
 
     public static final byte REVOKED = 0;
     public static final byte GRANTED = 1;

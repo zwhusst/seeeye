@@ -145,7 +145,7 @@ public class DoctorController
         }
 
         // get uploaded photo
-        if ( photo != null )
+        if ( photo != null && !photo.isEmpty() )
         {
             if ( !ImageUtils.isAcceptableImageType(photo.getOriginalFilename()) )
             {
@@ -162,7 +162,7 @@ public class DoctorController
         this.doctorService.create(doctorBean);
 
         // add to cache
-        if ( photo != null )
+        if ( photo != null && !photo.isEmpty() )
         {
             this.imageCacheManager.put(doctorBean.getName(), photo.getInputStream());
         }
@@ -227,7 +227,7 @@ public class DoctorController
         }
 
         // get uploaded photo
-        if ( photo != null )
+        if ( photo != null && !photo.isEmpty() )
         {
             if ( !ImageUtils.isAcceptableImageType(photo.getOriginalFilename()) )
             {
@@ -240,7 +240,7 @@ public class DoctorController
         this.doctorService.update(doctorBean);
 
         // update cache
-        if ( photo != null )
+        if ( photo != null && !photo.isEmpty() )
         {
             this.imageCacheManager.put(doctorBean.getName(), photo.getInputStream());
         }

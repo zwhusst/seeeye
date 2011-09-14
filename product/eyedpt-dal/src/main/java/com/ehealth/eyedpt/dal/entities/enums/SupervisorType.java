@@ -10,7 +10,7 @@ package com.ehealth.eyedpt.dal.entities.enums;
 public enum SupervisorType
 {
 
-    DOCTOR("博士研究生导师"), MASTER("硕士研究生导师"), NOPE("暂不是导师");
+    DOCTOR("博士研究生导师"), MASTER("硕士研究生导师"), NA("暂不是导师");
 
     private String label;
 
@@ -23,7 +23,7 @@ public enum SupervisorType
     {
         return this.label;
     }
-    
+
     public String getName()
     {
         return name();

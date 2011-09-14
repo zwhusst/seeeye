@@ -18,11 +18,10 @@ public interface FormConstants
             98, 99                                          };
 
     public static final String[] DEGREE_RANGE               = new String[]
-                                                            { "博士", "硕士", "学士"};
+                                                            { "博士", "硕士", "学士", "无"};
 
     public static final String[] EDUCATION_RANGE            = new String[]
-                                                            { "博士研究生", "硕士研究生", "大学本科", "大学专科", "高中", "职高", "中专", "技校",
-            "初中", "小学"                                      };
+                                                            { "博士研究生", "硕士研究生", "大学本科", "大学专科"};
 
     /**
      * User

@@ -69,10 +69,10 @@ public class DoctorBean extends UserBean
     private DoctorTitle      title;
 
     @NotNull
-    private DoctorAdminTitle admintitle;
+    private DoctorAdminTitle admintitle     = DoctorAdminTitle.NA;
 
     @NotNull
-    private ExpertRank       expertrank     = ExpertRank.VIP;
+    private ExpertRank       expertrank     = ExpertRank.NA;
 
     @DateTimeFormat(iso = ISO.DATE)
     @Past
@@ -102,7 +102,7 @@ public class DoctorBean extends UserBean
     private String           education;
 
     @NotNull
-    private SupervisorType   supervisortype = SupervisorType.DOCTOR;
+    private SupervisorType   supervisortype = SupervisorType.NA;
 
     private String           supervisiorcolleges;
 

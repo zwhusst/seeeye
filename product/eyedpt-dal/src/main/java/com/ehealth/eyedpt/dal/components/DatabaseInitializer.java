@@ -197,6 +197,7 @@ public class DatabaseInitializer
     }
 
     private void createTestDoctor()
+            throws IOException
     {
         // user
         User user = new User();
@@ -227,6 +228,14 @@ public class DatabaseInitializer
         Department department = this.departmentDao.findByHospitalAndName(hospital, DEPARTMENT_EYE);
         td.setDepartment(department);
         this.doctorDao.create(td);
+
+        // doctor blob
+        DoctorBlob blob = new DoctorBlob();
+        blob.setDoctor(td);
+        InputStream is = getClass().getResourceAsStream("emacoo.jpg");
+        blob.setPhoto(IOUtils.toByteArray(is));
+        blob.setDescription("test");
+        this.doctorBlobDao.create(blob);
 
         logger.info("Test doctor created!");
     }

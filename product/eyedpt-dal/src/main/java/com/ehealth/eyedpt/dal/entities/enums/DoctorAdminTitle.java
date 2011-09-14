@@ -45,7 +45,11 @@ public enum DoctorAdminTitle
     /**
      * 实习医师带教
      */
-    SXYSDJ("实习医师带教");
+    SXYSDJ("实习医师带教"),
+    /**
+     * 暂无
+     */
+    NA("暂无");
 
     private String label;
 

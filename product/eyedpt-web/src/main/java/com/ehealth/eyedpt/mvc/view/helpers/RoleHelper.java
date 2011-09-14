@@ -34,6 +34,7 @@ public enum RoleHelper
         ROLESET.put(Role.DOCTOR_ADMIN, msp.getMessage(ViewMessages.VW_DOCTOR_MGMT));
         ROLESET.put(Role.BOOKING_ADMIN, msp.getMessage(ViewMessages.VW_BOOKING_MGMT));
         ROLESET.put(Role.CONSULTING_ADMIN, msp.getMessage(ViewMessages.VW_CONSULTING_MGMT));
+        ROLESET.put(Role.INFO_ADMIN, msp.getMessage(ViewMessages.VW_INFO_MGMT));
     }
 
 }
