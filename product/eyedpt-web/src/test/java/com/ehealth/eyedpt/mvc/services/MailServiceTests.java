@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 public class MailServiceTests extends AbstractJUnit4SpringContextTests
 {
 
-    private static final String TEST_TO = "";
+    private static final String TEST_TO = "emac.ehealth@ttdong.com.cn";
 
     @Autowired
     private MailService         mailService;
@@ -24,7 +24,6 @@ public class MailServiceTests extends AbstractJUnit4SpringContextTests
     @Test
     public void testSendSimpleTextMail()
     {
-        // TODO#EMAC.P? enable test after mail system is set up
 //        this.mailService.sendSimpleTextMail(TEST_TO, "Greeting", "Hello, Emac!");
     }
 

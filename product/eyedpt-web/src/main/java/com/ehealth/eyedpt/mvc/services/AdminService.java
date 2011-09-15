@@ -79,7 +79,7 @@ public class AdminService
     public Admin create(AdminBean bean)
     {
         User user = new User();
-        user.setName(bean.getName());
+        user.setName(bean.getName().toLowerCase());
         user.setPassword(bean.getPassword());
         user.setUsergroup(UserGroup.ADMIN);
         for (String r : bean.getRoleset())

@@ -10,6 +10,12 @@
 	padding-left: 5px;
 }
 
+input.long {
+	background: transparent url('../images/inputtextbg2.gif') no-repeat
+		scroll 0 0;
+	width: 260px;
+}
+
 img.inline {
 	display: inline;
 }

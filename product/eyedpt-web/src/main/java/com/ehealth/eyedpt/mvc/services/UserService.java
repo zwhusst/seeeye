@@ -4,6 +4,7 @@
 
 package com.ehealth.eyedpt.mvc.services;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -42,7 +43,7 @@ public class UserService
      */
     public User findByName(String name)
     {
-        return this.userDao.findByName(name);
+        return this.userDao.findByName(name.toLowerCase());
     }
 
     /**
@@ -94,6 +95,26 @@ public class UserService
         }
 
         return "";
+    }
+
+    /**
+     * Generates a random password and makes it new password of the given user.
+     * 
+     * @param user
+     * @return
+     */
+    public String resetPassword(User user)
+    {
+        if ( user == null )
+        {
+            return "";
+        }
+
+        String newPwd = RandomStringUtils.randomAlphanumeric(6);
+        user.setPassword(newPwd);
+        update(user);
+
+        return newPwd;
     }
 
 }

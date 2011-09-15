@@ -120,10 +120,22 @@ public class Doctor
     private String             education;
 
     @Column(nullable = false)
-    private SupervisorType     supervisortype;
+    private SupervisorType     supervisortype1;
 
-    @Column
-    private String             supervisiorcolleges;
+    @Column(length = 64)
+    private String             supervisiorcollege1;
+    
+    @Column(nullable = false)
+    private SupervisorType     supervisortype2;
+
+    @Column(length = 64)
+    private String             supervisiorcollege2;
+    
+    @Column(nullable = false)
+    private SupervisorType     supervisortype3;
+
+    @Column(length = 64)
+    private String             supervisiorcollege3;
 
     /**
      * @return the id
@@ -510,35 +522,99 @@ public class Doctor
     }
 
     /**
-     * @return the supervisortype
+     * @return the supervisortype1
      */
-    public SupervisorType getSupervisortype()
+    public SupervisorType getSupervisortype1()
     {
-        return this.supervisortype;
+        return this.supervisortype1;
     }
 
     /**
-     * @param supervisortype the supervisortype to set
+     * @param supervisortype1 the supervisortype1 to set
      */
-    public void setSupervisortype(SupervisorType supervisortype)
+    public void setSupervisortype1(SupervisorType supervisortype1)
     {
-        this.supervisortype = supervisortype;
+        this.supervisortype1 = supervisortype1;
     }
 
     /**
-     * @return the supervisiorcolleges
+     * @return the supervisiorcollege1
      */
-    public String getSupervisiorcolleges()
+    public String getSupervisiorcollege1()
     {
-        return this.supervisiorcolleges;
+        return this.supervisiorcollege1;
     }
 
     /**
-     * @param supervisiorcolleges the supervisiorcolleges to set
+     * @param supervisiorcollege1 the supervisiorcollege1 to set
      */
-    public void setSupervisiorcolleges(String supervisiorcolleges)
+    public void setSupervisiorcollege1(String supervisiorcollege1)
     {
-        this.supervisiorcolleges = supervisiorcolleges;
+        this.supervisiorcollege1 = supervisiorcollege1;
+    }
+
+    /**
+     * @return the supervisortype2
+     */
+    public SupervisorType getSupervisortype2()
+    {
+        return this.supervisortype2;
+    }
+
+    /**
+     * @param supervisortype2 the supervisortype2 to set
+     */
+    public void setSupervisortype2(SupervisorType supervisortype2)
+    {
+        this.supervisortype2 = supervisortype2;
+    }
+
+    /**
+     * @return the supervisiorcollege2
+     */
+    public String getSupervisiorcollege2()
+    {
+        return this.supervisiorcollege2;
+    }
+
+    /**
+     * @param supervisiorcollege2 the supervisiorcollege2 to set
+     */
+    public void setSupervisiorcollege2(String supervisiorcollege2)
+    {
+        this.supervisiorcollege2 = supervisiorcollege2;
+    }
+
+    /**
+     * @return the supervisortype3
+     */
+    public SupervisorType getSupervisortype3()
+    {
+        return this.supervisortype3;
+    }
+
+    /**
+     * @param supervisortype3 the supervisortype3 to set
+     */
+    public void setSupervisortype3(SupervisorType supervisortype3)
+    {
+        this.supervisortype3 = supervisortype3;
+    }
+
+    /**
+     * @return the supervisiorcollege3
+     */
+    public String getSupervisiorcollege3()
+    {
+        return this.supervisiorcollege3;
+    }
+
+    /**
+     * @param supervisiorcollege3 the supervisiorcollege3 to set
+     */
+    public void setSupervisiorcollege3(String supervisiorcollege3)
+    {
+        this.supervisiorcollege3 = supervisiorcollege3;
     }
 
 }

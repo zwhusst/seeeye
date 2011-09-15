@@ -177,7 +177,7 @@
 						<p>
 							专业特长*:
 							<form:input path="<%=FormConstants.FIELD_SPECIALITIES%>"
-								class="inputtext" />
+								class="inputtext long" />
 							<form:errors path="<%=FormConstants.FIELD_SPECIALITIES%>"
 								class="error" />
 						</p>
@@ -216,19 +216,19 @@
 						</p>
 						<p>
 							导师类别:
-							<form:select path="<%=FormConstants.FIELD_SUPERVISOR_TYPE%>"
+							<form:select path="<%=FormConstants.FIELD_SUPERVISOR_TYPE1%>"
 								itemValue="<%=SupervisorType.NA.name()%>">
 								<form:options items="<%=SupervisorType.values()%>"
 									itemLabel="label" itemValue="name" />
 							</form:select>
-							<form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE%>"
+							<form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE1%>"
 								class="error" />
 						</p>
 						<p>
 							导师院校:
-							<form:input path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGES%>"
+							<form:input path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
 								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGES%>"
+							<form:errors path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
 								class="error" />
 						</p>
 						<p>

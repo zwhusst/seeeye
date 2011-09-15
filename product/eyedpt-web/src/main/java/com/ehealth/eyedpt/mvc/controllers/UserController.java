@@ -141,8 +141,7 @@ public class UserController
             return;
         }
 
-        // TODO#EMAC.P? send mail after mail system is set up
-//        this.mailService.sendSimpleTextMail(email, "", "");
+        this.mailService.sendSimpleTextMail(email, "New Password", this.userService.resetPassword(user));
 
         session.setAttribute(SessionConstants.RESULT_FORGOTPWD, Boolean.TRUE);
 

@@ -30,7 +30,7 @@ public class DoctorBlob
 {
 
     public static final String QUERY_FIND_ALL       = "FindAllDoctorBlobs";
-    public static final String QUERY_FIND_BY_DOCTOR = "FindAdminByDoctor";
+    public static final String QUERY_FIND_BY_DOCTOR = "FindDoctorBlobByDoctor";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

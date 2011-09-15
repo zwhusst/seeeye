@@ -221,7 +221,9 @@ public class DatabaseInitializer
         td.setAdmintitle(DoctorAdminTitle.KSZR);
         td.setExpertrank(ExpertRank.VIP);
         td.setSpecialities("test");
-        td.setSupervisortype(SupervisorType.DOCTOR);
+        td.setSupervisortype1(SupervisorType.DOCTOR);
+        td.setSupervisortype2(SupervisorType.DOCTOR);
+        td.setSupervisortype3(SupervisorType.DOCTOR);
 
         Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
         td.setHospital(hospital);
@@ -232,8 +234,6 @@ public class DatabaseInitializer
         // doctor blob
         DoctorBlob blob = new DoctorBlob();
         blob.setDoctor(td);
-        InputStream is = getClass().getResourceAsStream("emacoo.jpg");
-        blob.setPhoto(IOUtils.toByteArray(is));
         blob.setDescription("test");
         this.doctorBlobDao.create(blob);
 
@@ -257,7 +257,7 @@ public class DatabaseInitializer
         td.setRealname("super");
         td.setGender(Gender.M);
         td.setAge(99);
-        td.setEmail("emac_0024@163.com");
+        td.setEmail("emac.ehealth@ttdong.com.cn");
         td.setCellphone("99999999999");
         td.setAddress("super");
         td.setEmployeeid("9528");
@@ -265,7 +265,9 @@ public class DatabaseInitializer
         td.setAdmintitle(DoctorAdminTitle.KSZR);
         td.setExpertrank(ExpertRank.VIP);
         td.setSpecialities("super");
-        td.setSupervisortype(SupervisorType.DOCTOR);
+        td.setSupervisortype1(SupervisorType.DOCTOR);
+        td.setSupervisortype2(SupervisorType.DOCTOR);
+        td.setSupervisortype3(SupervisorType.DOCTOR);
 
         Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
         td.setHospital(hospital);

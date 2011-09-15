@@ -22,7 +22,7 @@ public class MailService
 
     private static Logger       logger       = Logger.getLogger(MailService.class);
 
-    private static final String DEFAULT_FROM = "admin@seeeye.org";
+    private static final String DEFAULT_FROM = "emac.ehealth@ttdong.com.cn";
 
     @Autowired
     private JavaMailSender      mailSender;
@@ -41,7 +41,6 @@ public class MailService
         }
 
         SimpleMailMessage message = new SimpleMailMessage();
-        // TODO#EMAC.P? set up mail system
         message.setFrom(DEFAULT_FROM);
         message.setTo(to);
         message.setSubject(subject);

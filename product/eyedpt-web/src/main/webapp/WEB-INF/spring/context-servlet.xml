@@ -46,16 +46,16 @@
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host">
-			<value></value>
+			<value>mail.ttdong.com.cn</value>
 		</property>
 		<property name="port">
 			<value>25</value>
 		</property>
 		<property name="username">
-			<value></value>
+			<value>emac.ehealth@ttdong.com.cn</value>
 		</property>
 		<property name="password">
-			<value></value>
+			<value>emac99</value>
 		</property>
 	</bean>
 

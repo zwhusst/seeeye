@@ -31,6 +31,7 @@ import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorBlob;
 import com.ehealth.eyedpt.dal.entities.User;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
+import com.ehealth.eyedpt.mvc.constants.Constants;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
 import com.ehealth.eyedpt.mvc.constants.SessionConstants;
 import com.ehealth.eyedpt.mvc.constants.ViewConstants;
@@ -154,10 +155,6 @@ public class DoctorController
 
             doctorBean.setPhoto(photo.getBytes());
         }
-        else
-        {
-            // TODO#EMAC.P2 give default anonymous photo
-        }
 
         this.doctorService.create(doctorBean);
 
@@ -208,10 +205,11 @@ public class DoctorController
         // add attribute of cache image name
         String userName = doctor.getUser().getName();
         File image = this.imageCacheManager.get(userName);
-        if ( image != null )
+        if ( image == null )
         {
-            model.addAttribute(ATTR_IMAGE_NAME, image.getName());
+            image = this.imageCacheManager.get(Constants.ANONYMOUS_USER_NAME);
         }
+        model.addAttribute(ATTR_IMAGE_NAME, image.getName());
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)

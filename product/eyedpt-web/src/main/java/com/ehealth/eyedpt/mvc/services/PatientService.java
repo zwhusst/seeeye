@@ -44,7 +44,7 @@ public class PatientService
     public Patient create(PatientBean bean)
     {
         User user = new User();
-        user.setName(bean.getName());
+        user.setName(bean.getName().toLowerCase());
         user.setPassword(bean.getPassword());
         user.setUsergroup(UserGroup.PATIENT);
 

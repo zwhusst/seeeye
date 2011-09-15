@@ -85,7 +85,7 @@ public class DoctorService
     public Doctor create(DoctorBean bean)
     {
         User user = new User();
-        user.setName(bean.getName());
+        user.setName(bean.getName().toLowerCase());
         user.setPassword(bean.getPassword());
         user.setUsergroup(UserGroup.DOCTOR);
 
@@ -120,8 +120,12 @@ public class DoctorService
         doctor.setSecondmajor(bean.getSecondmajor());
         doctor.setDegree(bean.getDegree());
         doctor.setEducation(bean.getEducation());
-        doctor.setSupervisortype(bean.getSupervisortype());
-        doctor.setSupervisiorcolleges(bean.getSupervisiorcolleges());
+        doctor.setSupervisortype1(bean.getSupervisortype1());
+        doctor.setSupervisiorcollege1(bean.getSupervisiorcollege1());
+        doctor.setSupervisortype2(bean.getSupervisortype2());
+        doctor.setSupervisiorcollege2(bean.getSupervisiorcollege2());
+        doctor.setSupervisortype3(bean.getSupervisortype3());
+        doctor.setSupervisiorcollege3(bean.getSupervisiorcollege3());
 
         Hospital hospital = this.hospitalDao.findByName(DatabaseInitializer.HOSTPITAL_NO1);
         doctor.setHospital(hospital);
@@ -178,8 +182,12 @@ public class DoctorService
         doctor.setSecondmajor(bean.getSecondmajor());
         doctor.setDegree(bean.getDegree());
         doctor.setEducation(bean.getEducation());
-        doctor.setSupervisortype(bean.getSupervisortype());
-        doctor.setSupervisiorcolleges(bean.getSupervisiorcolleges());
+        doctor.setSupervisortype1(bean.getSupervisortype1());
+        doctor.setSupervisiorcollege1(bean.getSupervisiorcollege1());
+        doctor.setSupervisortype2(bean.getSupervisortype2());
+        doctor.setSupervisiorcollege2(bean.getSupervisiorcollege2());
+        doctor.setSupervisortype3(bean.getSupervisortype3());
+        doctor.setSupervisiorcollege3(bean.getSupervisiorcollege3());
         doctor = this.doctorDao.update(doctor);
 
         // update doctor blob
