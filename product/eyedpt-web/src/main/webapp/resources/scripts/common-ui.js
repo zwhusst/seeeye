@@ -25,14 +25,14 @@ $(function() {
 	$("input#ubirthday").change(function() {
 		_log("[event.change] input#ubirthday");
 
-		var birthyear = $(this)[0].value.substr(0, 4);
+		var birthyear = $(this).val().substr(0, 4);
 		var today = new Date();
 		var age = today.getFullYear() - birthyear;
 		// age is 1 if born in this year
 		if (age == 0) {
 			age = 1;
 		}
-		$("select#uage")[0].selectedIndex = age - 1;
+		$("select#uage").prop("selectedIndex", age - 1);
 	});
 
 	/**
@@ -42,13 +42,13 @@ $(function() {
 		_log("[event.click] a#change_checkcode");
 
 		// force to reload checkcode image
-		var imgSrc = $("img#img_checkcode")[0].src;
-		$("img#img_checkcode")[0].src = "";
+		var imgSrc = $("img#img_checkcode").prop("src");
+		$("img#img_checkcode").prop("src", "");
 		$("img#img_checkcode").show();
-		$("img#img_checkcode")[0].src = imgSrc;
+		$("img#img_checkcode").prop("src", imgSrc);
 		$("img#img_checkcode").show("slow");
 	});
-	
+
 	// work around to resolve stale checkcode image in IE
 	$("a#change_checkcode").click();
 });

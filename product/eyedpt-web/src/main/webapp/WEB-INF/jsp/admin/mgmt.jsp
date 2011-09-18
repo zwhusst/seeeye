@@ -39,9 +39,9 @@
 					<table>
 						<thead>
 							<tr>
-								<th class="col_no">序号</th>
-								<th class="col_name">账号</th>
-								<th class="col_ops">操作</th>
+								<th>序号</th>
+								<th>账号</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -51,11 +51,11 @@
 							%>
 							<c:forEach var="item" items="<%=items%>">
 								<tr>
-									<td class="col_no"><%=i++%></td>
-									<td class="col_name">${item.name}</td>
-									<td class="col_ops">
-										<button class="btn_edit" onclick="editAdmin('${item.name}')">编辑</button>
-										<button class="btn_del" onclick="deleteAdmin('${item.name}')">删除</button>
+									<td><%=i++%></td>
+									<td>${item.name}</td>
+									<td>
+										<button type="button" onclick="editAdmin('${item.name}')">编辑</button>
+										<button type="button" onclick="delAdmin('${item.name}')">删除</button>
 									</td>
 								</tr>
 							</c:forEach>

@@ -197,21 +197,67 @@
 								class="error" />
 						</p>
 						<p>
-							导师类别:
-							<form:select path="<%=FormConstants.FIELD_SUPERVISOR_TYPE1%>">
-								<form:options items="<%=SupervisorType.values()%>"
-									itemLabel="label" itemValue="name" />
-							</form:select>
-							<form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE1%>"
-								class="error" />
+							导师信息:
+							<button type="button" onclick="addSupervisor()">增加</button>
 						</p>
-						<p>
-							导师院校:
-							<form:input path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
-								class="error" />
-						</p>
+						<table id="stbl">
+							<thead>
+								<tr>
+									<th>类别</th>
+									<th>院校</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="s1">
+									<td><form:select
+											path="<%=FormConstants.FIELD_SUPERVISOR_TYPE1%>">
+											<form:options items="<%=SupervisorType.values()%>"
+												itemLabel="label" itemValue="name" />
+										</form:select> <form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE1%>"
+											class="error" />
+									</td>
+									<td><form:input
+											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
+											class="inputtext" /> <form:errors
+											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
+											class="error" />
+									</td>
+								</tr>
+								<tr id="s2">
+									<td><form:select
+											path="<%=FormConstants.FIELD_SUPERVISOR_TYPE2%>">
+											<form:options items="<%=SupervisorType.values()%>"
+												itemLabel="label" itemValue="name" />
+										</form:select> <form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE2%>"
+											class="error" />
+									</td>
+									<td><form:input
+											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE2%>"
+											class="inputtext" />
+										<button type="button" onclick="delSupervisor('s2')">删除</button>
+										<form:errors
+											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE2%>"
+											class="error" />
+									</td>
+								</tr>
+								<tr id="s3">
+									<td><form:select
+											path="<%=FormConstants.FIELD_SUPERVISOR_TYPE3%>">
+											<form:options items="<%=SupervisorType.values()%>"
+												itemLabel="label" itemValue="name" />
+										</form:select> <form:errors path="<%=FormConstants.FIELD_SUPERVISOR_TYPE3%>"
+											class="error" />
+									</td>
+									<td><form:input
+											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE3%>"
+											class="inputtext" />
+										<button type="button" onclick="delSupervisor('s3')">删除</button>
+										<form:errors
+											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE3%>"
+											class="error" /></td>
+								</tr>
+							</tbody>
+						</table>
 						<p>
 							照片(小于2M):<input name="_photo" type="file" value="照片"
 								class="inputtext" id="uphoto" /> <span class="error"

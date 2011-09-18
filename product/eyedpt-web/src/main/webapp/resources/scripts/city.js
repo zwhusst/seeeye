@@ -109,17 +109,17 @@ $(function() {
 	}
 
 	// select default province
-	$("#province option:eq(1)").attr("selected", "selected");
+	$("#province option:eq(1)").prop("selected", true);
 
 	// select default city
-	$("#city option:first").attr("selected", "selected");
+	$("#city option:first").prop("selected", true);
 
 	// refresh city list responding to province change
 	$("#province").change(
 			function() {
 				_log("[event.change] #province");
 
-				var i = $(this)[0].selectedIndex;
+				var i = $(this).prop("selectedIndex");
 				$("#city").empty();
 				for ( var j = 0; j < CITY[i].length; j++) {
 					$("#city").append(

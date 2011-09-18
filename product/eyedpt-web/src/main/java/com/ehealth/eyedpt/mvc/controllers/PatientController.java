@@ -68,7 +68,7 @@ public class PatientController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("isAnonymous()")
-    public String doRegister(@Valid PatientBean patientBean, BindingResult result, HttpSession session,
+    public String doRegister(@Valid PatientBean bean, BindingResult result, HttpSession session,
             @RequestParam String checkcode)
     {
         // check checkcode
@@ -77,23 +77,26 @@ public class PatientController
             return null;
         }
 
-        User user = this.userService.findByName(patientBean.getName());
+        User user = this.userService.findByName(bean.getName());
         if ( user != null )
         {
             result.addError(new FieldError(FormConstants.BEAN_PATIENT, FormConstants.FIELD_NAME, this.msp
                     .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
+        }
 
+        if ( result.hasErrors() )
+        {
             return null;
         }
 
-        Patient patient = this.patientService.create(patientBean);
+        Patient patient = this.patientService.create(bean);
         user = patient.getUser();
         session.setAttribute(SessionConstants.ATTR_USER, user);
 
         // update spring authentication
         this.authenticationService.resetAuthentication(user);
 
-        logger.info("New patient registered: " + patientBean.getName());
+        logger.info("New patient registered: " + bean.getName());
 
         return ViewConstants.REDIRECT_HOME;
     }
@@ -115,16 +118,16 @@ public class PatientController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid PatientBean patientBean, BindingResult result)
+    public String doEdit(@Valid PatientBean bean, BindingResult result)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        this.patientService.update(patientBean);
+        this.patientService.update(bean);
 
-        logger.info("Patient updated: " + patientBean.getName());
+        logger.info("Patient updated: " + bean.getName());
 
         return ViewConstants.REDIRECT_HOME;
     }

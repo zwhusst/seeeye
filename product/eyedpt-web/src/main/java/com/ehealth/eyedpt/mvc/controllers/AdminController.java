@@ -101,25 +101,23 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN_ADMIN')")
-    public String doRegister(@Valid AdminBean adminBean, BindingResult result)
+    public String doRegister(@Valid AdminBean bean, BindingResult result)
     {
+        User user = this.userService.findByName(bean.getName());
+        if ( user != null )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_ADMIN, FormConstants.FIELD_NAME, this.msp
+                    .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
+        }
+
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        User user = this.userService.findByName(adminBean.getName());
-        if ( user != null )
-        {
-            result.addError(new FieldError(FormConstants.BEAN_ADMIN, FormConstants.FIELD_NAME, this.msp
-                    .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
+        this.adminService.create(bean);
 
-            return null;
-        }
-
-        this.adminService.create(adminBean);
-
-        logger.info("New admin registered: " + adminBean.getName());
+        logger.info("New admin registered: " + bean.getName());
 
         return "redirect:" + MAPPING_MGMT;
     }
@@ -149,17 +147,16 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid AdminBean adminBean, BindingResult result,
-            @RequestParam(required = false) String username)
+    public String doEdit(@Valid AdminBean bean, BindingResult result, @RequestParam(required = false) String username)
     {
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        this.adminService.update(adminBean);
+        this.adminService.update(bean);
 
-        logger.info("Admin updated: " + adminBean.getName());
+        logger.info("Admin updated: " + bean.getName());
 
         if ( !StringUtils.isEmpty(username) )
         {

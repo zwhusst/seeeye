@@ -30,6 +30,7 @@ import com.ehealth.eyedpt.core.security.services.RoleService;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorBlob;
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
 import com.ehealth.eyedpt.mvc.constants.Constants;
 import com.ehealth.eyedpt.mvc.constants.FormConstants;
@@ -118,25 +119,26 @@ public class DoctorController
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.POST)
     @PreAuthorize("hasRole('DOCTOR_ADMIN')")
-    public String doRegister(@Valid DoctorBean doctorBean, BindingResult result,
+    public String doRegister(@Valid DoctorBean bean, BindingResult result,
             @RequestParam(value = PARAM_PHOTO, required = false) MultipartFile photo)
             throws IOException
     {
+        User user = this.userService.findByName(bean.getName());
+        if ( user != null )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_NAME, this.msp
+                    .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
+        }
+
+        // supervisor college cannot be empty if type is NA
+        validateSupervisorSettings(bean, result);
+
         if ( result.hasErrors() )
         {
             return null;
         }
 
-        User user = this.userService.findByName(doctorBean.getName());
-        if ( user != null )
-        {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_NAME, this.msp
-                    .getMessage(ValidationMessages.VA_USER_NAME_EXIST)));
-
-            return null;
-        }
-
-        Doctor doctor = this.doctorService.findByEmployeeId(doctorBean.getEmployeeid());
+        Doctor doctor = this.doctorService.findByEmployeeId(bean.getEmployeeid());
         if ( doctor != null )
         {
             result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_EMPLOYEE_ID, this.msp
@@ -153,20 +155,41 @@ public class DoctorController
                 return null;
             }
 
-            doctorBean.setPhoto(photo.getBytes());
+            bean.setPhoto(photo.getBytes());
         }
 
-        this.doctorService.create(doctorBean);
+        this.doctorService.create(bean);
 
         // add to cache
         if ( photo != null && !photo.isEmpty() )
         {
-            this.imageCacheManager.put(doctorBean.getName(), photo.getInputStream());
+            this.imageCacheManager.put(bean.getName(), photo.getInputStream());
         }
 
-        logger.info("New doctor registered: " + doctorBean.getName());
+        logger.info("New doctor registered: " + bean.getName());
 
         return "redirect:" + MAPPING_MGMT;
+    }
+
+    private void validateSupervisorSettings(DoctorBean bean, BindingResult result)
+    {
+        if ( bean.getSupervisortype1() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisiorcollege1()) )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISIOR_COLLEGE1,
+                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISIOR_COLLEGE_EMPTY)));
+        }
+
+        if ( bean.getSupervisortype2() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisiorcollege2()) )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISIOR_COLLEGE2,
+                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISIOR_COLLEGE_EMPTY)));
+        }
+
+        if ( bean.getSupervisortype3() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisiorcollege3()) )
+        {
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISIOR_COLLEGE3,
+                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISIOR_COLLEGE_EMPTY)));
+        }
     }
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
@@ -214,11 +237,14 @@ public class DoctorController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String doEdit(@Valid DoctorBean doctorBean, BindingResult result,
+    public String doEdit(@Valid DoctorBean bean, BindingResult result,
             @RequestParam(required = false) String employeeId,
             @RequestParam(value = PARAM_PHOTO, required = false) MultipartFile photo)
             throws IOException
     {
+        // supervisor college cannot be empty if type is NA
+        validateSupervisorSettings(bean, result);
+
         if ( result.hasErrors() )
         {
             return null;
@@ -232,18 +258,18 @@ public class DoctorController
                 return null;
             }
 
-            doctorBean.setPhoto(photo.getBytes());
+            bean.setPhoto(photo.getBytes());
         }
 
-        this.doctorService.update(doctorBean);
+        this.doctorService.update(bean);
 
         // update cache
         if ( photo != null && !photo.isEmpty() )
         {
-            this.imageCacheManager.put(doctorBean.getName(), photo.getInputStream());
+            this.imageCacheManager.put(bean.getName(), photo.getInputStream());
         }
 
-        logger.info("Doctor updated: " + doctorBean.getName());
+        logger.info("Doctor updated: " + bean.getName());
 
         if ( !StringUtils.isEmpty(employeeId) )
         {

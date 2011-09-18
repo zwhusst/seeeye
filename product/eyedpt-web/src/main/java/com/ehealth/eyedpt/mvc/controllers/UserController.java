@@ -71,11 +71,6 @@ public class UserController
     @PreAuthorize("isAuthenticated()")
     public String doChangePwd(@Valid ChangePwdBean bean, BindingResult result, HttpSession session)
     {
-        if ( result.hasErrors() )
-        {
-            return null;
-        }
-
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
         Assert.notNull(user);
 
@@ -83,7 +78,10 @@ public class UserController
         {
             result.addError(new FieldError(FormConstants.BEAN_CHANGEPWD, FormConstants.FIELD_PASSWORD, this.msp
                     .getMessage(ValidationMessages.VA_CHANGEPWD_PASSWORD_WRONG)));
+        }
 
+        if ( result.hasErrors() )
+        {
             return null;
         }
 
@@ -118,18 +116,11 @@ public class UserController
             return;
         }
 
-        if ( result.hasErrors() )
-        {
-            return;
-        }
-
         User user = this.userService.findByName(bean.getName());
         if ( user == null )
         {
             result.addError(new FieldError(FormConstants.BEAN_FORGOTPWD, FormConstants.FIELD_NAME, this.msp
                     .getMessage(ValidationMessages.VA_USER_NAME_NOT_EXIST)));
-
-            return;
         }
 
         String email = this.userService.getEmail(user);
@@ -137,7 +128,10 @@ public class UserController
         {
             result.addError(new FieldError(FormConstants.BEAN_FORGOTPWD, FormConstants.FIELD_NAME, this.msp
                     .getMessage(ValidationMessages.VA_USER_EMAIL_EMPTY)));
+        }
 
+        if ( result.hasErrors() )
+        {
             return;
         }
 
