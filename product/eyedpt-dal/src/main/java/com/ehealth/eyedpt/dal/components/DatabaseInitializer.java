@@ -197,7 +197,6 @@ public class DatabaseInitializer
     }
 
     private void createTestDoctor()
-            throws IOException
     {
         // user
         User user = new User();
@@ -211,15 +210,15 @@ public class DatabaseInitializer
         Doctor td = new Doctor();
         td.setUser(user);
         td.setRealname("test");
-        td.setGender(Gender.M);
-        td.setAge(99);
+        td.setGender(Gender.F);
+        td.setAge(20);
         td.setEmail("tp@seeeye.org");
         td.setCellphone("11111111111");
         td.setAddress("test");
         td.setEmployeeid("1111");
-        td.setTitle(DoctorTitle.PROFESSOR);
-        td.setAdmintitle(DoctorAdminTitle.KSZR);
-        td.setExpertrank(ExpertRank.VIP);
+        td.setTitle(DoctorTitle.INTERN);
+        td.setAdmintitle(DoctorAdminTitle.SXYSDJ);
+        td.setExpertrank(ExpertRank.GENERAL);
         td.setSpecialities("test");
         td.setSupervisortype1(SupervisorType.NA);
         td.setSupervisortype2(SupervisorType.NA);
@@ -256,7 +255,7 @@ public class DatabaseInitializer
         td.setUser(user);
         td.setRealname("super");
         td.setGender(Gender.M);
-        td.setAge(99);
+        td.setAge(30);
         td.setEmail("emac.ehealth@ttdong.com.cn");
         td.setCellphone("99999999999");
         td.setAddress("super");
@@ -266,7 +265,9 @@ public class DatabaseInitializer
         td.setExpertrank(ExpertRank.VIP);
         td.setSpecialities("super");
         td.setSupervisortype1(SupervisorType.DOCTOR);
-        td.setSupervisortype2(SupervisorType.NA);
+        td.setSupervisorcollege1("super");
+        td.setSupervisortype2(SupervisorType.MASTER);
+        td.setSupervisorcollege2("super");
         td.setSupervisortype3(SupervisorType.NA);
 
         Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);

@@ -173,22 +173,22 @@ public class DoctorController
 
     private void validateSupervisorSettings(DoctorBean bean, BindingResult result)
     {
-        if ( bean.getSupervisortype1() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisiorcollege1()) )
+        if ( bean.getSupervisortype1() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisorcollege1()) )
         {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISIOR_COLLEGE1,
-                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISIOR_COLLEGE_EMPTY)));
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE1,
+                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
         }
 
-        if ( bean.getSupervisortype2() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisiorcollege2()) )
+        if ( bean.getSupervisortype2() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisorcollege2()) )
         {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISIOR_COLLEGE2,
-                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISIOR_COLLEGE_EMPTY)));
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE2,
+                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
         }
 
-        if ( bean.getSupervisortype3() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisiorcollege3()) )
+        if ( bean.getSupervisortype3() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisorcollege3()) )
         {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISIOR_COLLEGE3,
-                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISIOR_COLLEGE_EMPTY)));
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE3,
+                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
         }
     }
 

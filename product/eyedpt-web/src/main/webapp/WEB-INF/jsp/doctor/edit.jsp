@@ -217,9 +217,9 @@
 											class="error" />
 									</td>
 									<td><form:input
-											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
+											path="<%=FormConstants.FIELD_SUPERVISOR_COLLEGE1%>"
 											class="inputtext" /> <form:errors
-											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE1%>"
+											path="<%=FormConstants.FIELD_SUPERVISOR_COLLEGE1%>"
 											class="error" />
 									</td>
 								</tr>
@@ -232,11 +232,11 @@
 											class="error" />
 									</td>
 									<td><form:input
-											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE2%>"
+											path="<%=FormConstants.FIELD_SUPERVISOR_COLLEGE2%>"
 											class="inputtext" />
 										<button type="button" onclick="delSupervisor('s2')">删除</button>
 										<form:errors
-											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE2%>"
+											path="<%=FormConstants.FIELD_SUPERVISOR_COLLEGE2%>"
 											class="error" />
 									</td>
 								</tr>
@@ -249,11 +249,11 @@
 											class="error" />
 									</td>
 									<td><form:input
-											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE3%>"
+											path="<%=FormConstants.FIELD_SUPERVISOR_COLLEGE3%>"
 											class="inputtext" />
 										<button type="button" onclick="delSupervisor('s3')">删除</button>
 										<form:errors
-											path="<%=FormConstants.FIELD_SUPERVISIOR_COLLEGE3%>"
+											path="<%=FormConstants.FIELD_SUPERVISOR_COLLEGE3%>"
 											class="error" /></td>
 								</tr>
 							</tbody>

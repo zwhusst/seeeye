@@ -21,6 +21,7 @@ public interface ViewMessages
     public static final String VW_DOCTOR_MGMT     = "VW_DOCTOR_MGMT";
     public static final String VW_ADMIN_MGMT      = "VW_ADMIN_MGMT";
     public static final String VW_BOOKING_MGMT    = "VW_BOOKING_MGMT";
+    public static final String VW_BOOKING_SETTING = "VW_BOOKING_SETTING";
     public static final String VW_CONSULTING_MGMT = "VW_CONSULTING_MGMT";
     public static final String VW_INFO_MGMT       = "VW_INFO_MGMT";
 

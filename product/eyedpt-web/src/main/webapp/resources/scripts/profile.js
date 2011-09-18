@@ -179,7 +179,7 @@ function addSupervisor() {
 }
 
 function delSupervisor(id) {
-	_log("[func] delSupervisor");
+	_log("[func] delSupervisor: " + id);
 
 	// hide last row
 	var s = $("tr#" + id);

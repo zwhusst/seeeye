@@ -1,5 +1,5 @@
 /*
- * Created on 2011-8-8
+ * Created on 2011-9-18
  */
 
 package com.ehealth.eyedpt.dal.repositories;
@@ -13,15 +13,15 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ehealth.eyedpt.dal.entities.BookingRoster;
 import com.ehealth.eyedpt.dal.entities.Doctor;
-import com.ehealth.eyedpt.dal.entities.DoctorCap;
 
 /**
  * @author emac
  */
 @Repository
 @Transactional
-public class DoctorCapDao extends BaseDao<DoctorCap>
+public class BookingRosterDao extends BaseDao<BookingRoster>
 {
 
     @PersistenceContext
@@ -29,9 +29,9 @@ public class DoctorCapDao extends BaseDao<DoctorCap>
 
     @Override
     @Transactional(readOnly = true)
-    public List<DoctorCap> findAll()
+    public List<BookingRoster> findAll()
     {
-        return this.em.createNamedQuery(DoctorCap.QUERY_FIND_ALL).getResultList();
+        return this.em.createNamedQuery(BookingRoster.QUERY_FIND_ALL).getResultList();
     }
 
     /**
@@ -39,12 +39,12 @@ public class DoctorCapDao extends BaseDao<DoctorCap>
      * @return
      */
     @Transactional(readOnly = true)
-    public DoctorCap findByDoctor(Doctor doctor)
+    public List<BookingRoster> findByDoctor(Doctor doctor)
     {
-        Query query = this.em.createNamedQuery(DoctorCap.QUERY_FIND_BY_DOCTOR);
+        Query query = this.em.createNamedQuery(BookingRoster.QUERY_FIND_BY_DOCTOR);
         query.setParameter("doctor", doctor);
 
-        return getSingleResult(query);
+        return query.getResultList();
     }
 
 }

@@ -36,7 +36,7 @@ public class DoctorBean extends UserBean
     private String           realname;
 
     @NotNull
-    private Gender           gender         = Gender.M;
+    private Gender           gender          = Gender.M;
 
     @DateTimeFormat(iso = ISO.DATE)
     @Past
@@ -69,10 +69,10 @@ public class DoctorBean extends UserBean
     private DoctorTitle      title;
 
     @NotNull
-    private DoctorAdminTitle admintitle     = DoctorAdminTitle.NA;
+    private DoctorAdminTitle admintitle      = DoctorAdminTitle.NA;
 
     @NotNull
-    private ExpertRank       expertrank     = ExpertRank.NA;
+    private ExpertRank       expertrank      = ExpertRank.NA;
 
     @DateTimeFormat(iso = ISO.DATE)
     @Past
@@ -105,19 +105,19 @@ public class DoctorBean extends UserBean
     private SupervisorType   supervisortype1 = SupervisorType.NA;
 
     @Size(max = 64)
-    private String           supervisiorcollege1;
-    
+    private String           supervisorcollege1;
+
     @NotNull
     private SupervisorType   supervisortype2 = SupervisorType.NA;
 
     @Size(max = 64)
-    private String           supervisiorcollege2;
-    
+    private String           supervisorcollege2;
+
     @NotNull
     private SupervisorType   supervisortype3 = SupervisorType.NA;
 
     @Size(max = 64)
-    private String           supervisiorcollege3;
+    private String           supervisorcollege3;
 
     // @Size(max = 1024 * 1024 * 2)
     // 2M
@@ -464,22 +464,6 @@ public class DoctorBean extends UserBean
     }
 
     /**
-     * @return the supervisiorcollege1
-     */
-    public String getSupervisiorcollege1()
-    {
-        return this.supervisiorcollege1;
-    }
-
-    /**
-     * @param supervisiorcollege1 the supervisiorcollege1 to set
-     */
-    public void setSupervisiorcollege1(String supervisiorcollege1)
-    {
-        this.supervisiorcollege1 = supervisiorcollege1;
-    }
-
-    /**
      * @return the supervisortype2
      */
     public SupervisorType getSupervisortype2()
@@ -493,22 +477,6 @@ public class DoctorBean extends UserBean
     public void setSupervisortype2(SupervisorType supervisortype2)
     {
         this.supervisortype2 = supervisortype2;
-    }
-
-    /**
-     * @return the supervisiorcollege2
-     */
-    public String getSupervisiorcollege2()
-    {
-        return this.supervisiorcollege2;
-    }
-
-    /**
-     * @param supervisiorcollege2 the supervisiorcollege2 to set
-     */
-    public void setSupervisiorcollege2(String supervisiorcollege2)
-    {
-        this.supervisiorcollege2 = supervisiorcollege2;
     }
 
     /**
@@ -528,19 +496,51 @@ public class DoctorBean extends UserBean
     }
 
     /**
-     * @return the supervisiorcollege3
+     * @return the supervisorcollege1
      */
-    public String getSupervisiorcollege3()
+    public String getSupervisorcollege1()
     {
-        return this.supervisiorcollege3;
+        return this.supervisorcollege1;
     }
 
     /**
-     * @param supervisiorcollege3 the supervisiorcollege3 to set
+     * @param supervisorcollege1 the supervisorcollege1 to set
      */
-    public void setSupervisiorcollege3(String supervisiorcollege3)
+    public void setSupervisorcollege1(String supervisorcollege1)
     {
-        this.supervisiorcollege3 = supervisiorcollege3;
+        this.supervisorcollege1 = supervisorcollege1;
+    }
+
+    /**
+     * @return the supervisorcollege2
+     */
+    public String getSupervisorcollege2()
+    {
+        return this.supervisorcollege2;
+    }
+
+    /**
+     * @param supervisorcollege2 the supervisorcollege2 to set
+     */
+    public void setSupervisorcollege2(String supervisorcollege2)
+    {
+        this.supervisorcollege2 = supervisorcollege2;
+    }
+
+    /**
+     * @return the supervisorcollege3
+     */
+    public String getSupervisorcollege3()
+    {
+        return this.supervisorcollege3;
+    }
+
+    /**
+     * @param supervisorcollege3 the supervisorcollege3 to set
+     */
+    public void setSupervisorcollege3(String supervisorcollege3)
+    {
+        this.supervisorcollege3 = supervisorcollege3;
     }
 
     /**
@@ -605,11 +605,11 @@ public class DoctorBean extends UserBean
         bean.setDegree(doctor.getDegree());
         bean.setEducation(doctor.getEducation());
         bean.setSupervisortype1(doctor.getSupervisortype1());
-        bean.setSupervisiorcollege1(doctor.getSupervisiorcollege1());
+        bean.setSupervisorcollege1(doctor.getSupervisorcollege1());
         bean.setSupervisortype2(doctor.getSupervisortype2());
-        bean.setSupervisiorcollege2(doctor.getSupervisiorcollege2());
+        bean.setSupervisorcollege2(doctor.getSupervisorcollege2());
         bean.setSupervisortype3(doctor.getSupervisortype3());
-        bean.setSupervisiorcollege3(doctor.getSupervisiorcollege3());
+        bean.setSupervisorcollege3(doctor.getSupervisorcollege3());
 
         return bean;
     }

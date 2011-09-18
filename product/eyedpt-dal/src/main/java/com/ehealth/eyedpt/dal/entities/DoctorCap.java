@@ -14,8 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author emac
@@ -23,11 +21,13 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "doctorcap")
 @Table(name = "doctorcap")
 @NamedQueries(
-{ @NamedQuery(name = DoctorCap.QUERY_FIND_ALL, query = "select d from doctorcap d")})
+{ @NamedQuery(name = DoctorCap.QUERY_FIND_ALL, query = "select c from doctorcap c"),
+        @NamedQuery(name = DoctorCap.QUERY_FIND_BY_DOCTOR, query = "select c from doctorcap c where c.doctor=:doctor")})
 public class DoctorCap
 {
 
-    public static final String QUERY_FIND_ALL = "FindAllDoctorCapabilities";
+    public static final String QUERY_FIND_ALL       = "FindAllDoctorCaps";
+    public static final String QUERY_FIND_BY_DOCTOR = "FindDoctorCapByDoctor";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,27 +35,22 @@ public class DoctorCap
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @Column(name = "doctorid", nullable = false)
-    @NotNull
     private Doctor             doctor;
 
     @Column
-    private boolean            acceptbooking;
+    private boolean            acceptbookings;
 
-    @Column(nullable = false)
-    @NotNull
-    @Min(0)
+    @Column
     private float              bookingprice;
 
     @Column
-    private boolean            acceptconsulting;
+    private boolean            acceptconsultings;
 
-    @Column(nullable = false)
-    @NotNull
-    @Min(0)
+    @Column
     private float              consultingprice;
 
     @Column
-    private boolean            acceptquestion;
+    private boolean            acceptquestions;
 
     /**
      * @return the id
@@ -90,19 +85,51 @@ public class DoctorCap
     }
 
     /**
-     * @return the acceptbooking
+     * @return the acceptbookings
      */
-    public boolean isAcceptbooking()
+    public boolean isAcceptbookings()
     {
-        return acceptbooking;
+        return this.acceptbookings;
     }
 
     /**
-     * @param acceptbooking the acceptbooking to set
+     * @param acceptbookings the acceptbookings to set
      */
-    public void setAcceptbooking(boolean acceptbooking)
+    public void setAcceptbookings(boolean acceptbookings)
     {
-        this.acceptbooking = acceptbooking;
+        this.acceptbookings = acceptbookings;
+    }
+
+    /**
+     * @return the acceptconsultings
+     */
+    public boolean isAcceptconsultings()
+    {
+        return this.acceptconsultings;
+    }
+
+    /**
+     * @param acceptconsultings the acceptconsultings to set
+     */
+    public void setAcceptconsultings(boolean acceptconsultings)
+    {
+        this.acceptconsultings = acceptconsultings;
+    }
+
+    /**
+     * @return the acceptquestions
+     */
+    public boolean isAcceptquestions()
+    {
+        return this.acceptquestions;
+    }
+
+    /**
+     * @param acceptquestions the acceptquestions to set
+     */
+    public void setAcceptquestions(boolean acceptquestions)
+    {
+        this.acceptquestions = acceptquestions;
     }
 
     /**
@@ -122,22 +149,6 @@ public class DoctorCap
     }
 
     /**
-     * @return the acceptconsulting
-     */
-    public boolean isAcceptconsulting()
-    {
-        return acceptconsulting;
-    }
-
-    /**
-     * @param acceptconsulting the acceptconsulting to set
-     */
-    public void setAcceptconsulting(boolean acceptconsulting)
-    {
-        this.acceptconsulting = acceptconsulting;
-    }
-
-    /**
      * @return the consultingprice
      */
     public float getConsultingprice()
@@ -151,22 +162,6 @@ public class DoctorCap
     public void setConsultingprice(float consultingprice)
     {
         this.consultingprice = consultingprice;
-    }
-
-    /**
-     * @return the acceptquestion
-     */
-    public boolean isAcceptquestion()
-    {
-        return acceptquestion;
-    }
-
-    /**
-     * @param acceptquestion the acceptquestion to set
-     */
-    public void setAcceptquestion(boolean acceptquestion)
-    {
-        this.acceptquestion = acceptquestion;
     }
 
 }

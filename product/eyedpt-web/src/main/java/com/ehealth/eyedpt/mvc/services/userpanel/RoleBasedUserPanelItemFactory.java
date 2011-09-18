@@ -49,10 +49,10 @@ public class RoleBasedUserPanelItemFactory
     {
         for (Role role : roles)
         {
-            UserPanelItem item = RolePanelAdapter.adapt(role);
-            if ( item != null )
+            List<UserPanelItem> roleItems = RolePanelAdapter.adapt(role);
+            if ( roleItems != null )
             {
-                items.add(item);
+                items.addAll(roleItems);
             }
         }
     }
