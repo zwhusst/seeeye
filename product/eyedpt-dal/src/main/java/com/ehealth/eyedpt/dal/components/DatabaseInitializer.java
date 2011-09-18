@@ -221,9 +221,9 @@ public class DatabaseInitializer
         td.setAdmintitle(DoctorAdminTitle.KSZR);
         td.setExpertrank(ExpertRank.VIP);
         td.setSpecialities("test");
-        td.setSupervisortype1(SupervisorType.DOCTOR);
-        td.setSupervisortype2(SupervisorType.DOCTOR);
-        td.setSupervisortype3(SupervisorType.DOCTOR);
+        td.setSupervisortype1(SupervisorType.NA);
+        td.setSupervisortype2(SupervisorType.NA);
+        td.setSupervisortype3(SupervisorType.NA);
 
         Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
         td.setHospital(hospital);
@@ -266,8 +266,8 @@ public class DatabaseInitializer
         td.setExpertrank(ExpertRank.VIP);
         td.setSpecialities("super");
         td.setSupervisortype1(SupervisorType.DOCTOR);
-        td.setSupervisortype2(SupervisorType.DOCTOR);
-        td.setSupervisortype3(SupervisorType.DOCTOR);
+        td.setSupervisortype2(SupervisorType.NA);
+        td.setSupervisortype3(SupervisorType.NA);
 
         Hospital hospital = this.hospitalDao.findByName(HOSTPITAL_NO1);
         td.setHospital(hospital);

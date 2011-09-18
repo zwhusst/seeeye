@@ -239,7 +239,7 @@ public class DoctorController
     @PreAuthorize("isAuthenticated()")
     public String doEdit(@Valid DoctorBean bean, BindingResult result,
             @RequestParam(required = false) String employeeId,
-            @RequestParam(value = PARAM_PHOTO, required = false) MultipartFile photo)
+            @RequestParam(value = PARAM_PHOTO, required = false) MultipartFile photo, Model model)
             throws IOException
     {
         // supervisor college cannot be empty if type is NA
@@ -247,6 +247,14 @@ public class DoctorController
 
         if ( result.hasErrors() )
         {
+            // readd attribute of cache image name
+            File image = this.imageCacheManager.get(bean.getName());
+            if ( image == null )
+            {
+                image = this.imageCacheManager.get(Constants.ANONYMOUS_USER_NAME);
+            }
+            model.addAttribute(ATTR_IMAGE_NAME, image.getName());
+
             return null;
         }
 
