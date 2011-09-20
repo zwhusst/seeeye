@@ -21,9 +21,4 @@ public interface SessionConstants
      */
     public static final String MESSAGE_CHECKCODE = "MESSAGE_CHECKCODE";
 
-    /**
-     * Results
-     */
-    public static final String RESULT_FORGOTPWD  = "RESULT_FORGOTPWD";
-
 }

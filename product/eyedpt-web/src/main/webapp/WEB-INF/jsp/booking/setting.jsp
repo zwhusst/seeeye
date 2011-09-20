@@ -4,6 +4,13 @@
 <%@ page
 	import="com.ehealth.eyedpt.mvc.view.helpers.BookingSettingHelper"%>
 <%@ page import="com.ehealth.eyedpt.mvc.view.models.BookingSettingItem"%>
+<%@ page
+	import="com.ehealth.eyedpt.mvc.view.helpers.BookingRosterHelper"%>
+<%@ page import="com.ehealth.eyedpt.mvc.view.models.BookingRosterItem"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.Weekday"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.TimeSlot"%>
+<%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
+<%@ page import="com.ehealth.eyedpt.mvc.constants.ViewConstants"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -51,10 +58,10 @@
 							</thead>
 							<tbody>
 								<%
-								    List<BookingSettingItem> items = BookingSettingHelper.INSTANCE.getItems();
+								    List<BookingSettingItem> settingItems = BookingSettingHelper.INSTANCE.getItems();
 								    int i = 1;
 								%>
-								<c:forEach var="item" items="<%=items%>">
+								<c:forEach var="item" items="<%=settingItems%>">
 									<tr>
 										<td><%=i%></td>
 										<td>${item.employeeid}</td>
@@ -82,8 +89,8 @@
 							</tbody>
 						</table>
 					</div>
-					<c:forEach var="i2" begin="1" end="<%=items.size()%>">
-						<div id="rosters${i2}">
+					<c:if test="${employeeId!=null}">
+						<div id="rosters">
 							<table>
 								<thead>
 									<tr>
@@ -94,86 +101,105 @@
 										<th>操作</th>
 									</tr>
 								</thead>
-								<tr id="proto${i2}">
+								<tr id="proto">
 									<td>0</td>
 									<td><select>
-											<option>周一</option>
-											<option>周二</option>
-											<option>周三</option>
-											<option>周四</option>
-											<option>周五</option>
+											<c:forEach var="day" items="<%=Weekday.values()%>">
+												<option value="${day.name}">${day.label}</option>
+											</c:forEach>
 									</select>
 									</td>
 									<td><select>
-											<option>上午</option>
-											<option>上午</option>
+											<c:forEach var="slot" items="<%=TimeSlot.values()%>">
+												<option value="${slot.name}">${slot.label}</option>
+											</c:forEach>
 									</select>
 									</td>
 									<td><select>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-											<option>6</option>
-											<option>7</option>
-											<option>8</option>
-											<option>9</option>
-											<option>10</option>
+											<c:forEach var="cap"
+												items="<%=FormConstants.BOOKING_CAPABILITY_RANGE%>">
+												<option>${cap}</option>
+											</c:forEach>
 									</select>
 									</td>
 									<td>
-										<button type="button" name="pause">暂停</button>
 										<button type="button" name="del">删除</button>
 									</td>
 								</tr>
 								<tbody>
 									<%
-									    int j = 1;
+									    List<BookingRosterItem> rosterItems = BookingRosterHelper.INSTANCE.getItems(request
+									                .getParameter(ViewConstants.PARAM_EMPLOYEE_ID));
+									        int j = 1;
+									        for (BookingRosterItem item : rosterItems)
+									        {
 									%>
 									<tr id="roster<%=j%>">
 										<td><%=j%></td>
 										<td><select>
-												<option>周一</option>
-												<option>周二</option>
-												<option>周三</option>
-												<option>周四</option>
-												<option>周五</option>
+												<%
+												    for (Weekday day : Weekday.values())
+												            {
+												                if ( day == item.getDayofweek() )
+												                {
+												                    out.println("<option value=" + day.getName() + " selected=\"selected\">" + day.getLabel()
+												                            + "</option>");
+												                }
+												                else
+												                {
+												                    out.println("<option value=" + day.getName() + ">" + day.getLabel() + "</option>");
+												                }
+												            }
+												%>
 										</select>
 										</td>
 										<td><select>
-												<option>上午</option>
-												<option>上午</option>
-										</select>
-										</td>
-										<td><select>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
-												<option>4</option>
-												<option>5</option>
-												<option>6</option>
-												<option>7</option>
-												<option>8</option>
-												<option>9</option>
-												<option>10</option>
+												<%
+												    for (TimeSlot slot : TimeSlot.values())
+												            {
+												                if ( slot == item.getTimeslot() )
+												                {
+												                    out.println("<option value=" + slot.getName() + " selected=\"selected\">" + slot.getLabel()
+												                            + "</option>");
+												                }
+												                else
+												                {
+												                    out.println("<option value=" + slot.getName() + ">" + slot.getLabel() + "</option>");
+												                }
+												            }
+												%>
 										</select>
 										</td>
 										<td>
-											<button type="button" onclick="">暂停</button>
-											<button type="button" onclick="delRoster(${i2}, <%=j%>)">删除</button>
+											<%
+											    for (int cap : FormConstants.BOOKING_CAPABILITY_RANGE)
+											            {
+											                if ( cap == item.getCapability() )
+											                {
+											                    out.println("<option selected=\"selected\">" + cap + "</option>");
+											                }
+											                else
+											                {
+											                    out.println("<option>" + cap + "</option>");
+											                }
+											            }
+											%>
+										</td>
+										<td>
+											<button type="button" onclick="delRoster(<%=j%>)">删除</button>
 										</td>
 									</tr>
 									<%
 									    j++;
+									        }
 									%>
 								</tbody>
 							</table>
-							<button type="button" onclick="addRoster(${i2})">增加</button>
+							<button type="button" onclick="addRoster()">增加</button>
 							<button type="button" onclick="">保存</button>
-							<button type="button" onclick="cancel(${i2})">取消</button>
+							<button type="button" onclick="cancel('rosters')">取消</button>
 						</div>
-					</c:forEach>
+					</c:if>
 				</div>
 			</div>
 			<!-- /container -->

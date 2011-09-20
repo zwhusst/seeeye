@@ -51,9 +51,6 @@ public class BookingRoster
     @Column(nullable = false)
     private TimeSlot           timeslot;
 
-    @Column
-    private boolean            paused;
-
     /**
      * @return the id
      */
@@ -132,22 +129,6 @@ public class BookingRoster
     public void setTimeslot(TimeSlot timeslot)
     {
         this.timeslot = timeslot;
-    }
-
-    /**
-     * @return the paused
-     */
-    public boolean isPaused()
-    {
-        return this.paused;
-    }
-
-    /**
-     * @param paused the paused to set
-     */
-    public void setPaused(boolean paused)
-    {
-        this.paused = paused;
     }
 
 }

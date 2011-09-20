@@ -107,7 +107,7 @@ public class UserController
 
     @RequestMapping(value = MAPPING_FGPWD, method = RequestMethod.POST)
     @PreAuthorize("!isAuthenticated()")
-    public void doForgotPwd(@Valid ForgotPwdBean bean, BindingResult result, HttpSession session,
+    public void doForgotPwd(@Valid ForgotPwdBean bean, BindingResult result, HttpSession session, Model model,
             @RequestParam String checkcode)
     {
         // check checkcode
@@ -137,7 +137,7 @@ public class UserController
 
         this.mailService.sendSimpleTextMail(email, "New Password", this.userService.resetPassword(user));
 
-        session.setAttribute(SessionConstants.RESULT_FORGOTPWD, Boolean.TRUE);
+        model.addAttribute(ViewConstants.RESULT_FORGOTPWD, Boolean.TRUE);
 
         logger.info("Password sent to user's mailbox: " + bean.getName());
     }

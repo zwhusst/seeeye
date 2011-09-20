@@ -2,7 +2,6 @@
 <%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- imports -->
 <%@ page import="com.ehealth.eyedpt.mvc.constants.FormConstants"%>
-<%@ page import="com.ehealth.eyedpt.mvc.constants.SessionConstants"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -24,10 +23,6 @@
 
 <body>
 	<c:if test="${RESULT_FORGOTPWD}">
-		<%
-		    session.setAttribute(SessionConstants.RESULT_FORGOTPWD,
-								Boolean.FALSE);
-		%>
 		<script type="text/javascript">
 			alert("密码已发送到绑定邮箱，请查收。");
 			location.href = "..";
