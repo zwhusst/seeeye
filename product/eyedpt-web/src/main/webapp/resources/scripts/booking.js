@@ -25,7 +25,11 @@ function deactivate(employeeid) {
 function view(employeeid) {
 	_log("[func] view: " + employeeid);
 
-	// TODO#EMAC
+	$("div#rosters").load(
+			"setting?employeeId=" + encodeURIComponent(employeeid)
+					+ " div#rosters", function() {
+				$("tr[id=proto]").hide();
+			});
 	setVisible($("div#rosters"), true);
 }
 

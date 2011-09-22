@@ -16,9 +16,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.ehealth.eyedpt.dal.entities.Admin;
+import com.ehealth.eyedpt.dal.entities.BookingRoster;
 import com.ehealth.eyedpt.dal.entities.Department;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorBlob;
+import com.ehealth.eyedpt.dal.entities.DoctorCap;
 import com.ehealth.eyedpt.dal.entities.Hospital;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
@@ -28,13 +30,18 @@ import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
+import com.ehealth.eyedpt.dal.entities.enums.TimeSlot;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
+import com.ehealth.eyedpt.dal.entities.enums.Weekday;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
+import com.ehealth.eyedpt.dal.repositories.BookingRosterDao;
 import com.ehealth.eyedpt.dal.repositories.DepartmentDao;
 import com.ehealth.eyedpt.dal.repositories.DoctorBlobDao;
+import com.ehealth.eyedpt.dal.repositories.DoctorCapDao;
 import com.ehealth.eyedpt.dal.repositories.DoctorDao;
 import com.ehealth.eyedpt.dal.repositories.HospitalDao;
 import com.ehealth.eyedpt.dal.repositories.PatientDao;
+import com.ehealth.eyedpt.dal.repositories.UserDao;
 
 /**
  * Sets up database for dev/test use.
@@ -56,6 +63,9 @@ public class DatabaseInitializer
     public static final String DEPARTMENT_EYE = "ÑÛ¿Æ";
 
     @Autowired
+    private UserDao            userDao;
+
+    @Autowired
     private AdminDao           adminDao;
 
     @Autowired
@@ -72,6 +82,12 @@ public class DatabaseInitializer
 
     @Autowired
     private DepartmentDao      departmentDao;
+
+    @Autowired
+    private DoctorCapDao       doctorCapDao;
+
+    @Autowired
+    private BookingRosterDao   bookingRosterDao;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
@@ -101,6 +117,8 @@ public class DatabaseInitializer
         createTestAdmin();
         createTestDoctor();
         createSuperDoctor();
+
+        initBookings();
     }
 
     private void createRootAdmin()
@@ -285,6 +303,27 @@ public class DatabaseInitializer
         this.doctorBlobDao.create(blob);
 
         logger.info("Super doctor created!");
+    }
+
+    private void initBookings()
+    {
+        Doctor td = this.doctorDao.findByUser(this.userDao.findByName("td"));
+        // doctor caps
+        DoctorCap cap = new DoctorCap();
+        cap.setDoctor(td);
+        cap.setAcceptbookings(true);
+        cap.setBookingprice(100);
+        this.doctorCapDao.create(cap);
+
+        // booking roster
+        BookingRoster roster = new BookingRoster();
+        roster.setDoctor(td);
+        roster.setDayofweek(Weekday.MON);
+        roster.setTimeslot(TimeSlot.AM);
+        roster.setCapability(5);
+        this.bookingRosterDao.create(roster);
+
+        logger.info("Bookings initialized!");
     }
 
 }
