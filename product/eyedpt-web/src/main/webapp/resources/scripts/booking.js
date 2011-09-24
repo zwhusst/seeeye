@@ -10,45 +10,96 @@ $(function() {
 	rosterCount = $("div#rosters tbody tr").length - 1;
 });
 
-function activate(employeeid) {
-	_log("[func] activate: " + employeeId);
+function setVisible(divId, visible, mode) {
+	_log("[func] setVisible: " + divId + "," + visible);
+
+	if (visible) {
+		$("div#" + divId).show(mode);
+	} else {
+		$("div#" + divId).hide(mode);
+	}
 }
 
-function setcap(employeeid) {
-	_log("[func] setcap: " + employeeId);
+// popups
+function prePopup() {
+	_log("[func] prePopup");
+
+	// get screen height/width
+	var overlayHeight = $(document).height();
+	var overlayWidth = $(window).width();
+	// calculate shell position
+	var shellTop = (overlayHeight / 3) - ($('#popup_shell').height() / 2);
+	var shellLeft = (overlayWidth / 2) - ($('#popup_shell').width() / 2);
+	// adjust style
+	$('#popup_overlay').css({
+		height : overlayHeight,
+		width : overlayWidth
+	}).show();
+	$('#popup_shell').css({
+		top : shellTop,
+		left : shellLeft
+	}).show();
 }
 
-function deactivate(employeeid) {
-	_log("[func] deactivate: " + employeeId);
+function popupActivate(employeeId) {
+	_log("[func] popupActivate: " + employeeId);
+
+	prePopup();
+	setVisible("popup_activate", true);
 }
 
-function view(employeeid) {
-	_log("[func] view: " + employeeid);
+function doActivate() {
+
+}
+
+function popupSetcap(employeeId) {
+	_log("[func] popupSetcap: " + employeeId);
+
+	prePopup();
+	setVisible("popup_setcap", true);
+}
+
+function doSetcap() {
+
+}
+
+function popupDeactivate(employeeId) {
+	_log("[func] popupDeactivate: " + employeeId);
+
+	prePopup();
+	setVisible("popup_deactivate", true);
+}
+
+function doDeactivate() {
+
+}
+
+function closePopup(divId) {
+	_log("[func] closePopup: " + divId);
+
+	$("div.popup").hide();
+	setVisible("popup_overlay", false);
+	setVisible("popup_shell", false);
+}
+
+// rosters
+function viewRosters(employeeId) {
+	_log("[func] viewRosters: " + employeeId);
 
 	$("div#rosters").load(
-			"setting?employeeId=" + encodeURIComponent(employeeid)
+			"setting?employeeId=" + encodeURIComponent(employeeId)
 					+ " div#rosters", function() {
 				$("tr[id=proto]").hide();
 			});
-	setVisible($("div#rosters"), true);
+	setVisible("caps", false, "slow");
+	setVisible("rosters", true, "slow");
 }
 
-function cancel(divId) {
-	_log("[func] cancel: " + divId);
+function hideRosters() {
+	_log("[func] hideRosters");
 
-	setVisible($("div#" + divId), false);
-}
-
-function setVisible(div, visible) {
-	_log("[func] setVisible: " + div);
-
-	if (visible) {
-		$("div#caps").hide("fast");
-		div.show("slow");
-	} else {
-		div.hide("slow");
-		$("div#caps").show("fast");
-	}
+	setVisible("rosters", false, "slow");
+	setVisible("caps", true, "slow");
 }
 
 function addRoster() {

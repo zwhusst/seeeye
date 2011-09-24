@@ -21,15 +21,63 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/extend-style.css"/>"
 	type="text/css" rel="stylesheet" />
+<link href="<c:url value="/resources/css/popup.css"/>" type="text/css"
+	rel="stylesheet" />
+<link href="<c:url value="/resources/css/jquery-ui.css"/>"
+	type="text/css" rel="stylesheet" />
+<link href="<c:url value="/resources/css/jquery-ui-ext.css"/>"
+	type="text/css" rel="stylesheet" />
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
 <script type="text/javascript"
+	src="<c:url value="/resources/scripts/lib/jquery-ui.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/lib/jquery-ui-i18n.js"/>"></script>
+<script type="text/javascript"
 	src="<c:url value="/resources/scripts/common.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/scripts/common-ui.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/booking.js"/>"></script>
 </head>
 
 <body>
+	<div id="popup_overlay"></div>
+	<div id="popup_shell">
+		<div id="popup_activate" class="popup">
+			<p>
+				挂号费: <input type="text" name="price" class="inputtext" />
+			</p>
+			<p>
+				<button type="button" onclick="doActivate()">确定</button>
+				<button type="button" onclick="closePopup('popup_activate')">取消</button>
+			</p>
+		</div>
+		<div id="popup_setcap" class="popup">
+			<p>
+				挂号费: <input type="text" name="price" class="inputtext" />
+			</p>
+			<p>
+				<button type="button" onclick="doSetcap()">确定</button>
+				<button type="button" onclick="closePopup('popup_setcap')">取消</button>
+			</p>
+		</div>
+		<div id="popup_deactivate" class="popup">
+			<p>
+				<input type="radio" name="kind" value="temporary" checked="checked" />临时停诊<br>开始日期:
+				<input type="text" name="start" class="inputdate" /><br>结束日期:
+				<input type="text" name="end" class="inputdate" />
+			</p>
+			<p>
+				<input type="radio" name="kind" value="permanent" />永久停诊<br>
+			</p>
+			<p>
+				<button type="button" onclick="doDeactivate()">确定</button>
+				<button type="button" onclick="closePopup('popup_deactivate')">取消</button>
+			</p>
+		</div>
+	</div>
+
 	<div class="main">
 		<%@ include file="../fragments/header.jspf"%>
 
@@ -70,13 +118,16 @@
 										<td>${item.servicetime}</td>
 										<td><c:if test="${!item.active}">
 												<button type="button"
-													onclick="activate('${item.employeeid}')">开通</button>
+													onclick="popupActivate('${item.employeeid}')">开通</button>
 											</c:if> <c:if test="${item.active}">
-												<button type="button" onclick="view('${item.employeeid}')">查看</button>
-												<button type="button" onclick="setcap('${item.employeeid}')">设置</button>
 												<button type="button"
-													onclick="deactivate('${item.employeeid}')">停诊</button>
-											</c:if></td>
+													onclick="viewRosters('${item.employeeid}')">查看</button>
+												<button type="button"
+													onclick="popupSetcap('${item.employeeid}')">设置</button>
+												<button type="button"
+													onclick="popupDeactivate('${item.employeeid}')">停诊</button>
+											</c:if>
+										</td>
 									</tr>
 									<%
 									    i++;
@@ -102,24 +153,20 @@
 										<c:forEach var="day" items="<%=Weekday.values()%>">
 											<option value="${day.name}">${day.label}</option>
 										</c:forEach>
-								</select>
-								</td>
+								</select></td>
 								<td><select>
 										<c:forEach var="slot" items="<%=TimeSlot.values()%>">
 											<option value="${slot.name}">${slot.label}</option>
 										</c:forEach>
-								</select>
-								</td>
+								</select></td>
 								<td><select>
 										<c:forEach var="cap"
 											items="<%=FormConstants.BOOKING_CAPABILITY_RANGE%>">
 											<option>${cap}</option>
 										</c:forEach>
-								</select>
-								</td>
+								</select></td>
 								<td>
-									<button type="button" name="del">删除</button>
-								</td>
+									<button type="button" name="del">删除</button></td>
 							</tr>
 							<tbody>
 								<%
@@ -146,8 +193,7 @@
 											            }
 											        }
 											%>
-									</select>
-									</td>
+									</select></td>
 									<td><select>
 											<%
 											    for (TimeSlot slot : TimeSlot.values())
@@ -163,8 +209,7 @@
 											            }
 											        }
 											%>
-									</select>
-									</td>
+									</select></td>
 									<td><select>
 											<%
 											    for (int cap : FormConstants.BOOKING_CAPABILITY_RANGE)
@@ -179,8 +224,7 @@
 											            }
 											        }
 											%>
-									</select>
-									</td>
+									</select></td>
 									<td>
 										<button type="button" onclick="delRoster(<%=j%>)">删除</button>
 									</td>
@@ -193,7 +237,7 @@
 						</table>
 						<button type="button" onclick="addRoster()">增加</button>
 						<button type="button" onclick="">保存</button>
-						<button type="button" onclick="cancel('rosters')">取消</button>
+						<button type="button" onclick="hideRosters()">取消</button>
 					</div>
 				</div>
 			</div>

@@ -292,7 +292,7 @@
 								class="error" />
 						</p>
 						<p>
-							<input name="register" type="submit" value="注册" class="loginbut" />
+							<input type="submit" value="注册" class="loginbut" />
 						</p>
 					</form:form>
 				</div>

@@ -57,7 +57,7 @@
 								id="change_checkcode">换一张</a><span class="error">${MESSAGE_CHECKCODE}</span>
 						</p>
 						<p>
-							<input name="forgotpwd" type="submit" value="提交" class="loginbut" />
+							<input type="submit" value="提交" class="loginbut" />
 							<a href="<c:url value="/"/>">返回</a>
 						</p>
 					</form:form>

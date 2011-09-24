@@ -272,7 +272,7 @@
 								class="error" />
 						</p>
 						<p>
-							<input name="edit" type="submit" value="确认" class="loginbut" />
+							<input type="submit" value="确认" class="loginbut" />
 						</p>
 					</form:form>
 				</div>

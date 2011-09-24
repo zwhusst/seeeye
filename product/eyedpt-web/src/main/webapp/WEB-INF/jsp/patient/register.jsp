@@ -157,7 +157,7 @@
 								class="error">${MESSAGE_CHECKCODE}</span>
 						</p>
 						<p>
-							<input name="register" type="submit" value="注册" class="loginbut" />
+							<input type="submit" value="注册" class="loginbut" />
 							<a href="<c:url value="/"/>">返回</a>
 						</p>
 					</form:form>

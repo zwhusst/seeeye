@@ -57,7 +57,7 @@
 							<span class="error" id="error_pwd"></span>
 						</p>
 						<p>
-							<input name="changepwd" type="submit" value="确认" class="loginbut" />
+							<input type="submit" value="确认" class="loginbut" />
 						</p>
 					</form:form>
 				</div>
