@@ -33,6 +33,9 @@ public class DoctorService
     private DoctorBlobService doctorBlobService;
 
     @Autowired
+    private DoctorCapService  doctorCapService;
+
+    @Autowired
     private UserDao           userDao;
 
     @Autowired
@@ -138,6 +141,9 @@ public class DoctorService
         {
             this.doctorBlobService.create(doctor, bean);
         }
+
+        // create empty cap
+        this.doctorCapService.create(doctor);
 
         return doctor;
     }

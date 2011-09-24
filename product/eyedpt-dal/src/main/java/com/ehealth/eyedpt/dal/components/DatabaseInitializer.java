@@ -254,6 +254,13 @@ public class DatabaseInitializer
         blob.setDescription("test");
         this.doctorBlobDao.create(blob);
 
+        // doctor cap
+        DoctorCap cap = new DoctorCap();
+        cap.setDoctor(td);
+        cap.setAcceptbookings(true);
+        cap.setBookingprice(999.9f);
+        this.doctorCapDao.create(cap);
+
         logger.info("Test doctor created!");
     }
 
@@ -302,24 +309,21 @@ public class DatabaseInitializer
         blob.setDescription("super");
         this.doctorBlobDao.create(blob);
 
+        // doctor cap
+        DoctorCap cap = new DoctorCap();
+        cap.setDoctor(td);
+        this.doctorCapDao.create(cap);
+
         logger.info("Super doctor created!");
     }
 
     private void initBookings()
     {
         Doctor td = this.doctorDao.findByUser(this.userDao.findByName("td"));
-        // doctor caps
-        DoctorCap cap = new DoctorCap();
-        cap.setDoctor(td);
-        cap.setAcceptbookings(true);
-        cap.setBookingprice(100);
-        this.doctorCapDao.create(cap);
-
-        // booking roster
         BookingRoster roster = new BookingRoster();
         roster.setDoctor(td);
-        roster.setDayofweek(Weekday.MON);
-        roster.setTimeslot(TimeSlot.AM);
+        roster.setDayofweek(Weekday.FRI);
+        roster.setTimeslot(TimeSlot.PM);
         roster.setCapability(5);
         this.bookingRosterDao.create(roster);
 

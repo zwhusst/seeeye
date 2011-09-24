@@ -91,7 +91,10 @@ function delDoctor(employeeId) {
 	_log("[func] deleteDoctor: " + employeeId);
 
 	$.ajax({
-		url : "?employeeId=" + encodeURIComponent(employeeId),
+		url : "mgmt",
+		data : {
+			employeeId : encodeURIComponent(employeeId)
+		},
 		type : "DELETE",
 		success : refreshMgmt
 	});
@@ -100,14 +103,17 @@ function delDoctor(employeeId) {
 function editAdmin(name) {
 	_log("[func] editAdmin: " + name);
 
-	location.href = "edit?username=" + encodeURIComponent(name);
+	location.href = "edit?userName=" + encodeURIComponent(name);
 }
 
 function delAdmin(name) {
 	_log("[func] deleteAdmin: " + name);
 
 	$.ajax({
-		url : "?name=" + encodeURIComponent(name),
+		url : "mgmt",
+		data : {
+			userName : encodeURIComponent(name)
+		},
 		type : "DELETE",
 		success : refreshMgmt
 	});

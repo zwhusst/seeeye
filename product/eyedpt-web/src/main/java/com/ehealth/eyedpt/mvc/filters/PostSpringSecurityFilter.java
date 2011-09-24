@@ -25,7 +25,7 @@ import com.ehealth.eyedpt.mvc.context.BeanResolver;
 import com.ehealth.eyedpt.mvc.services.UserService;
 
 /**
- * Filter that does it work after spring filters.
+ * Security filter that does it work after spring filters.
  * 
  * @author emac
  * @see UsernamePasswordAuthenticationFilter

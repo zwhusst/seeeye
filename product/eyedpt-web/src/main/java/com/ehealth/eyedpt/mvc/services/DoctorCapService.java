@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorCap;
 import com.ehealth.eyedpt.dal.repositories.DoctorCapDao;
+import com.ehealth.eyedpt.dal.repositories.DoctorDao;
 
 /**
  * @author emac
@@ -21,6 +22,9 @@ public class DoctorCapService
     @Autowired
     private DoctorCapDao doctorCapDao;
 
+    @Autowired
+    private DoctorDao    doctorDao;
+
     /**
      * @param doctor
      * @return
@@ -28,6 +32,37 @@ public class DoctorCapService
     public DoctorCap findByDoctor(Doctor doctor)
     {
         return this.doctorCapDao.findByDoctor(doctor);
+    }
+
+    /**
+     * @param employeeId
+     * @return
+     */
+    public DoctorCap findByEmployeeId(String employeeId)
+    {
+        Doctor doctor = this.doctorDao.findByEmployeeId(employeeId);
+
+        return findByDoctor(doctor);
+    }
+
+    /**
+     * @param doctor
+     */
+    public void create(Doctor doctor)
+    {
+        DoctorCap cap = new DoctorCap();
+        cap.setDoctor(doctor);
+
+        this.doctorCapDao.create(cap);
+    }
+
+    /**
+     * @param cap
+     * @return
+     */
+    public DoctorCap update(DoctorCap cap)
+    {
+        return this.doctorCapDao.update(cap);
     }
 
     /**

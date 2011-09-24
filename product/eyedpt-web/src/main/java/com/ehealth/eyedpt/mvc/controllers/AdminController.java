@@ -68,28 +68,23 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN_ADMIN')")
-    public void doDelete(@RequestParam String name)
+    public void doDelete(@RequestParam String userName)
     {
-        if ( StringUtils.isEmpty(name) )
+        if ( StringUtils.isEmpty(userName) )
         {
             logger.error("The name of admin to be deleted cannot be empty!");
 
             return;
         }
 
-        name = CharsetUtils.translate(name);
-        User user = this.userService.findByName(name);
+        userName = CharsetUtils.translate(userName);
+        User user = this.userService.findByName(userName);
         Admin admin = this.adminService.findByUser(user);
-        if ( admin == null )
-        {
-            logger.error("Unable to find admin whose name is '" + name + "'");
-
-            return;
-        }
+        Assert.notNull(admin);
 
         this.adminService.delete(admin);
 
-        logger.info("Admin deleted: " + name);
+        logger.info("Admin deleted: " + userName);
     }
 
     @RequestMapping(value = MAPPING_REGISTER, method = RequestMethod.GET)
@@ -124,17 +119,17 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_EDIT, method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
-    public void doEdit(HttpSession session, Model model, @RequestParam(required = false) String username)
+    public void doEdit(HttpSession session, Model model, @RequestParam(required = false) String userName)
     {
         // create new bean
         User user = (User) session.getAttribute(SessionConstants.ATTR_USER);
-        if ( !StringUtils.isEmpty(username) )
+        if ( !StringUtils.isEmpty(userName) )
         {
             // route from management page
             Assert.isTrue(this.roleService.isGrantedRole(user, Role.ADMIN_ADMIN));
 
-            username = CharsetUtils.translate(username);
-            user = this.userService.findByName(username);
+            userName = CharsetUtils.translate(userName);
+            user = this.userService.findByName(userName);
         }
         Assert.notNull(user);
 

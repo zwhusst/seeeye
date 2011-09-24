@@ -2,6 +2,7 @@
  * [Component] Setting
  */
 var rosterCount = 0;
+var currentEmpId;
 
 $(function() {
 	$("div[id=rosters]").hide();
@@ -44,23 +45,59 @@ function prePopup() {
 function popupActivate(employeeId) {
 	_log("[func] popupActivate: " + employeeId);
 
+	currentEmpId = employeeId;
 	prePopup();
 	setVisible("popup_activate", true);
 }
 
 function doActivate() {
+	_log("[func] doActivate");
 
+	var price = $("div#popup_activate input[name=price]").val();
+	$.ajax({
+		url : "setting/activate",
+		data : {
+			employeeId : encodeURIComponent(currentEmpId),
+			price : price
+		},
+		type : "POST",
+		success : function() {
+			$("div#caps").load("setting div#caps", function() {
+				closePopup("popup_activate");
+			});
+		}
+	});
 }
 
 function popupSetcap(employeeId) {
 	_log("[func] popupSetcap: " + employeeId);
 
-	prePopup();
-	setVisible("popup_setcap", true);
+	currentEmpId = employeeId;
+	$.getJSON("setting/setcap", {
+		employeeId : encodeURIComponent(currentEmpId)
+	}, function(price) {
+		$("div#popup_setcap input[name=price]").val(price);
+
+		prePopup();
+		setVisible("popup_setcap", true);
+	});
 }
 
 function doSetcap() {
+	_log("[func] doSetcap");
 
+	var price = $("div#popup_setcap input[name=price]").val();
+	$.ajax({
+		url : "setting/setcap",
+		data : {
+			employeeId : encodeURIComponent(currentEmpId),
+			price : price
+		},
+		type : "POST",
+		success : function() {
+			closePopup("popup_setcap");
+		}
+	});
 }
 
 function popupDeactivate(employeeId) {
@@ -71,6 +108,7 @@ function popupDeactivate(employeeId) {
 }
 
 function doDeactivate() {
+	_log("[func] doDeactivate");
 
 }
 
@@ -86,20 +124,21 @@ function closePopup(divId) {
 function viewRosters(employeeId) {
 	_log("[func] viewRosters: " + employeeId);
 
+	// mustn't use data parameter having page fragments
 	$("div#rosters").load(
 			"setting?employeeId=" + encodeURIComponent(employeeId)
 					+ " div#rosters", function() {
 				$("tr[id=proto]").hide();
 			});
-	setVisible("caps", false, "slow");
-	setVisible("rosters", true, "slow");
+	setVisible("caps", false);
+	setVisible("rosters", true);
 }
 
 function hideRosters() {
 	_log("[func] hideRosters");
 
-	setVisible("rosters", false, "slow");
-	setVisible("caps", true, "slow");
+	setVisible("rosters", false);
+	setVisible("caps", true);
 }
 
 function addRoster() {

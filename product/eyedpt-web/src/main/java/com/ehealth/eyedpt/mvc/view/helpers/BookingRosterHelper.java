@@ -8,11 +8,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
+
 import com.ehealth.eyedpt.dal.entities.BookingRoster;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.mvc.context.BeanResolver;
 import com.ehealth.eyedpt.mvc.services.BookingRosterService;
 import com.ehealth.eyedpt.mvc.services.DoctorService;
+import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
 import com.ehealth.eyedpt.mvc.view.models.BookingRosterItem;
 
 /**
@@ -36,11 +40,14 @@ public enum BookingRosterHelper
 
     public List<BookingRosterItem> getItems(String employeeId)
     {
-        Doctor doctor = doctorService.findByEmployeeId(employeeId);
-        if ( doctor == null )
+        if ( StringUtils.isEmpty(employeeId) )
         {
             return Collections.emptyList();
         }
+
+        employeeId = CharsetUtils.translate(employeeId);
+        Doctor doctor = doctorService.findByEmployeeId(employeeId);
+        Assert.notNull(doctor);
 
         ArrayList<BookingRosterItem> items = new ArrayList<BookingRosterItem>();
         for (BookingRoster br : bookingRosterService.findByDoctor(doctor))

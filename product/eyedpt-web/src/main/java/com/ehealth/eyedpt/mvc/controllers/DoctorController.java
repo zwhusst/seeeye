@@ -98,12 +98,7 @@ public class DoctorController
 
         employeeId = CharsetUtils.translate(employeeId);
         Doctor doctor = this.doctorService.findByEmployeeId(employeeId);
-        if ( doctor == null )
-        {
-            logger.error("Unable to find doctor whose employ ID is '" + employeeId + "'");
-
-            return;
-        }
+        Assert.notNull(doctor);
 
         this.doctorService.delete(doctor);
 
