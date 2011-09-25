@@ -38,16 +38,16 @@ $(function() {
 	/**
 	 * [Widget] Checkcode
 	 */
-	$("a#change_checkcode").click(function() {
-		_log("[event.click] a#change_checkcode");
+	var baseImgSrc = $("img#img_checkcode").prop("src");
 
-		// force to reload checkcode image
-		var imgSrc = $("img#img_checkcode").prop("src");
-		$("img#img_checkcode").prop("src", "");
-		$("img#img_checkcode").show();
-		$("img#img_checkcode").prop("src", imgSrc);
-		$("img#img_checkcode").show("slow");
-	});
+	$("a#change_checkcode").click(
+			function() {
+				_log("[event.click] a#change_checkcode");
+
+				// force to reload checkcode image
+				$("img#img_checkcode").prop("src",
+						baseImgSrc + "?timestamp=" + new Date().getTime());
+			});
 
 	// work around to resolve stale checkcode image in IE
 	$("a#change_checkcode").click();

@@ -35,6 +35,11 @@ public enum BookingSettingHelper
         bookingRosterService = BeanResolver.getBean(BookingRosterService.class);
     }
 
+    /**
+     * Returns booking settings of all doctors.
+     * 
+     * @return
+     */
     public List<BookingSettingItem> getItems()
     {
         ArrayList<BookingSettingItem> items = new ArrayList<BookingSettingItem>();

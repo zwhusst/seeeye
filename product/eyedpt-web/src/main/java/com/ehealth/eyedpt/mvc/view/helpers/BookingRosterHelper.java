@@ -38,6 +38,12 @@ public enum BookingRosterHelper
         bookingRosterService = BeanResolver.getBean(BookingRosterService.class);
     }
 
+    /**
+     * Returns a booking roster of doctor with the given employee ID.
+     * 
+     * @param employeeId
+     * @return
+     */
     public List<BookingRosterItem> getItems(String employeeId)
     {
         if ( StringUtils.isEmpty(employeeId) )
