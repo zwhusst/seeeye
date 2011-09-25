@@ -14,17 +14,22 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ehealth.eyedpt.dal.entities.BookingEx;
+import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorCap;
-import com.ehealth.eyedpt.mvc.json.BookingExStatus;
+import com.ehealth.eyedpt.mvc.json.BookingExJSON;
+import com.ehealth.eyedpt.mvc.json.BookingRosterJSON;
 import com.ehealth.eyedpt.mvc.services.BookingExService;
 import com.ehealth.eyedpt.mvc.services.BookingFacade;
+import com.ehealth.eyedpt.mvc.services.BookingRosterService;
 import com.ehealth.eyedpt.mvc.services.DoctorCapService;
+import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
 
 /**
@@ -34,22 +39,29 @@ import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
 public class BookingController
 {
 
-    private static Logger      logger                     = Logger.getLogger(BookingController.class);
+    private static Logger        logger                      = Logger.getLogger(BookingController.class);
 
-    public static final String MAPPING_SETTING            = "/booking/setting";
-    public static final String MAPPING_SETTING_ACTIVATE   = "/booking/setting/activate";
-    public static final String MAPPING_SETTING_DEACTIVATE = "/booking/setting/deactivate";
-    public static final String MAPPING_SETTING_SETCAP     = "/booking/setting/setcap";
-    public static final String MAPPING_MGMT               = "/booking/mgmt";
-
-    @Autowired
-    private DoctorCapService   doctorCapService;
+    public static final String   MAPPING_SETTING             = "/booking/setting";
+    public static final String   MAPPING_SETTING_ACTIVATE    = "/booking/setting/activate";
+    public static final String   MAPPING_SETTING_DEACTIVATE  = "/booking/setting/deactivate";
+    public static final String   MAPPING_SETTING_SETCAP      = "/booking/setting/setcap";
+    public static final String   MAPPING_SETTING_SAVEROSTERS = "/booking/setting/saverosters";
+    public static final String   MAPPING_MGMT                = "/booking/mgmt";
 
     @Autowired
-    private BookingExService   bookingExService;
+    private DoctorCapService     doctorCapService;
 
     @Autowired
-    private BookingFacade      bookingFacade;
+    private BookingExService     bookingExService;
+
+    @Autowired
+    private BookingFacade        bookingFacade;
+
+    @Autowired
+    private BookingRosterService bookingRosterService;
+
+    @Autowired
+    private DoctorService        doctorService;
 
     @RequestMapping(value = MAPPING_SETTING, method = RequestMethod.GET)
     @PreAuthorize("hasRole('BOOKING_ADMIN')")
@@ -91,7 +103,7 @@ public class BookingController
     @RequestMapping(value = MAPPING_SETTING_DEACTIVATE, method = RequestMethod.GET)
     @PreAuthorize("hasRole('BOOKING_ADMIN')")
     public @ResponseBody
-    BookingExStatus doSettingDeactivate(@RequestParam String employeeId)
+    BookingExJSON doSettingDeactivate(@RequestParam String employeeId)
     {
         if ( StringUtils.isEmpty(employeeId) )
         {
@@ -108,7 +120,11 @@ public class BookingController
             return null;
         }
 
-        return new BookingExStatus(ex.getStartdate(), ex.getEnddate());
+        BookingExJSON json = new BookingExJSON();
+        json.setStartDate(ex.getStartdate());
+        json.setEndDate(ex.getEnddate());
+
+        return json;
     }
 
     @RequestMapping(value = MAPPING_SETTING_DEACTIVATE, method = RequestMethod.POST)
@@ -188,6 +204,27 @@ public class BookingController
         this.doctorCapService.update(cap);
 
         logger.info("Booking price updated: " + employeeId + "," + price);
+    }
+
+    @RequestMapping(value = MAPPING_SETTING_SAVEROSTERS, method = RequestMethod.POST)
+    @PreAuthorize("hasRole('BOOKING_ADMIN')")
+    public @ResponseBody
+    void doSettingSaverosters(@RequestParam String employeeId, @RequestBody BookingRosterJSON[] rosters)
+    {
+        if ( StringUtils.isEmpty(employeeId) )
+        {
+            logger.error("The employee ID of doctor cannot be empty!");
+
+            return;
+        }
+
+        employeeId = CharsetUtils.translate(employeeId);
+        Doctor doctor = this.doctorService.findByEmployeeId(employeeId);
+        Assert.notNull(doctor);
+
+        this.bookingRosterService.replaceAll(doctor, rosters);
+
+        logger.info("Booking roster updated: " + employeeId);
     }
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.GET)

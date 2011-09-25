@@ -11,22 +11,12 @@ import java.util.Date;
  * 
  * @author emac
  */
-public class BookingExStatus
+public class BookingExJSON
 {
 
     private Date startDate;
 
     private Date endDate;
-
-    /**
-     * @param startDate
-     * @param endDate
-     */
-    public BookingExStatus(Date startDate, Date endDate)
-    {
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 
     /**
      * @return the startDate
@@ -42,6 +32,22 @@ public class BookingExStatus
     public Date getEndDate()
     {
         return this.endDate;
+    }
+
+    /**
+     * @param startDate the startDate to set
+     */
+    public void setStartDate(Date startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
     }
 
 }

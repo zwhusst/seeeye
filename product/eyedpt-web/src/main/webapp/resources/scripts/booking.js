@@ -5,10 +5,8 @@ var rosterCount = 0;
 var currentEmpId;
 
 $(function() {
+	$("tr#proto").hide();
 	$("div[id=rosters]").hide();
-	$("tr[id=proto]").hide();
-
-	rosterCount = $("div#rosters tbody tr").length - 1;
 });
 
 function setVisible(divId, visible, mode) {
@@ -62,11 +60,11 @@ function doActivate() {
 
 	$.ajax({
 		url : "setting/activate",
+		type : "POST",
 		data : {
 			employeeId : encodeURIComponent(currentEmpId),
 			price : price
 		},
-		type : "POST",
 		success : function() {
 			$("div#caps").load("setting div#caps", function() {
 				// clear data
@@ -103,11 +101,11 @@ function doSetcap() {
 
 	$.ajax({
 		url : "setting/setcap",
+		type : "POST",
 		data : {
 			employeeId : encodeURIComponent(currentEmpId),
 			price : price
 		},
-		type : "POST",
 		success : function() {
 			// clear data
 			$("div#popup_setcap input[name=price]").val("");
@@ -149,13 +147,13 @@ function doDeactivate() {
 
 	$.ajax({
 		url : "setting/deactivate",
+		type : "POST",
 		data : {
 			employeeId : encodeURIComponent(currentEmpId),
 			permanent : permanent,
 			startDate : startDate,
 			endDate : endDate
 		},
-		type : "POST",
 		success : function() {
 			$("div#caps").load("setting div#caps", function() {
 				// clear data
@@ -180,14 +178,62 @@ function closePopup(divId) {
 function viewRosters(employeeId) {
 	_log("[func] viewRosters: " + employeeId);
 
+	currentEmpId = employeeId;
 	// mustn't use data parameter having page fragments
 	$("div#rosters").load(
 			"setting?employeeId=" + encodeURIComponent(employeeId)
 					+ " div#rosters", function() {
-				$("tr[id=proto]").hide();
+				$("tr#proto").hide();
+				setVisible("rosters", true);
+				setVisible("caps", false);
+
+				rosterCount = $("div#rosters tbody tr").length - 1;
+				// bind click handler to delete buttons
+				$("div#rosters button[name=del]").each(function(idx) {
+					// skip proto roster
+					if (idx == 0) {
+						return;
+					}
+					$(this).click(function() {
+						delRoster(idx);
+					});
+				});
 			});
-	setVisible("caps", false);
-	setVisible("rosters", true);
+}
+
+function saveRosters() {
+	_log("[func] saveRosters");
+
+	var rosters = new Array();
+	$("tr[id*=roster]").each(function(idx) {
+		var roster = new Object();
+		// weekday
+		var s = $(this).find("select:first");
+		var i = $(s).prop("selectedIndex");
+		roster.dayOfWeek = $(s).find("option:eq(" + i + ")").val();
+		// time slot
+		s = $(this).find("select:eq(1)");
+		i = $(s).prop("selectedIndex");
+		roster.timeSlot = $(s).find("option:eq(" + i + ")").val();
+		// capability
+		s = $(this).find("select:eq(2)");
+		i = $(s).prop("selectedIndex");
+		roster.capability = $(s).find("option:eq(" + i + ")").val();
+		rosters[idx] = roster;
+	});
+
+	$.ajax({
+		url : "setting/saverosters?employeeId="
+				+ encodeURIComponent(currentEmpId),
+		type : "POST",
+		contentType : "application/json",
+		data : $.toJSON(rosters),
+		success : function() {
+			$("div#caps").load("setting div#caps", function() {
+				hideRosters();
+			});
+		}
+	});
 }
 
 function hideRosters() {
@@ -248,6 +294,6 @@ function delRoster(rosterno) {
 	}
 	// delete roaster
 	roster.remove();
-	// update cap2roster
+	// update roster count
 	rosterCount -= 1;
 }

@@ -33,6 +33,8 @@
 	src="<c:url value="/resources/scripts/lib/jquery-ui.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/lib/jquery-ui-i18n.js"/>"></script>
+	<script type="text/javascript"
+	src="<c:url value="/resources/scripts/lib/jquery.json.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/common.js"/>"></script>
 <script type="text/javascript"
@@ -228,7 +230,7 @@
 											%>
 									</select></td>
 									<td>
-										<button type="button" onclick="delRoster(<%=j%>)">删除</button>
+										<button type="button" name="del">删除</button>
 									</td>
 								</tr>
 								<%
@@ -238,7 +240,7 @@
 							</tbody>
 						</table>
 						<button type="button" onclick="addRoster()">增加</button>
-						<button type="button" onclick="">保存</button>
+						<button type="button" onclick="saveRosters()">保存</button>
 						<button type="button" onclick="hideRosters()">取消</button>
 					</div>
 				</div>
