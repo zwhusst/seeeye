@@ -51,6 +51,8 @@ public class UserService
      */
     public User update(User user)
     {
+        Assert.notNull(user);
+
         return this.userDao.update(user);
     }
 
@@ -105,10 +107,7 @@ public class UserService
      */
     public String resetPassword(User user)
     {
-        if ( user == null )
-        {
-            return "";
-        }
+        Assert.notNull(user);
 
         String newPwd = RandomStringUtils.randomAlphanumeric(6);
         user.setPassword(newPwd);

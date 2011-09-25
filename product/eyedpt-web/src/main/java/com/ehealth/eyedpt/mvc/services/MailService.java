@@ -31,11 +31,12 @@ public class MailService
      * Sends a simple text mail to the given address.
      * 
      * @param to
+     * @param subject
      * @param text
      */
     public void sendSimpleTextMail(String to, String subject, String text)
     {
-        if ( StringUtils.isEmpty(to) || StringUtils.isEmpty(text) )
+        if ( StringUtils.isEmpty(to) || StringUtils.isEmpty(subject) )
         {
             return;
         }

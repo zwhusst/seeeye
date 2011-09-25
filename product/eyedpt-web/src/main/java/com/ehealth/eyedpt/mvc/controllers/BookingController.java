@@ -4,21 +4,27 @@
 
 package com.ehealth.eyedpt.mvc.controllers;
 
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ehealth.eyedpt.dal.entities.BookingEx;
 import com.ehealth.eyedpt.dal.entities.DoctorCap;
+import com.ehealth.eyedpt.mvc.json.BookingExStatus;
+import com.ehealth.eyedpt.mvc.services.BookingExService;
+import com.ehealth.eyedpt.mvc.services.BookingFacade;
 import com.ehealth.eyedpt.mvc.services.DoctorCapService;
-import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
 
 /**
@@ -37,10 +43,13 @@ public class BookingController
     public static final String MAPPING_MGMT               = "/booking/mgmt";
 
     @Autowired
-    private DoctorService      doctorService;
+    private DoctorCapService   doctorCapService;
 
     @Autowired
-    private DoctorCapService   doctorCapService;
+    private BookingExService   bookingExService;
+
+    @Autowired
+    private BookingFacade      bookingFacade;
 
     @RequestMapping(value = MAPPING_SETTING, method = RequestMethod.GET)
     @PreAuthorize("hasRole('BOOKING_ADMIN')")
@@ -81,8 +90,56 @@ public class BookingController
 
     @RequestMapping(value = MAPPING_SETTING_DEACTIVATE, method = RequestMethod.GET)
     @PreAuthorize("hasRole('BOOKING_ADMIN')")
-    public void doSettingDeactivate(Model model, @RequestParam String employeeId)
+    public @ResponseBody
+    BookingExStatus doSettingDeactivate(@RequestParam String employeeId)
     {
+        if ( StringUtils.isEmpty(employeeId) )
+        {
+            logger.error("The employee ID of doctor cannot be empty!");
+
+            return null;
+        }
+
+        employeeId = CharsetUtils.translate(employeeId);
+        BookingEx ex = this.bookingExService.findByEmployeeId(employeeId);
+
+        if ( ex == null )
+        {
+            return null;
+        }
+
+        return new BookingExStatus(ex.getStartdate(), ex.getEnddate());
+    }
+
+    @RequestMapping(value = MAPPING_SETTING_DEACTIVATE, method = RequestMethod.POST)
+    @PreAuthorize("hasRole('BOOKING_ADMIN')")
+    public @ResponseBody
+    void doSettingDeactivate(@RequestParam String employeeId, @RequestParam boolean permanent,
+            @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) Date startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) Date endDate)
+    {
+        if ( StringUtils.isEmpty(employeeId) )
+        {
+            logger.error("The employee ID of doctor cannot be empty!");
+
+            return;
+        }
+
+        if ( permanent )
+        {
+            this.bookingFacade.declineBookings(employeeId);
+        }
+        else
+        {
+            if ( endDate.compareTo(startDate) < 0 )
+            {
+                logger.error("The end date must not be earlier than the start date!");
+
+                return;
+            }
+
+            this.bookingExService.upsert(employeeId, startDate, endDate);
+        }
     }
 
     @RequestMapping(value = MAPPING_SETTING_SETCAP, method = RequestMethod.GET)

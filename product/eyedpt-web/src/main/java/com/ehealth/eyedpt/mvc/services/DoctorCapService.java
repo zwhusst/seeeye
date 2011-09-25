@@ -6,6 +6,7 @@ package com.ehealth.eyedpt.mvc.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorCap;
@@ -50,6 +51,8 @@ public class DoctorCapService
      */
     public void create(Doctor doctor)
     {
+        Assert.notNull(doctor);
+
         DoctorCap cap = new DoctorCap();
         cap.setDoctor(doctor);
 
@@ -62,6 +65,8 @@ public class DoctorCapService
      */
     public DoctorCap update(DoctorCap cap)
     {
+        Assert.notNull(cap);
+
         return this.doctorCapDao.update(cap);
     }
 

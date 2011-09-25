@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.ehealth.eyedpt.com.vogoal.util.img.RandImgCreater;
 import com.ehealth.eyedpt.mvc.components.MessageSourceProvider;
@@ -36,6 +37,9 @@ public class CheckcodeService
      */
     public void genCheckcode(HttpServletResponse response, HttpSession session)
     {
+        Assert.notNull(response);
+        Assert.notNull(session);
+
         RandImgCreater creator = new RandImgCreater(response);
         String checkcode = creator.createRandImage();
         session.setAttribute(SessionConstants.ATTR_CHECKCODE, checkcode);
@@ -54,6 +58,8 @@ public class CheckcodeService
      */
     public boolean checkCheckcode(String checkcode, HttpSession session)
     {
+        Assert.notNull(session);
+
         // check checkcode
         if ( !StringUtils.equalsIgnoreCase(checkcode, (String) session.getAttribute(SessionConstants.ATTR_CHECKCODE)) )
         {

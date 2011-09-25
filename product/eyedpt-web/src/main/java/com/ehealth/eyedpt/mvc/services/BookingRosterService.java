@@ -58,4 +58,15 @@ public class BookingRosterService
         return serviceTime.substring(0, serviceTime.length() - 1);
     }
 
+    /**
+     * @param doctor
+     */
+    public void deleteAll(Doctor doctor)
+    {
+        for (BookingRoster r : findByDoctor(doctor))
+        {
+            this.bookingRosterDao.delete(r);
+        }
+    }
+
 }

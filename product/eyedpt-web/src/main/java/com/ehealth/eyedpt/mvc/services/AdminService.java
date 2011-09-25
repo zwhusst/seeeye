@@ -69,6 +69,8 @@ public class AdminService
      */
     public void delete(Admin admin)
     {
+        Assert.notNull(admin);
+
         this.adminDao.delete(admin);
     }
 
@@ -78,6 +80,8 @@ public class AdminService
      */
     public Admin create(AdminBean bean)
     {
+        Assert.notNull(bean);
+
         User user = new User();
         user.setName(bean.getName().toLowerCase());
         user.setPassword(bean.getPassword());
@@ -109,6 +113,8 @@ public class AdminService
      */
     public Admin update(AdminBean bean)
     {
+        Assert.notNull(bean);
+
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);
         // update roleset

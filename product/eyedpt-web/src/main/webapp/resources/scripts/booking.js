@@ -54,6 +54,12 @@ function doActivate() {
 	_log("[func] doActivate");
 
 	var price = $("div#popup_activate input[name=price]").val();
+	// validate
+	if (price <= 0) {
+		alert("挂号费必须大于0");
+		return;
+	}
+
 	$.ajax({
 		url : "setting/activate",
 		data : {
@@ -63,6 +69,8 @@ function doActivate() {
 		type : "POST",
 		success : function() {
 			$("div#caps").load("setting div#caps", function() {
+				// clear data
+				$("div#popup_activate input[name=price]").val("");
 				closePopup("popup_activate");
 			});
 		}
@@ -87,6 +95,12 @@ function doSetcap() {
 	_log("[func] doSetcap");
 
 	var price = $("div#popup_setcap input[name=price]").val();
+	// validate
+	if (price <= 0) {
+		alert("挂号费必须大于0");
+		return;
+	}
+
 	$.ajax({
 		url : "setting/setcap",
 		data : {
@@ -95,6 +109,8 @@ function doSetcap() {
 		},
 		type : "POST",
 		success : function() {
+			// clear data
+			$("div#popup_setcap input[name=price]").val("");
 			closePopup("popup_setcap");
 		}
 	});
@@ -103,13 +119,53 @@ function doSetcap() {
 function popupDeactivate(employeeId) {
 	_log("[func] popupDeactivate: " + employeeId);
 
-	prePopup();
-	setVisible("popup_deactivate", true);
+	currentEmpId = employeeId;
+	$.getJSON("setting/deactivate", {
+		employeeId : encodeURIComponent(currentEmpId)
+	}, function(status) {
+
+		if (status != null) {
+			$("div#popup_deactivate input[name=start]").val(
+					toISODateString(new Date(status.startDate)));
+			$("div#popup_deactivate input[name=end]").val(
+					toISODateString(new Date(status.endDate)));
+		}
+
+		prePopup();
+		setVisible("popup_deactivate", true);
+	});
 }
 
 function doDeactivate() {
 	_log("[func] doDeactivate");
 
+	var permanent = $("#radio_permanent").is(":checked");
+	var startDate = $("div#popup_deactivate input[name=start]").val();
+	var endDate = $("div#popup_deactivate input[name=end]").val();
+	if (!permanent && endDate < startDate) {
+		alert("结束日期不能早于开始日期");
+		return;
+	}
+
+	$.ajax({
+		url : "setting/deactivate",
+		data : {
+			employeeId : encodeURIComponent(currentEmpId),
+			permanent : permanent,
+			startDate : startDate,
+			endDate : endDate
+		},
+		type : "POST",
+		success : function() {
+			$("div#caps").load("setting div#caps", function() {
+				// clear data
+				$("#radio_temporary").prop("checked", "checked");
+				$("div#popup_deactivate input[name=start]").val("");
+				$("div#popup_deactivate input[name=end]").val("");
+				closePopup("popup_deactivate");
+			});
+		}
+	});
 }
 
 function closePopup(divId) {

@@ -8,6 +8,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorBlob;
@@ -40,6 +41,9 @@ public class DoctorBlobService
      */
     DoctorBlob create(Doctor doctor, DoctorBean bean)
     {
+        Assert.notNull(doctor);
+        Assert.notNull(bean);
+
         DoctorBlob blob = null;
         // double check
         if ( shouldCreate(bean) )
@@ -61,6 +65,9 @@ public class DoctorBlobService
      */
     DoctorBlob update(Doctor doctor, DoctorBean bean)
     {
+        Assert.notNull(doctor);
+        Assert.notNull(bean);
+
         DoctorBlob blob = this.doctorBlobDao.findByDoctor(doctor);
         if ( blob == null )
         {

@@ -43,6 +43,8 @@ public class PatientService
      */
     public Patient create(PatientBean bean)
     {
+        Assert.notNull(bean);
+
         User user = new User();
         user.setName(bean.getName().toLowerCase());
         user.setPassword(bean.getPassword());
@@ -76,6 +78,8 @@ public class PatientService
      */
     public Patient update(PatientBean bean)
     {
+        Assert.notNull(bean);
+
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);
 

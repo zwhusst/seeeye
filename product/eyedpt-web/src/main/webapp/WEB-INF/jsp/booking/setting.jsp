@@ -64,12 +64,14 @@
 		</div>
 		<div id="popup_deactivate" class="popup">
 			<p>
-				<input type="radio" name="kind" value="temporary" checked="checked" />临时停诊<br>开始日期:
-				<input type="text" name="start" class="inputdate" /><br>结束日期:
-				<input type="text" name="end" class="inputdate" />
+				<input type="radio" name="kind" value="temporary" checked="checked"
+					id="radio_temporary" />临时停诊<br>开始日期: <input type="text"
+					name="start" class="inputdate" /><br>结束日期: <input type="text"
+					name="end" class="inputdate" />
 			</p>
 			<p>
-				<input type="radio" name="kind" value="permanent" />永久停诊<br>
+				<input type="radio" name="kind" value="permanent"
+					id="radio_permanent" />永久停诊<br>
 			</p>
 			<p>
 				<button type="button" onclick="doDeactivate()">确定</button>

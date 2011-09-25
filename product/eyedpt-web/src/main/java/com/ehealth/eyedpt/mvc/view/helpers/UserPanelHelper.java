@@ -44,6 +44,11 @@ public enum UserPanelHelper
      */
     public List<UserPanelItem> getItems(User user)
     {
+        if ( user == null )
+        {
+            return Collections.emptyList();
+        }
+
         ArrayList<UserPanelItem> items = new ArrayList<UserPanelItem>();
         items.addAll(groupFactory.getItems(user));
         items.addAll(roleFactory.getItems(user));

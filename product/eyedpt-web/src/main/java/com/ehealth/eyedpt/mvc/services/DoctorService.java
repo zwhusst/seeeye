@@ -78,6 +78,8 @@ public class DoctorService
      */
     public void delete(Doctor doctor)
     {
+        Assert.notNull(doctor);
+
         this.doctorDao.delete(doctor);
     }
 
@@ -87,6 +89,8 @@ public class DoctorService
      */
     public Doctor create(DoctorBean bean)
     {
+        Assert.notNull(bean);
+
         User user = new User();
         user.setName(bean.getName().toLowerCase());
         user.setPassword(bean.getPassword());
@@ -153,6 +157,8 @@ public class DoctorService
      */
     public Doctor update(DoctorBean bean)
     {
+        Assert.notNull(bean);
+
         User user = this.userDao.findByName(bean.getName());
         Assert.notNull(user);
 
