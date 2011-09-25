@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ehealth.eyedpt.core.cache.images.ImageCache;
 import com.ehealth.eyedpt.mvc.services.CheckcodeService;
@@ -43,7 +44,8 @@ public class ImageController
     private CheckcodeService   checkcodeService;
 
     @RequestMapping(value = MAPPING_CHECKCODE, method = RequestMethod.GET)
-    public void genCheckcode(HttpServletResponse response, HttpSession session)
+    public @ResponseBody
+    void genCheckcode(HttpServletResponse response, HttpSession session)
     {
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
@@ -55,7 +57,8 @@ public class ImageController
     }
 
     @RequestMapping(value = MAPPING_PROFILE, method = RequestMethod.GET)
-    public void getProfileImage(@PathVariable String imageName, HttpServletResponse response)
+    public @ResponseBody
+    void getProfileImage(@PathVariable String imageName, HttpServletResponse response)
             throws FileNotFoundException, IOException
     {
         if ( StringUtils.isEmpty(imageName) )

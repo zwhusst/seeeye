@@ -22,6 +22,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ehealth.eyedpt.core.cache.images.ImageCacheManager;
@@ -87,7 +88,8 @@ public class DoctorController
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('DOCTOR_ADMIN')")
-    public void doDelete(@RequestParam String employeeId)
+    public @ResponseBody
+    void doDelete(@RequestParam String employeeId)
     {
         if ( StringUtils.isEmpty(employeeId) )
         {
@@ -170,20 +172,20 @@ public class DoctorController
     {
         if ( bean.getSupervisortype1() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisorcollege1()) )
         {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE1,
-                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE1, this.msp
+                    .getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
         }
 
         if ( bean.getSupervisortype2() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisorcollege2()) )
         {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE2,
-                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE2, this.msp
+                    .getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
         }
 
         if ( bean.getSupervisortype3() != SupervisorType.NA && StringUtils.isEmpty(bean.getSupervisorcollege3()) )
         {
-            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE3,
-                    this.msp.getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
+            result.addError(new FieldError(FormConstants.BEAN_DOCTOR, FormConstants.FIELD_SUPERVISOR_COLLEGE3, this.msp
+                    .getMessage(ValidationMessages.VA_DOCTOR_SUPERVISOR_COLLEGE_EMPTY)));
         }
     }
 

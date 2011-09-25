@@ -90,11 +90,9 @@ function editDoctor(employeeId) {
 function delDoctor(employeeId) {
 	_log("[func] deleteDoctor: " + employeeId);
 
+	// mustn't use data setting if type is DELETE
 	$.ajax({
-		url : "mgmt",
-		data : {
-			employeeId : encodeURIComponent(employeeId)
-		},
+		url : "mgmt?employeeId=" + encodeURIComponent(employeeId),
 		type : "DELETE",
 		success : refreshMgmt
 	});
@@ -109,11 +107,9 @@ function editAdmin(name) {
 function delAdmin(name) {
 	_log("[func] deleteAdmin: " + name);
 
+	// mustn't use data setting if type is DELETE
 	$.ajax({
-		url : "mgmt",
-		data : {
-			userName : encodeURIComponent(name)
-		},
+		url : "mgmt?userName=" + encodeURIComponent(name),
 		type : "DELETE",
 		success : refreshMgmt
 	});

@@ -19,6 +19,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ehealth.eyedpt.core.security.Role;
 import com.ehealth.eyedpt.core.security.services.RoleService;
@@ -68,7 +69,8 @@ public class AdminController
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN_ADMIN')")
-    public void doDelete(@RequestParam String userName)
+    public @ResponseBody
+    void doDelete(@RequestParam String userName)
     {
         if ( StringUtils.isEmpty(userName) )
         {
