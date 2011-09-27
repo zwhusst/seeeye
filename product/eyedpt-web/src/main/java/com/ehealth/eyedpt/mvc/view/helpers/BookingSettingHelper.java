@@ -5,6 +5,7 @@
 package com.ehealth.eyedpt.mvc.view.helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.ehealth.eyedpt.dal.entities.Doctor;
@@ -53,7 +54,7 @@ public enum BookingSettingHelper
             items.add(item);
         }
 
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
 }

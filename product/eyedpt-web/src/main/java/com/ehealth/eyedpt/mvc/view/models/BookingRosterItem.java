@@ -19,6 +19,11 @@ public class BookingRosterItem
 
     private int      capability;
 
+    /**
+     * @param dayofweek
+     * @param timeslot
+     * @param capability
+     */
     public BookingRosterItem(Weekday dayofweek, TimeSlot timeslot, int capability)
     {
         this.dayofweek = dayofweek;

@@ -62,7 +62,7 @@ public enum BookingRosterHelper
             items.add(item);
         }
 
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
 }

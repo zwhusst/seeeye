@@ -18,6 +18,13 @@ public class BookingSettingItem
     private String     servicetime;
     private boolean    active;
 
+    /**
+     * @param realname
+     * @param employeeid
+     * @param expertrank
+     * @param servicetime
+     * @param active
+     */
     public BookingSettingItem(String realname, String employeeid, ExpertRank expertrank, String servicetime,
             boolean active)
     {

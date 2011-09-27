@@ -1,9 +1,9 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; chareset=UTF-8"%>
 <!-- imports -->
-<%@ page
-	import="com.ehealth.eyedpt.mvc.view.helpers.BookingSettingHelper"%>
-<%@ page import="com.ehealth.eyedpt.mvc.view.models.BookingSettingItem"%>
+<%@ page import="com.ehealth.eyedpt.mvc.view.helpers.BookingHelper"%>
+<%@ page import="com.ehealth.eyedpt.mvc.view.models.BookingItem"%>
+<%@ page import="com.ehealth.eyedpt.dal.entities.enums.BookingStatus"%>
 <!-- tag libs -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -37,6 +37,45 @@
 			<div class="container left">
 				<div class="mgmt">
 					<h1>门诊预约管理</h1>
+					<table>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>预约单号</th>
+								<th>用户姓名</th>
+								<th>医生姓名</th>
+								<th>预约日期</th>
+								<th>下单日期</th>
+								<th>预约状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							    List<BookingItem> bookingItems = BookingHelper.INSTANCE.getItems(BookingStatus.ACCEPTED);
+							    int i = 1;
+							%>
+							<c:forEach var="item" items="<%=bookingItems%>">
+								<tr>
+									<td><%=i%></td>
+									<td>${item.bookingid}</td>
+									<td>${item.patientname}</td>
+									<td>${item.doctorname}</td>
+									<td>${item.bookingdate}</td>
+									<td>${item.postdate}</td>
+									<td>${item.status}
+										<button type="button" onclick="">更新</button>
+									</td>
+									<td>
+										<button type="button" onclick="">查看</button>
+									</td>
+								</tr>
+								<%
+								    i++;
+								%>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<!-- /container -->

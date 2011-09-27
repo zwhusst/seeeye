@@ -32,6 +32,8 @@ public class DoctorMgmtItem
      * @param employeeid
      * @param title
      * @param admintitle
+     * @param expertrank
+     * @param supervisortype
      */
     public DoctorMgmtItem(String name, String realname, Gender gender, String employeeid, DoctorTitle title,
             DoctorAdminTitle admintitle, ExpertRank expertrank, SupervisorType supervisortype)

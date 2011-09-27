@@ -6,6 +6,8 @@ package com.ehealth.eyedpt.dal.components;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Collections;
 
 import org.apache.commons.io.IOUtils;
@@ -16,6 +18,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.ehealth.eyedpt.dal.entities.Admin;
+import com.ehealth.eyedpt.dal.entities.Booking;
 import com.ehealth.eyedpt.dal.entities.BookingRoster;
 import com.ehealth.eyedpt.dal.entities.Department;
 import com.ehealth.eyedpt.dal.entities.Doctor;
@@ -24,16 +27,19 @@ import com.ehealth.eyedpt.dal.entities.DoctorCap;
 import com.ehealth.eyedpt.dal.entities.Hospital;
 import com.ehealth.eyedpt.dal.entities.Patient;
 import com.ehealth.eyedpt.dal.entities.User;
+import com.ehealth.eyedpt.dal.entities.enums.BookingStatus;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorAdminTitle;
 import com.ehealth.eyedpt.dal.entities.enums.DoctorTitle;
 import com.ehealth.eyedpt.dal.entities.enums.ExpertRank;
 import com.ehealth.eyedpt.dal.entities.enums.Gender;
+import com.ehealth.eyedpt.dal.entities.enums.NotifyType;
 import com.ehealth.eyedpt.dal.entities.enums.RegistryType;
 import com.ehealth.eyedpt.dal.entities.enums.SupervisorType;
 import com.ehealth.eyedpt.dal.entities.enums.TimeSlot;
 import com.ehealth.eyedpt.dal.entities.enums.UserGroup;
 import com.ehealth.eyedpt.dal.entities.enums.Weekday;
 import com.ehealth.eyedpt.dal.repositories.AdminDao;
+import com.ehealth.eyedpt.dal.repositories.BookingDao;
 import com.ehealth.eyedpt.dal.repositories.BookingRosterDao;
 import com.ehealth.eyedpt.dal.repositories.DepartmentDao;
 import com.ehealth.eyedpt.dal.repositories.DoctorBlobDao;
@@ -88,6 +94,9 @@ public class DatabaseInitializer
 
     @Autowired
     private BookingRosterDao   bookingRosterDao;
+
+    @Autowired
+    private BookingDao         bookingDao;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event)
@@ -319,6 +328,7 @@ public class DatabaseInitializer
 
     private void initBookings()
     {
+        // booking roster
         Doctor td = this.doctorDao.findByUser(this.userDao.findByName("td"));
         BookingRoster roster = new BookingRoster();
         roster.setDoctor(td);
@@ -326,6 +336,20 @@ public class DatabaseInitializer
         roster.setTimeslot(TimeSlot.PM);
         roster.setCapability(5);
         this.bookingRosterDao.create(roster);
+
+        // booking
+        Patient tp = this.patientDao.findByUser(this.userDao.findByName("tp"));
+        Booking b = new Booking();
+        b.setBookingid(10000000);
+        b.setPatient(tp);
+        b.setDoctor(td);
+        b.setPostdate(new Timestamp(System.currentTimeMillis()));
+        b.setBookingdate(new Date(System.currentTimeMillis()));
+        b.setTimeslot(TimeSlot.AM);
+        b.setStatus(BookingStatus.ACCEPTED);
+        b.setNotifytype(NotifyType.EMAIL);
+        b.setNotified(false);
+        this.bookingDao.create(b);
 
         logger.info("Bookings initialized!");
     }
