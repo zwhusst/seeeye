@@ -1,7 +1,12 @@
+/* div */
+.container2 { position: relative; width: 720px;}
+
+/* error message */
 .error {
 	color: red
 }
 
+/* form */
 .inputdate {
 	background: transparent url('../images/inputtextbg.gif') no-repeat
 		scroll 0 0;
@@ -16,6 +21,7 @@ input.long {
 	width: 260px;
 }
 
+/* Image */
 img.inline {
 	display: inline;
 }

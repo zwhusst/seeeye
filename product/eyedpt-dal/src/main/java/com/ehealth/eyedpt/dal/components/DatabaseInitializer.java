@@ -340,7 +340,7 @@ public class DatabaseInitializer
         // booking
         Patient tp = this.patientDao.findByUser(this.userDao.findByName("tp"));
         Booking b = new Booking();
-        b.setBookingid(10000000);
+        b.setBookingid(1109090001);
         b.setPatient(tp);
         b.setDoctor(td);
         b.setPostdate(new Timestamp(System.currentTimeMillis()));

@@ -10,7 +10,7 @@ package com.ehealth.eyedpt.dal.entities.enums;
 public enum BookingStatus
 {
 
-    ACCEPTED("已受理"), CANCELED("取消"), COMPLETED("完成"), BROKEN("爽约");
+    ACCEPTED("成功"), CANCELED_BY_USER("用户取消"), CANCELED_BY_SYS("系统取消"), COMPLETED("完成"), BROKEN("爽约");
 
     private String label;
 

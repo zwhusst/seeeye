@@ -33,7 +33,7 @@
 			</div>
 
 			<!-- container -->
-			<div class="container left">
+			<div class="container2 left">
 				<div class="mgmt">
 					<h1>权限管理</h1>
 					<table>
@@ -65,8 +65,6 @@
 				</div>
 			</div>
 			<!-- /container -->
-
-			<%@ include file="../fragments/sidebar.jspf"%>
 		</div>
 		<!-- /content -->
 

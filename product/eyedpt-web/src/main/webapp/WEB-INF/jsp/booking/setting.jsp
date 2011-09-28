@@ -93,7 +93,7 @@
 			</div>
 
 			<!-- container -->
-			<div class="container left">
+			<div class="container2 left">
 				<div class="setting">
 					<h1>门诊预约设定</h1>
 					<div id="caps">
@@ -246,8 +246,6 @@
 				</div>
 			</div>
 			<!-- /container -->
-
-			<%@ include file="../fragments/sidebar.jspf"%>
 		</div>
 		<!-- /content -->
 
