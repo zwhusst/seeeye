@@ -28,15 +28,18 @@ import com.ehealth.eyedpt.dal.entities.enums.TimeSlot;
 @Entity(name = "booking")
 @Table(name = "booking")
 @NamedQueries(
-{ @NamedQuery(name = Booking.QUERY_FIND_ALL, query = "select b from booking b"),
+{
+        @NamedQuery(name = Booking.QUERY_FIND_ALL, query = "select b from booking b"),
+        @NamedQuery(name = Booking.QUERY_FIND_BY_BOOKING_ID, query = "select b from booking b where b.bookingid=:bookingid"),
         @NamedQuery(name = Booking.QUERY_FIND_BY_PATIENT, query = "select b from booking b where b.patient=:patient"),
         @NamedQuery(name = Booking.QUERY_FIND_BY_STATUS, query = "select b from booking b where b.status=:status")})
 public class Booking
 {
 
-    public static final String QUERY_FIND_ALL        = "FindAllBookings";
-    public static final String QUERY_FIND_BY_PATIENT = "FindBookingsByPatient";
-    public static final String QUERY_FIND_BY_STATUS  = "FindBookingsByStatus";
+    public static final String QUERY_FIND_ALL           = "FindAllBookings";
+    public static final String QUERY_FIND_BY_BOOKING_ID = "FindBookingsByBookingId";
+    public static final String QUERY_FIND_BY_PATIENT    = "FindBookingsByPatient";
+    public static final String QUERY_FIND_BY_STATUS     = "FindBookingsByStatus";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

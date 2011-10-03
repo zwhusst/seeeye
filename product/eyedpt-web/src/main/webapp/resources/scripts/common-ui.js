@@ -52,3 +52,34 @@ $(function() {
 	// work around to resolve stale checkcode image in IE
 	$("a#change_checkcode").click();
 });
+
+/**
+ * [Widget] Popup
+ */
+function prePopup() {
+	_log("[func] prePopup");
+
+	// get screen height/width
+	var overlayHeight = $(document).height();
+	var overlayWidth = $(window).width();
+	// calculate shell position
+	var shellTop = (overlayHeight / 3) - ($('#popup_shell').height() / 2);
+	var shellLeft = (overlayWidth / 2) - ($('#popup_shell').width() / 2);
+	// adjust style
+	$('#popup_overlay').css({
+		height : overlayHeight,
+		width : overlayWidth
+	}).show();
+	$('#popup_shell').css({
+		top : shellTop,
+		left : shellLeft
+	}).show();
+}
+
+function closePopup() {
+	_log("[func] closePopup");
+
+	$("div.popup").hide();
+	setVisible("popup_overlay", false);
+	setVisible("popup_shell", false);
+}

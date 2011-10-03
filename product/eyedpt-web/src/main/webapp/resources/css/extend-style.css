@@ -1,5 +1,8 @@
 /* div */
-.container2 { position: relative; width: 720px;}
+.container2 {
+	position: relative;
+	width: 720px;
+}
 
 /* error message */
 .error {
@@ -7,6 +10,12 @@
 }
 
 /* form */
+fieldset {
+	padding: 1em;
+	border: 1px solid #ddd;
+	margin: 0 0 0.5em 0
+}
+
 .inputdate {
 	background: transparent url('../images/inputtextbg.gif') no-repeat
 		scroll 0 0;

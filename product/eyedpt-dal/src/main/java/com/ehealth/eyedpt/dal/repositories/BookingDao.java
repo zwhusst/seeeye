@@ -61,4 +61,17 @@ public class BookingDao extends BaseDao<Booking>
         return query.getResultList();
     }
 
+    /**
+     * @param bookingId
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Booking findByBookingId(Long bookingId)
+    {
+        Query query = this.em.createNamedQuery(Booking.QUERY_FIND_BY_BOOKING_ID);
+        query.setParameter("bookingid", bookingId);
+
+        return getSingleResult(query);
+    }
+
 }

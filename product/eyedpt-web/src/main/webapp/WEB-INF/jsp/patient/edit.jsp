@@ -50,89 +50,98 @@
 					<h1>编辑档案</h1>
 					<form:form modelAttribute="<%=FormConstants.BEAN_PATIENT%>"
 						method="post">
-						<p>
-							<form:hidden path="<%=FormConstants.FIELD_NAME%>" />
-							真实姓名*:
-							<form:input path="<%=FormConstants.FIELD_REAL_NAME%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_REAL_NAME%>"
-								class="error" />
-						</p>
-						<p>
-							性别*:
-							<form:radiobutton path="<%=FormConstants.FIELD_GENDER%>"
-								value="<%=Gender.M.name()%>" label="<%=Gender.M.getLabel()%>" />
-							<form:radiobutton path="<%=FormConstants.FIELD_GENDER%>"
-								value="<%=Gender.F.name()%>" label="<%=Gender.F.getLabel()%>" />
-							<form:errors path="<%=FormConstants.FIELD_GENDER%>" class="error" />
-						</p>
-						<p>
-							生日:
-							<form:input path="<%=FormConstants.FIELD_BIRTHDAY%>"
-								class="inputdate" id="ubirthday" />
-							<form:errors path="<%=FormConstants.FIELD_BIRTHDAY%>"
-								class="error" />
-						</p>
-						<p>
-							年龄*:
-							<form:select path="<%=FormConstants.FIELD_AGE%>"
-								items="<%=FormConstants.AGE_RANGE%>" id="uage" />
-							<form:errors path="<%=FormConstants.FIELD_AGE%>" class="error" />
-						</p>
-						<p>
-							省份*:
-							<form:select path="<%=FormConstants.FIELD_PROVINCE%>"
-								id="province" />
-							<form:errors path="<%=FormConstants.FIELD_PROVINCE%>"
-								class="error" />
-						</p>
-						<p>
-							城市*:
-							<form:select path="<%=FormConstants.FIELD_CITY%>" id="city" />
-							<form:errors path="<%=FormConstants.FIELD_CITY%>" class="error" />
-						</p>
-						<p>
-							注册方式*:
-							<form:radiobutton path="<%=FormConstants.FIELD_REG_TYPE%>"
-								value="<%=RegistryType.ID.name()%>"
-								label="<%=RegistryType.ID.getLabel()%>" />
-							<form:radiobutton path="<%=FormConstants.FIELD_REG_TYPE%>"
-								value="<%=RegistryType.MEDICARE.name()%>"
-								label="<%=RegistryType.MEDICARE.getLabel()%>" />
-							<form:errors path="<%=FormConstants.FIELD_REG_TYPE%>"
-								class="error" />
-						</p>
-						<p>
-							注册号码*:
-							<form:input path="<%=FormConstants.FIELD_REG_NO%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_REG_NO%>" class="error" />
-						</p>
-						<p>
-							邮箱地址*:
-							<form:input path="<%=FormConstants.FIELD_EMAIL%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_EMAIL%>" class="error" />
-						</p>
-						<p>
-							手机号码*:
-							<form:input path="<%=FormConstants.FIELD_CELLPHONE%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_CELLPHONE%>"
-								class="error" />
-						</p>
-						<p>
-							固定电话:
-							<form:input path="<%=FormConstants.FIELD_TELEPHONE%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_TELEPHONE%>"
-								class="error" />
-						</p>
-						<p>
-							传真号码:
-							<form:input path="<%=FormConstants.FIELD_FAX%>" class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_FAX%>" class="error" />
-						</p>
+						<fieldset>
+							<legend>账户信息</legend>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_REG_TYPE%>">注册方式*: </form:label>
+								<form:radiobutton path="<%=FormConstants.FIELD_REG_TYPE%>"
+									value="<%=RegistryType.ID.name()%>"
+									label="<%=RegistryType.ID.getLabel()%>" />
+								<form:radiobutton path="<%=FormConstants.FIELD_REG_TYPE%>"
+									value="<%=RegistryType.MEDICARE.name()%>"
+									label="<%=RegistryType.MEDICARE.getLabel()%>" />
+								<form:errors path="<%=FormConstants.FIELD_REG_TYPE%>"
+									class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_REG_NO%>">注册号码*: </form:label>
+								<form:input path="<%=FormConstants.FIELD_REG_NO%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_REG_NO%>"
+									class="error" />
+							</p>
+						</fieldset>
+						<fieldset>
+							<legend>个人信息</legend>
+							<p>
+								<form:hidden path="<%=FormConstants.FIELD_NAME%>" />
+								<form:label path="<%=FormConstants.FIELD_REAL_NAME%>">真实姓名*: </form:label>
+								<form:input path="<%=FormConstants.FIELD_REAL_NAME%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_REAL_NAME%>"
+									class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_GENDER%>">性别*: </form:label>
+								<form:radiobutton path="<%=FormConstants.FIELD_GENDER%>"
+									value="<%=Gender.M.name()%>" label="<%=Gender.M.getLabel()%>" />
+								<form:radiobutton path="<%=FormConstants.FIELD_GENDER%>"
+									value="<%=Gender.F.name()%>" label="<%=Gender.F.getLabel()%>" />
+								<form:errors path="<%=FormConstants.FIELD_GENDER%>"
+									class="error" />
+							</p>
+							<p>
+								<label for="ubirthday">生日: </label>
+								<form:input path="<%=FormConstants.FIELD_BIRTHDAY%>"
+									class="inputdate" id="ubirthday" />
+								<form:errors path="<%=FormConstants.FIELD_BIRTHDAY%>"
+									class="error" />
+							</p>
+							<p>
+								年龄*:
+								<form:select path="<%=FormConstants.FIELD_AGE%>"
+									items="<%=FormConstants.AGE_RANGE%>" id="uage" />
+								<form:errors path="<%=FormConstants.FIELD_AGE%>" class="error" />
+							</p>
+							<p>
+								省份*:
+								<form:select path="<%=FormConstants.FIELD_PROVINCE%>"
+									id="province" />
+								<form:errors path="<%=FormConstants.FIELD_PROVINCE%>"
+									class="error" />
+							</p>
+							<p>
+								城市*:
+								<form:select path="<%=FormConstants.FIELD_CITY%>" id="city" />
+								<form:errors path="<%=FormConstants.FIELD_CITY%>" class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_EMAIL%>">邮箱地址*: </form:label>
+								<form:input path="<%=FormConstants.FIELD_EMAIL%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_EMAIL%>" class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_CELLPHONE%>">手机号码*: </form:label>
+								<form:input path="<%=FormConstants.FIELD_CELLPHONE%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_CELLPHONE%>"
+									class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_TELEPHONE%>">固定电话: </form:label>
+								<form:input path="<%=FormConstants.FIELD_TELEPHONE%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_TELEPHONE%>"
+									class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_FAX%>">传真号码: </form:label>
+								<form:input path="<%=FormConstants.FIELD_FAX%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_FAX%>" class="error" />
+							</p>
+						</fieldset>
 						<p>
 							<input type="submit" value="确认" class="loginbut" />
 						</p>

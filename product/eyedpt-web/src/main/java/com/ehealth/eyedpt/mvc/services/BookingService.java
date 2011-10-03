@@ -32,4 +32,13 @@ public class BookingService
         return this.bookingDao.findByStatus(status);
     }
 
+    /**
+     * @param bookingId
+     * @return
+     */
+    public Booking findById(Long bookingId)
+    {
+        return this.bookingDao.findByBookingId(bookingId);
+    }
+
 }

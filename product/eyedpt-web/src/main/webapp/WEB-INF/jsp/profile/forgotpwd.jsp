@@ -44,21 +44,24 @@
 					<h1>忘记密码</h1>
 					<form:form modelAttribute="<%=FormConstants.BEAN_FORGOTPWD%>"
 						method="post">
+						<fieldset>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_NAME%>">账号*: </form:label>
+								<form:input path="<%=FormConstants.FIELD_NAME%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_NAME%>" class="error" />
+							</p>
+							<p>
+								<label for="checkcode">验证码*: </label> <input type="text"
+									name="checkcode" class="inputtext" id="checkcode" /> <img
+									src="<c:url value="/images/checkcode"/>" class="inline"
+									id="img_checkcode">看不清？<a href="#" id="change_checkcode">换一张</a><span
+									class="error">${MESSAGE_CHECKCODE}</span>
+							</p>
+						</fieldset>
 						<p>
-							账户*:
-							<form:input path="<%=FormConstants.FIELD_NAME%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_NAME%>" class="error" />
-						</p>
-						<p>
-							验证码: <input type="text" name="checkcode" class="inputtext"
-								id="checkcode" /> <img src="<c:url value="/images/checkcode"/>"
-								class="inline" id="img_checkcode">看不清？<a href="#"
-								id="change_checkcode">换一张</a><span class="error">${MESSAGE_CHECKCODE}</span>
-						</p>
-						<p>
-							<input type="submit" value="提交" class="loginbut" />
-							<a href="<c:url value="/"/>">返回</a>
+							<input type="submit" value="提交" class="loginbut" /> <a
+								href="<c:url value="/"/>">返回</a>
 						</p>
 					</form:form>
 				</div>

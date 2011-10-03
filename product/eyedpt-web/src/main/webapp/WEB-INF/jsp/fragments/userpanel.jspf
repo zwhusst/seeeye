@@ -36,7 +36,7 @@
 				%>
 			</c:if>
 			<p>
-				账户: <input name="j_username" type="text" class="inputtext" />
+				账号: <input name="j_username" type="text" class="inputtext" />
 			</p>
 			<p>
 				密码: <input name="j_password" type="password" class="inputtext" />

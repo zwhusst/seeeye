@@ -38,24 +38,27 @@
 					<h1>修改密码</h1>
 					<form:form modelAttribute="<%=FormConstants.BEAN_CHANGEPWD%>"
 						method="post">
-						<p>
-							原始密码*:
-							<form:password path="<%=FormConstants.FIELD_PASSWORD%>"
-								class="inputtext" />
-							<form:errors path="<%=FormConstants.FIELD_PASSWORD%>"
-								class="error" />
-						</p>
-						<p>
-							设置新的密码*:
-							<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD%>"
-								class="inputtext" id="new_pwd" />
-							<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD%>"
-								class="error" />
-						</p>
-						<p>
-							重复新的密码*: <input type="password" class="inputtext" id="repeat_pwd" />
-							<span class="error" id="error_pwd"></span>
-						</p>
+						<fieldset>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_PASSWORD%>">原始密码*: </form:label>
+								<form:password path="<%=FormConstants.FIELD_PASSWORD%>"
+									class="inputtext" />
+								<form:errors path="<%=FormConstants.FIELD_PASSWORD%>"
+									class="error" />
+							</p>
+							<p>
+								<form:label path="<%=FormConstants.FIELD_NEW_PASSWORD%>">设置新的密码*: </form:label>
+								<form:password path="<%=FormConstants.FIELD_NEW_PASSWORD%>"
+									class="inputtext" id="new_pwd" />
+								<form:errors path="<%=FormConstants.FIELD_NEW_PASSWORD%>"
+									class="error" />
+							</p>
+							<p>
+								<label for="repeat_pwd">重复新的密码*: </label> <input type="password"
+									class="inputtext" id="repeat_pwd" /> <span class="error"
+									id="error_pwd"></span>
+							</p>
+						</fieldset>
 						<p>
 							<input type="submit" value="确认" class="loginbut" />
 						</p>

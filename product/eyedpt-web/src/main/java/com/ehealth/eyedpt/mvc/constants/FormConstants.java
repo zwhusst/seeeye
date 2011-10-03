@@ -86,4 +86,18 @@ public interface FormConstants
      */
     public static final String   BEAN_FORGOTPWD            = "forgotPwdBean";
 
+    /**
+     * Booking
+     */
+    public static final String   BEAN_BOOKING              = "bookingBean";
+    public static final String   FIELD_BOOKING_ID          = "bookingid";
+    public static final String   FIELD_PATIENT_NAME        = "patientname";
+    public static final String   FIELD_DOCTOR_NAME         = "doctorname";
+    public static final String   FIELD_POST_DATE           = "postdate";
+    public static final String   FIELD_BOOKING_DATE        = "bookingdate";
+    public static final String   FIELD_TIMESLOT            = "timeslot";
+    public static final String   FIELD_STATUS              = "status";
+    public static final String   FIELD_NOTIFY_TYPE         = "notifytype";
+    public static final String   FIELD_NOTIFY_TIME         = "notifytime";
+
 }

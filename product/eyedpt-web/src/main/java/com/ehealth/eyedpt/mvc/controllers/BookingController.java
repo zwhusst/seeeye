@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +21,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ehealth.eyedpt.dal.entities.Booking;
 import com.ehealth.eyedpt.dal.entities.BookingEx;
 import com.ehealth.eyedpt.dal.entities.Doctor;
 import com.ehealth.eyedpt.dal.entities.DoctorCap;
+import com.ehealth.eyedpt.dal.entities.enums.BookingStatus;
+import com.ehealth.eyedpt.mvc.form.models.BookingBean;
 import com.ehealth.eyedpt.mvc.json.BookingExJSON;
 import com.ehealth.eyedpt.mvc.json.BookingRosterJSON;
 import com.ehealth.eyedpt.mvc.services.BookingExService;
 import com.ehealth.eyedpt.mvc.services.BookingFacade;
 import com.ehealth.eyedpt.mvc.services.BookingRosterService;
+import com.ehealth.eyedpt.mvc.services.BookingService;
 import com.ehealth.eyedpt.mvc.services.DoctorCapService;
 import com.ehealth.eyedpt.mvc.services.DoctorService;
 import com.ehealth.eyedpt.mvc.utils.CharsetUtils;
@@ -47,6 +52,7 @@ public class BookingController
     public static final String   MAPPING_SETTING_SETCAP      = "/booking/setting/setcap";
     public static final String   MAPPING_SETTING_SAVEROSTERS = "/booking/setting/saverosters";
     public static final String   MAPPING_MGMT                = "/booking/mgmt";
+    public static final String   MAPPING_MGMT_UPDATE         = "/booking/mgmt/update";
 
     @Autowired
     private DoctorCapService     doctorCapService;
@@ -59,6 +65,9 @@ public class BookingController
 
     @Autowired
     private BookingRosterService bookingRosterService;
+
+    @Autowired
+    private BookingService       bookingService;
 
     @Autowired
     private DoctorService        doctorService;
@@ -229,9 +238,34 @@ public class BookingController
 
     @RequestMapping(value = MAPPING_MGMT, method = RequestMethod.GET)
     @PreAuthorize("hasRole('BOOKING_ADMIN')")
-    public void doManagement()
+    public void doManagement(Model model, @RequestParam(required = false) Long bookingId)
     {
-        // NTD
+        if ( bookingId == null )
+        {
+            return;
+        }
+
+        Booking booking = this.bookingService.findById(bookingId);
+        Assert.notNull(booking);
+
+        BookingBean bean = BookingBean.fromEntity(booking);
+        model.addAttribute(bean);
+    }
+
+    @RequestMapping(value = MAPPING_MGMT_UPDATE, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('BOOKING_ADMIN')")
+    public @ResponseBody
+    BookingStatus doManagementUpdate(Long bookingId)
+    {
+        return BookingStatus.ACCEPTED;
+    }
+
+    @RequestMapping(value = MAPPING_MGMT_UPDATE, method = RequestMethod.POST)
+    @PreAuthorize("hasRole('BOOKING_ADMIN')")
+    public @ResponseBody
+    void doManagementUpdate(Long bookingId, BookingStatus status, String comment)
+    {
+
     }
 
 }

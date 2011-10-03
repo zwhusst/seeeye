@@ -3,11 +3,12 @@
  */
 var rosterCount = 0;
 var currentEmpId;
+var currentBookingId;
 
 $(function() {
-	$("tr#proto").hide();
-	$("div[id=rosters]").hide();
-});
+			$("tr#proto").hide();
+			$("div[id=rosters]").hide();
+		});
 
 function setVisible(divId, visible, mode) {
 	_log("[func] setVisible: " + divId + "," + visible);
@@ -20,26 +21,6 @@ function setVisible(divId, visible, mode) {
 }
 
 // popups
-function prePopup() {
-	_log("[func] prePopup");
-
-	// get screen height/width
-	var overlayHeight = $(document).height();
-	var overlayWidth = $(window).width();
-	// calculate shell position
-	var shellTop = (overlayHeight / 3) - ($('#popup_shell').height() / 2);
-	var shellLeft = (overlayWidth / 2) - ($('#popup_shell').width() / 2);
-	// adjust style
-	$('#popup_overlay').css({
-		height : overlayHeight,
-		width : overlayWidth
-	}).show();
-	$('#popup_shell').css({
-		top : shellTop,
-		left : shellLeft
-	}).show();
-}
-
 function popupActivate(employeeId) {
 	_log("[func] popupActivate: " + employeeId);
 
@@ -59,20 +40,21 @@ function doActivate() {
 	}
 
 	$.ajax({
-		url : "setting/activate",
-		type : "POST",
-		data : {
-			employeeId : encodeURIComponent(currentEmpId),
-			price : price
-		},
-		success : function() {
-			$("div#caps").load("setting div#caps", function() {
-				// clear data
-				$("div#popup_activate input[name=price]").val("");
-				closePopup("popup_activate");
+				url : "setting/activate",
+				type : "POST",
+				data : {
+					employeeId : encodeURIComponent(currentEmpId),
+					price : price
+				},
+				success : function() {
+					$("div#caps").load("setting div#caps", function() {
+								// clear data
+								$("div#popup_activate input[name=price]")
+										.val("");
+								closePopup();
+							});
+				}
 			});
-		}
-	});
 }
 
 function popupSetcap(employeeId) {
@@ -80,13 +62,13 @@ function popupSetcap(employeeId) {
 
 	currentEmpId = employeeId;
 	$.getJSON("setting/setcap", {
-		employeeId : encodeURIComponent(currentEmpId)
-	}, function(price) {
-		$("div#popup_setcap input[name=price]").val(price);
+				employeeId : encodeURIComponent(currentEmpId)
+			}, function(price) {
+				$("div#popup_setcap input[name=price]").val(price);
 
-		prePopup();
-		setVisible("popup_setcap", true);
-	});
+				prePopup();
+				setVisible("popup_setcap", true);
+			});
 }
 
 function doSetcap() {
@@ -100,18 +82,18 @@ function doSetcap() {
 	}
 
 	$.ajax({
-		url : "setting/setcap",
-		type : "POST",
-		data : {
-			employeeId : encodeURIComponent(currentEmpId),
-			price : price
-		},
-		success : function() {
-			// clear data
-			$("div#popup_setcap input[name=price]").val("");
-			closePopup("popup_setcap");
-		}
-	});
+				url : "setting/setcap",
+				type : "POST",
+				data : {
+					employeeId : encodeURIComponent(currentEmpId),
+					price : price
+				},
+				success : function() {
+					// clear data
+					$("div#popup_setcap input[name=price]").val("");
+					closePopup();
+				}
+			});
 }
 
 function popupDeactivate(employeeId) {
@@ -119,19 +101,19 @@ function popupDeactivate(employeeId) {
 
 	currentEmpId = employeeId;
 	$.getJSON("setting/deactivate", {
-		employeeId : encodeURIComponent(currentEmpId)
-	}, function(status) {
+				employeeId : encodeURIComponent(currentEmpId)
+			}, function(status) {
 
-		if (status != null) {
-			$("div#popup_deactivate input[name=start]").val(
-					toISODateString(new Date(status.startDate)));
-			$("div#popup_deactivate input[name=end]").val(
-					toISODateString(new Date(status.endDate)));
-		}
+				if (status != null) {
+					$("div#popup_deactivate input[name=start]")
+							.val(toISODateString(new Date(status.startDate)));
+					$("div#popup_deactivate input[name=end]")
+							.val(toISODateString(new Date(status.endDate)));
+				}
 
-		prePopup();
-		setVisible("popup_deactivate", true);
-	});
+				prePopup();
+				setVisible("popup_deactivate", true);
+			});
 }
 
 function doDeactivate() {
@@ -146,32 +128,51 @@ function doDeactivate() {
 	}
 
 	$.ajax({
-		url : "setting/deactivate",
-		type : "POST",
-		data : {
-			employeeId : encodeURIComponent(currentEmpId),
-			permanent : permanent,
-			startDate : startDate,
-			endDate : endDate
-		},
-		success : function() {
-			$("div#caps").load("setting div#caps", function() {
-				// clear data
-				$("#radio_temporary").prop("checked", "checked");
-				$("div#popup_deactivate input[name=start]").val("");
-				$("div#popup_deactivate input[name=end]").val("");
-				closePopup("popup_deactivate");
+				url : "setting/deactivate",
+				type : "POST",
+				data : {
+					employeeId : encodeURIComponent(currentEmpId),
+					permanent : permanent,
+					startDate : startDate,
+					endDate : endDate
+				},
+				success : function() {
+					$("div#caps").load("setting div#caps", function() {
+								// clear data
+								$("#radio_temporary")
+										.prop("checked", "checked");
+								$("div#popup_deactivate input[name=start]")
+										.val("");
+								$("div#popup_deactivate input[name=end]")
+										.val("");
+								closePopup();
+							});
+				}
 			});
-		}
-	});
 }
 
-function closePopup(divId) {
-	_log("[func] closePopup: " + divId);
+function popupViewBookingDetails(bookingId) {
+	_log("[func] popupViewBookingDetails: " + bookingId);
 
-	$("div.popup").hide();
-	setVisible("popup_overlay", false);
-	setVisible("popup_shell", false);
+	currentBookingId = bookingId;
+	$("div#popup_view").load(
+			"mgmt?bookingId=" + encodeURIComponent(currentBookingId)
+					+ " div#popup_view", function() {
+				prePopup();
+				setVisible("popup_view", true);
+			});
+}
+
+function popupUpdateBookingStatus(bookingId) {
+	_log("[func] popupUpdateBookingStatus: " + bookingId);
+
+	currentBookingId = bookingId;
+	prePopup();
+	setVisible("popup_update", true);
+}
+
+function doUpdateBookingStatus() {
+	_log("[func] doUpdateBookingStatus");
 }
 
 // rosters
@@ -190,14 +191,14 @@ function viewRosters(employeeId) {
 				rosterCount = $("div#rosters tbody tr").length - 1;
 				// bind click handler to delete buttons
 				$("div#rosters button[name=del]").each(function(idx) {
-					// skip proto roster
-					if (idx == 0) {
-						return;
-					}
-					$(this).click(function() {
-						delRoster(idx);
-					});
-				});
+							// skip proto roster
+							if (idx == 0) {
+								return;
+							}
+							$(this).click(function() {
+										delRoster(idx);
+									});
+						});
 			});
 }
 
@@ -206,34 +207,34 @@ function saveRosters() {
 
 	var rosters = new Array();
 	$("tr[id*=roster]").each(function(idx) {
-		var roster = new Object();
-		// weekday
-		var s = $(this).find("select:first");
-		var i = $(s).prop("selectedIndex");
-		roster.dayOfWeek = $(s).find("option:eq(" + i + ")").val();
-		// time slot
-		s = $(this).find("select:eq(1)");
-		i = $(s).prop("selectedIndex");
-		roster.timeSlot = $(s).find("option:eq(" + i + ")").val();
-		// capability
-		s = $(this).find("select:eq(2)");
-		i = $(s).prop("selectedIndex");
-		roster.capability = $(s).find("option:eq(" + i + ")").val();
-		rosters[idx] = roster;
-	});
+				var roster = new Object();
+				// weekday
+				var s = $(this).find("select:first");
+				var i = $(s).prop("selectedIndex");
+				roster.dayOfWeek = $(s).find("option:eq(" + i + ")").val();
+				// time slot
+				s = $(this).find("select:eq(1)");
+				i = $(s).prop("selectedIndex");
+				roster.timeSlot = $(s).find("option:eq(" + i + ")").val();
+				// capability
+				s = $(this).find("select:eq(2)");
+				i = $(s).prop("selectedIndex");
+				roster.capability = $(s).find("option:eq(" + i + ")").val();
+				rosters[idx] = roster;
+			});
 
 	$.ajax({
-		url : "setting/saverosters?employeeId="
-				+ encodeURIComponent(currentEmpId),
-		type : "POST",
-		contentType : "application/json",
-		data : $.toJSON(rosters),
-		success : function() {
-			$("div#caps").load("setting div#caps", function() {
-				hideRosters();
+				url : "setting/saverosters?employeeId="
+						+ encodeURIComponent(currentEmpId),
+				type : "POST",
+				contentType : "application/json",
+				data : $.toJSON(rosters),
+				success : function() {
+					$("div#caps").load("setting div#caps", function() {
+								hideRosters();
+							});
+				}
 			});
-		}
-	});
 }
 
 function hideRosters() {
@@ -258,10 +259,10 @@ function addRoster() {
 	// bind actions
 	var delBtn = newRoster.find("button[name=del]");
 	delBtn.click({
-		rosterno : rosterCount
-	}, function(event) {
-		delRoster(event.data.rosterno);
-	});
+				rosterno : rosterCount
+			}, function(event) {
+				delRoster(event.data.rosterno);
+			});
 	// append as last roster
 	newRoster.appendTo($("div#rosters tbody:last"));
 	// show it up
@@ -276,7 +277,7 @@ function delRoster(rosterno) {
 	// update row no behind
 	var next = roster;
 	var nextno;
-	for ( var i = 0; i < rosterCount - rosterno; i++) {
+	for (var i = 0; i < rosterCount - rosterno; i++) {
 		next = next.next();
 		nextno = rosterno + i;
 		// update id
@@ -287,10 +288,10 @@ function delRoster(rosterno) {
 		var delBtn = next.find("button[name=del]");
 		delBtn.unbind("click");
 		delBtn.click({
-			rosterno : nextno
-		}, function(event) {
-			delRoster(event.data.rosterno);
-		});
+					rosterno : nextno
+				}, function(event) {
+					delRoster(event.data.rosterno);
+				});
 	}
 	// delete roaster
 	roster.remove();

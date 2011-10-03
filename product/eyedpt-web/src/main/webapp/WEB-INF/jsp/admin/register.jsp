@@ -40,30 +40,31 @@
 					<form:form modelAttribute="<%=FormConstants.BEAN_ADMIN%>"
 						method="post">
 						<p>
-							账户*:
+							<form:label path="<%=FormConstants.FIELD_NAME%>">账号*: </form:label>
 							<form:input path="<%=FormConstants.FIELD_NAME%>"
 								class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_NAME%>" class="error" />
 						</p>
 						<p>
-							密码*:
+							<label for="new_pwd">密码*: </label>
 							<form:password path="<%=FormConstants.FIELD_PASSWORD%>"
 								class="inputtext" id="new_pwd" />
 							<form:errors path="<%=FormConstants.FIELD_PASSWORD%>"
 								class="error" />
 						</p>
 						<p>
-							再次输入密码*: <input type="password" class="inputtext" id="repeat_pwd" />
+							<label for="repeat_pwd">再次输入密码*: </label>
+							<input type="password" class="inputtext" id="repeat_pwd" />
 							<span class="error" id="error_pwd"></span>
 						</p>
 						<p>
-							邮箱地址*:
+							<form:label path="<%=FormConstants.FIELD_EMAIL%>">邮箱地址*: </form:label>
 							<form:input path="<%=FormConstants.FIELD_EMAIL%>"
 								class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_EMAIL%>" class="error" />
 						</p>
 						<p>
-							权限*:
+							<form:label path="<%=FormConstants.FIELD_ROLESET%>">权限*: </form:label>
 							<form:checkboxes path="<%=FormConstants.FIELD_ROLESET%>"
 								items="<%=RoleHelper.ROLESET%>" />
 							<form:errors path="<%=FormConstants.FIELD_ROLESET%>" class="error" />

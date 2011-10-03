@@ -35,14 +35,14 @@
 						method="post">
 						<p>
 							<form:hidden path="<%=FormConstants.FIELD_NAME%>" />
-							邮箱地址*:
+							<form:label path="<%=FormConstants.FIELD_EMAIL%>">邮箱地址*: </form:label>
 							<form:input path="<%=FormConstants.FIELD_EMAIL%>"
 								class="inputtext" />
 							<form:errors path="<%=FormConstants.FIELD_EMAIL%>" class="error" />
 						</p>
 						<c:if test="${param.username!=null}">
 							<p>
-								权限*:
+								<form:label path="<%=FormConstants.FIELD_ROLESET%>">权限*: </form:label>
 								<form:checkboxes path="<%=FormConstants.FIELD_ROLESET%>"
 									items="<%=RoleHelper.ROLESET%>" />
 								<form:errors path="<%=FormConstants.FIELD_ROLESET%>"

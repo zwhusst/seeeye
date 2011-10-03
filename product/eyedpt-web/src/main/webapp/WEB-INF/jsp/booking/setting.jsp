@@ -27,13 +27,14 @@
 	type="text/css" rel="stylesheet" />
 <link href="<c:url value="/resources/css/jquery-ui-ext.css"/>"
 	type="text/css" rel="stylesheet" />
+
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/lib/jquery.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/lib/jquery-ui.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/lib/jquery-ui-i18n.js"/>"></script>
-	<script type="text/javascript"
+<script type="text/javascript"
 	src="<c:url value="/resources/scripts/lib/jquery.json.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/scripts/common.js"/>"></script>
@@ -48,36 +49,36 @@
 	<div id="popup_shell">
 		<div id="popup_activate" class="popup">
 			<p>
-				挂号费: <input type="text" name="price" class="inputtext" />
+				挂号费*:<input type="text" name="price" class="inputtext" />
 			</p>
 			<p>
 				<button type="button" onclick="doActivate()">确定</button>
-				<button type="button" onclick="closePopup('popup_activate')">取消</button>
+				<button type="button" onclick="closePopup()">取消</button>
 			</p>
 		</div>
 		<div id="popup_setcap" class="popup">
 			<p>
-				挂号费: <input type="text" name="price" class="inputtext" />
+				挂号费*:<input type="text" name="price" class="inputtext" />
 			</p>
 			<p>
 				<button type="button" onclick="doSetcap()">确定</button>
-				<button type="button" onclick="closePopup('popup_setcap')">取消</button>
+				<button type="button" onclick="closePopup()">取消</button>
 			</p>
 		</div>
 		<div id="popup_deactivate" class="popup">
 			<p>
 				<input type="radio" name="kind" value="temporary" checked="checked"
-					id="radio_temporary" />临时停诊<br>开始日期: <input type="text"
-					name="start" class="inputdate" /><br>结束日期: <input type="text"
-					name="end" class="inputdate" />
+					id="radio_temporary" /><label for="radio_temporary">临时停诊</label><br>开始日期*:<input
+					type="text" name="start" class="inputdate" /><br>结束日期*:<input
+					type="text" name="end" class="inputdate" />
 			</p>
 			<p>
 				<input type="radio" name="kind" value="permanent"
-					id="radio_permanent" />永久停诊<br>
+					id="radio_permanent" /><label for="radio_permanent">永久停诊</label><br>
 			</p>
 			<p>
 				<button type="button" onclick="doDeactivate()">确定</button>
-				<button type="button" onclick="closePopup('popup_deactivate')">取消</button>
+				<button type="button" onclick="closePopup()">取消</button>
 			</p>
 		</div>
 	</div>
@@ -188,12 +189,12 @@
 											        {
 											            if ( day == item.getDayofweek() )
 											            {
-											                out.println("<option value=" + day.getName() + " selected=\"selected\">" + day.getLabel()
+											                out.println("<option value='" + day.getName() + "' selected='selected'>" + day.getLabel()
 											                        + "</option>");
 											            }
 											            else
 											            {
-											                out.println("<option value=" + day.getName() + ">" + day.getLabel() + "</option>");
+											                out.println("<option value='" + day.getName() + "'>" + day.getLabel() + "</option>");
 											            }
 											        }
 											%>
@@ -204,12 +205,12 @@
 											        {
 											            if ( slot == item.getTimeslot() )
 											            {
-											                out.println("<option value=" + slot.getName() + " selected=\"selected\">" + slot.getLabel()
+											                out.println("<option value='" + slot.getName() + "' selected='selected'>" + slot.getLabel()
 											                        + "</option>");
 											            }
 											            else
 											            {
-											                out.println("<option value=" + slot.getName() + ">" + slot.getLabel() + "</option>");
+											                out.println("<option value='" + slot.getName() + "'>" + slot.getLabel() + "</option>");
 											            }
 											        }
 											%>
